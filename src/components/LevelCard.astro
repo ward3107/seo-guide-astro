@@ -1,0 +1,211 @@
+---
+/**
+ * LevelCard Component
+ *
+ * Displays a level card with icon, title, description, and topics list
+ *
+ * @param level - The level number (1-4)
+ * @param title - The level title
+ * @param description - Short description
+ * @param icon - Emoji icon for the level
+ * @param href - Link to the level page
+ * @param topics - Array of topic strings
+ * @param topicCount - String like "13 Topics + Quiz"
+ * @param active - Whether this is the current active level
+ */
+interface Props {
+  level: number;
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+  topics: string[];
+  topicCount: string;
+  active?: boolean;
+}
+
+const {
+  level,
+  title,
+  description,
+  icon,
+  href,
+  topics,
+  topicCount,
+  active = false
+} = Astro.props;
+
+const colors = {
+  1: '#667eea',
+  2: '#764ba2',
+  3: '#f093fb',
+  4: '#4facfe'
+};
+
+const levelColor = colors[level as keyof typeof colors] || '#667eea';
+---
+
+<article class={`level-card ${active ? 'active' : ''}`} style={active ? `--level-color: ${levelColor}` : ''}>
+  <span class="icon" aria-hidden="true">{icon}</span>
+  <span class="level-badge">Level {level}</span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="topic-count">{topicCount}</span>
+  <ul aria-label={`Level ${level} topics`}>
+    {topics.map(topic => <li>{topic}</li>)}
+  </ul>
+  <a href={href} class="card-link" aria-label={`Start Level ${level}: ${title}`}>
+    Start Learning →
+  </a>
+</article>
+
+<style>
+  .level-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+  }
+
+  .level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--level-color, #667eea);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .level-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .level-card:hover::before {
+    opacity: 1;
+  }
+
+  .level-card.active {
+    border-color: var(--level-color, #667eea);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  }
+
+  .level-card.active::before {
+    opacity: 1;
+  }
+
+  .icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .level-card h3 {
+    margin: 10px 0;
+    color: #333;
+  }
+
+  .level-card p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+
+  .topic-count {
+    display: inline-block;
+    background: linear-gradient(135deg, #e0e0ff 0%, #f0e0ff 100%);
+    color: #667eea;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .level-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+
+  .level-card li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    color: #555;
+    font-size: 0.9em;
+  }
+
+  .level-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+  }
+
+  .card-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .card-link:hover {
+    color: #764ba2;
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .level-card {
+    background: #252540;
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .level-card h3 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .level-card p {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .level-card li {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .topic-count {
+    background: linear-gradient(135deg, #2a2a4a 0%, #3a3a5a 100%);
+    color: #a8dadc;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .level-card {
+      padding: 20px;
+    }
+
+    .level-card ul {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,681 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = 'Waseem | English Teacher & Full-Stack SEO Developer',
+  description = 'Waseem - English Teacher & Full-Stack Developer specializing in SEO and GEO. Building websites that Google AND AI love. Based in Haifa, Israel.',
+  image = '/favicon.svg',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href
+} = Astro.props;
+
+const levels = [
+  { number: 1, title: 'SEO Basics', icon: '📘', href: '/level1', color: '#667eea' },
+  { number: 2, title: 'Technical SEO', icon: '🛠️', href: '/level2', color: '#764ba2' },
+  { number: 3, title: 'Advanced GEO', icon: '🤖', href: '/level3', color: '#f093fb' },
+  { number: 4, title: 'Authority & Channels', icon: '🌐', href: '/level4', color: '#4facfe' }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="ward3107.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="author" content="Waseem" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <title>{title}</title>
+
+  <!-- Schema.org Person Markup -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Waseem",
+      "jobTitle": "English Teacher & Full-Stack Developer",
+      "description": "Full-Stack Developer specializing in SEO and GEO (Generative Engine Optimization)",
+      "url": "https://ward3107.github.io",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Haifa",
+        "addressCountry": "Israel"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/ward3107",
+        "https://github.com/ward3107"
+      ],
+      "knowsAbout": ["SEO", "GEO", "Web Development", "Technical SEO", "Schema Markup", "HTML", "CSS", "JavaScript"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="container" id="main-content">
+    <!-- Navigation -->
+    <nav class="nav-links" aria-label="Level navigation">
+      <a href="/" class="nav-btn">🏠 Home</a>
+      {levels.map(level => (
+        <a href={level.href} class="nav-btn" style={currentLevel === level.number ? 'background: linear-gradient(135deg, ' + level.color + ' 0%, ' + level.color + 'aa 100%);' : ''}>
+          {level.icon} Level {level.number}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Search Section -->
+    <div class="search-container" role="search">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Search all guides..." aria-label="Search content" autocomplete="off" />
+        <button onclick="performSearch()">Search</button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+    </div>
+
+    <!-- Main Content -->
+    <slot />
+
+    <!-- Footer -->
+    <footer>
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <div class="contact-item">
+          <span aria-hidden="true">📍</span>
+          <address style="display: inline; font-style: normal;">Haifa, Israel</address>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">💼</span>
+          <a href="https://github.com/ward3107" target="_blank" rel="noopener noreferrer">Visit GitHub Profile</a>
+        </div>
+        <div class="contact-item">
+          <span aria-hidden="true">🌐</span>
+          <a href="https://ward3107.github.io" target="_blank" rel="noopener noreferrer">ward3107.github.io</a>
+        </div>
+      </div>
+
+      <!-- Social Share Buttons -->
+      <div class="social-share">
+        <span style="color: #999; font-size: 0.9em;">Share this portfolio:</span>
+        <a href="https://twitter.com/intent/tweet?text=Check%20out%20Waseem's%20SEO%20%26%20GEO%20portfolio!%20https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn twitter">
+          🐦 Tweet
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn linkedin">
+          💼 LinkedIn
+        </a>
+        <a href="https://wa.me/?text=Check%20out%20this%20amazing%20SEO%20portfolio!%20https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp">
+          💬 WhatsApp
+        </a>
+        <button class="share-btn copy" onclick="copyURL()" id="copyBtn">
+          📋 Copy Link
+        </button>
+      </div>
+
+      <p>&copy; 2026 Waseem. All rights reserved.</p>
+      <p style="margin-top: 10px; font-size: 0.85em;">
+        English Teacher & Full-Stack Developer | SEO & GEO Specialist
+      </p>
+    </footer>
+  </div>
+
+  <!-- Dark Mode Toggle Button -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    🌙
+  </button>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    ↑
+  </button>
+
+  <!-- Global Styles -->
+  <style is:global>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      transition: background 0.3s ease;
+    }
+
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #667eea;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 0 0 4px 0;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+
+    body.dark-mode .container {
+      background: #1e1e30;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .nav-links .nav-btn {
+      background: #2a2a4a;
+      color: #c0c0c0;
+    }
+
+    body.dark-mode .nav-links .nav-btn:hover {
+      background: #3a3a5a;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3 {
+      color: #a8dadc;
+    }
+
+    body.dark-mode p,
+    body.dark-mode li {
+      color: #c0c0c0;
+    }
+
+    body.dark-mode .search-box {
+      background: #2a2a4a;
+    }
+
+    body.dark-mode .search-box input {
+      color: #c0c0c0;
+    }
+
+    body.dark-mode .search-results {
+      background: #1e1e30;
+    }
+
+    body.dark-mode .search-result-item:hover {
+      background: #2a2a4a;
+    }
+
+    body.dark-mode footer {
+      background: #0d0d1a;
+    }
+
+    body.dark-mode footer p {
+      color: #a0a0a0;
+    }
+
+    body.dark-mode .contact-item {
+      color: #c0c0c0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      margin-bottom: 20px;
+    }
+
+    /* Navigation */
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .nav-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Search */
+    .search-container {
+      position: relative;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background: white;
+    }
+
+    .search-box button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-top: 8px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    .search-result-item {
+      padding: 16px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+
+    .search-result-item:hover {
+      background: #f5f5f5;
+    }
+
+    .search-result-title {
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .search-result-snippet {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .search-result-page {
+      font-size: 0.8em;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    body.dark-mode .theme-toggle {
+      background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 1.5em;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .back-to-top.show {
+      display: flex;
+    }
+
+    body.dark-mode .back-to-top {
+      background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+    }
+
+    /* Reading Progress Bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+      z-index: 9999;
+      transition: width 0.1s ease;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid #eee;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+    }
+
+    .contact-item a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    .social-share {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 0.9em;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .share-btn.twitter {
+      background: #1DA1F2;
+      color: white;
+    }
+
+    .share-btn.linkedin {
+      background: #0077B5;
+      color: white;
+    }
+
+    .share-btn.whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .share-btn.copy {
+      background: #6c757d;
+      color: white;
+    }
+
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .nav-links {
+        flex-direction: column;
+      }
+
+      .nav-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Search Highlight */
+    .search-highlight {
+      background: #ffeb3b;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+  </style>
+
+  <!-- Inline Scripts for Core Functionality -->
+  <script is:inline>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    }
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTop.classList.add('show');
+        } else {
+          backToTop.classList.remove('show');
+        }
+      });
+
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Reading Progress Bar
+    const progressBar = document.getElementById('readingProgress');
+    if (progressBar) {
+      window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.pageYOffset / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+      });
+    }
+
+    // Copy URL
+    function copyURL() {
+      navigator.clipboard.writeText(window.location.href);
+      const copyBtn = document.getElementById('copyBtn');
+      if (copyBtn) {
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy Link';
+        }, 2000);
+      }
+    }
+
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    const searchData = [
+      { title: 'SEO Basics', page: 'Level 1: SEO Basics', url: '/level1', content: 'Learn SEO basics including title tags, h1 headings, alt attributes, meta descriptions, and schema markup.', keywords: ['seo', 'basics', 'html', 'title', 'h1', 'alt', 'schema'] },
+      { title: 'Technical SEO', page: 'Level 2: Technical SEO', url: '/level2', content: 'Technical SEO covers robots.txt, HTTP status codes, site speed, mobile optimization, and technical infrastructure.', keywords: ['technical', 'robots', 'status codes', 'speed', 'http'] },
+      { title: 'Advanced GEO', page: 'Level 3: Advanced GEO', url: '/level3', content: 'GEO (Generative Engine Optimization) optimizes for AI-driven search. Focus on facts over fluff and E-E-A-T framework.', keywords: ['geo', 'ai', 'optimization', 'eeat', 'facts', 'chatgpt'] },
+      { title: 'Authority & Channels', page: 'Level 4: Authority & Channels', url: '/level4', content: 'Level 4 covers Off-Page SEO, Local SEO, Google Business Profile, Reviews, Video SEO, and Social Search optimization.', keywords: ['authority', 'off-page', 'local seo', 'reviews', 'video seo', 'social search'] }
+    ];
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query.length < 2) {
+        searchResults.classList.remove('active');
+        return;
+      }
+
+      const results = searchData.filter(item => {
+        const titleMatch = item.title.toLowerCase().includes(query);
+        const contentMatch = item.content.toLowerCase().includes(query);
+        const keywordsMatch = item.keywords.some(keyword => keyword.toLowerCase().includes(query));
+        return titleMatch || contentMatch || keywordsMatch;
+      });
+
+      displaySearchResults(results, query);
+    }
+
+    function displaySearchResults(results, query) {
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div class="search-no-results">🔍 No results found. Try different keywords like "SEO", "Schema", "Speed", or "GEO".</div>';
+        searchResults.classList.add('active');
+        return;
+      }
+
+      let html = '';
+      results.forEach(result => {
+        const highlightedSnippet = highlightText(result.content, query);
+        html += `
+          <div class="search-result-item" onclick="window.location.href='${result.url}'">
+            <div class="search-result-title">${highlightText(result.title, query)}</div>
+            <div class="search-result-snippet">${highlightedSnippet}</div>
+            <div class="search-result-page">📄 ${result.page}</div>
+          </div>
+        `;
+      });
+
+      searchResults.innerHTML = html;
+      searchResults.classList.add('active');
+    }
+
+    function highlightText(text, query) {
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<span class="search-highlight">$1</span>');
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', performSearch);
+      searchInput.addEventListener('focus', performSearch);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        searchResults.classList.remove('active');
+      }
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          searchResults.classList.remove('active');
+          searchInput.blur();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

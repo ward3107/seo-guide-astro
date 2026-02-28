@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Level 2: Technical SEO | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/level1">Level 1</a></li>
+      <li aria-current="page">Level 2: Technical SEO</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">LEVEL 2</span>
+    <h1>🛠️ Technical SEO Mastery</h1>
+    <p class="subtitle">From Basics to Advanced: robots.txt, Status Codes, XML Sitemaps & Core Web Vitals</p>
+    <div class="reading-time-badge">⏱️ ~45 min read</div>
+  </header>
+
+  <section class="intro-section">
+    <h2>What is Technical SEO?</h2>
+    <p>Technical SEO is about making sure search engines can easily crawl, index, and understand your website. It's the foundation that all your other SEO efforts build upon.</p>
+  </section>
+
+  <section>
+    <h2>📚 Topics Covered</h2>
+    <ul class="topics-list">
+      <li>✓ Introduction to Technical SEO</li>
+      <li>✓ The Security Guard (robots.txt)</li>
+      <li>✓ The Table of Contents (XML Sitemaps)</li>
+      <li>✓ The Bot's Language (Status Codes)</li>
+      <li>✓ Speed & Performance Basics</li>
+      <li>✓ Core Web Vitals Metrics</li>
+      <li>✓ LCP, FID, CLS Explained</li>
+      <li>✓ Technical Audit Checklist</li>
+    </ul>
+  </section>
+
+  <div class="content-coming-soon">
+    <p>🚧 Full content coming soon! This is a preview of the Astro-based structure.</p>
+    <p>In the meantime, you can view the <a href="/level1">Level 1 content</a> for a complete example.</p>
+  </div>
+
+  <nav class="level-nav">
+    <a href="/level1" class="nav-btn">← Level 1: SEO Basics</a>
+    <a href="/level3" class="nav-btn">Level 3: Advanced GEO →</a>
+  </nav>
+</Layout>
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 8px;
+  }
+  .breadcrumbs a {
+    color: #667eea;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .badge {
+    background: linear-gradient(135deg, #764ba2 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+  }
+
+  .topics-list {
+    list-style: none;
+    padding: 0;
+  }
+  .topics-list li {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .content-coming-soon {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-radius: 15px;
+    margin: 40px 0;
+  }
+
+  .level-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+  .level-nav .nav-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #764ba2 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+  }
+</style>
