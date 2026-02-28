@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SidebarTOC from '../components/SidebarTOC.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const sections = [
   { id: 'intro', title: 'SEO vs. GEO: The Big Shift', icon: '🚀' },
   { id: 'facts', title: 'Pillar 1: Facts Over Fluff', icon: '📊' },
@@ -17,9 +19,9 @@ const sections = [
 <Layout title="Level 3: Advanced GEO | Waseem's SEO Guide">
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
-      <li><a href="/">Home</a></li>
-      <li><a href="/level1">Level 1</a></li>
-      <li><a href="/level2">Level 2</a></li>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li><a href={`${base}/level1`}>Level 1</a></li>
+      <li><a href={`${base}/level2`}>Level 2</a></li>
       <li aria-current="page">Level 3: Advanced GEO</li>
     </ol>
   </nav>
@@ -521,8 +523,8 @@ const sections = [
 
   <!-- Navigation Footer -->
   <nav class="level-nav">
-    <a href="/level2" class="nav-btn">← Level 2: Technical SEO</a>
-    <a href="/level4" class="nav-btn">Level 4: Authority Channels →</a>
+    <a href={`${base}/level2`} class="nav-btn">← Level 2: Technical SEO</a>
+    <a href={`${base}/level4`} class="nav-btn">Level 4: Authority Channels →</a>
   </nav>
 </Layout>
 

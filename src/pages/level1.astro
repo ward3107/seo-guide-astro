@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SidebarTOC from '../components/SidebarTOC.astro';
 
+const base = import.meta.env.BASE_URL;
 const levelNumber = 1;
 const levelTitle = 'SEO & GEO Basics';
 const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Friendly';
@@ -28,7 +29,7 @@ const sections = [
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
-      <li><a href="/">Home</a></li>
+      <li><a href={`${base}/`}>Home</a></li>
       <li aria-current="page">Level {levelNumber}: {levelTitle}</li>
     </ol>
   </nav>
@@ -661,8 +662,8 @@ const sections = [
 
   <!-- Navigation Footer -->
   <nav class="level-nav">
-    <a href="/" class="nav-btn">← Back to Home</a>
-    <a href="/level2" class="nav-btn">Level 2: Technical SEO →</a>
+    <a href={`${base}/`} class="nav-btn">← Back to Home</a>
+    <a href={`${base}/level2`} class="nav-btn">Level 2: Technical SEO →</a>
   </nav>
 </Layout>
 

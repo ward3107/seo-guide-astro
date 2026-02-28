@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SidebarTOC from '../components/SidebarTOC.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const sections = [
   { id: 'intro', title: 'Introduction: Why Authority Matters', icon: '🧠' },
   { id: 'module-4-1', title: 'Module 4.1: Off-Page SEO Basics', icon: '📋' },
@@ -16,10 +18,10 @@ const sections = [
 <Layout title="Level 4: Authority & Channels | Waseem's SEO Guide">
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
-      <li><a href="/">Home</a></li>
-      <li><a href="/level1">Level 1</a></li>
-      <li><a href="/level2">Level 2</a></li>
-      <li><a href="/level3">Level 3</a></li>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li><a href={`${base}/level1`}>Level 1</a></li>
+      <li><a href={`${base}/level2`}>Level 2</a></li>
+      <li><a href={`${base}/level3`}>Level 3</a></li>
       <li aria-current="page">Level 4: Authority & Channels</li>
     </ol>
   </nav>
@@ -560,8 +562,8 @@ const sections = [
 
   <!-- Navigation Footer -->
   <nav class="level-nav">
-    <a href="/level3" class="nav-btn">← Level 3: Advanced GEO</a>
-    <a href="/" class="nav-btn">🏠 Back to Home</a>
+    <a href={`${base}/level3`} class="nav-btn">← Level 3: Advanced GEO</a>
+    <a href={`${base}/`} class="nav-btn">🏠 Back to Home</a>
   </nav>
 </Layout>
 
