@@ -852,15 +852,15 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
     q4: 'b'
   };
 
-  if (quizForm) {
-    quizForm.addEventListener('submit', (e) => {
+  if (quizForm && quizResult) {
+    quizForm.addEventListener('submit', (e: Event) => {
       e.preventDefault();
 
       let score = 0;
       let total = Object.keys(answers).length;
 
       for (const [question, correctAnswer] of Object.entries(answers)) {
-        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        const selected = document.querySelector(`input[name="${question}"]:checked`) as HTMLInputElement;
         if (selected && selected.value === correctAnswer) {
           score++;
         }
