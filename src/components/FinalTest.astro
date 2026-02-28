@@ -1,0 +1,866 @@
+---
+/**
+ * FinalTest Component
+ *
+ * Comprehensive test covering all 4 levels
+ * Questions progress from easy (Level 1) to hard (Level 4)
+ */
+interface Question {
+  q: string;
+  options: string[];
+  correct: string;
+  explanation: string;
+  level: number;
+}
+
+const questions: Question[] = [
+  // LEVEL 1 - EASY: Basics
+  {
+    level: 1,
+    q: "What does SEO stand for?",
+    options: [
+      "Search Engine Optimization",
+      "Site Enhancement Organization",
+      "Social Email Outreach",
+      "System Entry Operation"
+    ],
+    correct: "a",
+    explanation: "SEO stands for Search Engine Optimization - the practice of optimizing websites to rank higher in search engine results."
+  },
+  {
+    level: 1,
+    q: "Which HTML tag is the MOST important for SEO and should contain your main keyword?",
+    options: [
+      "<title> tag",
+      "<meta> tag",
+      "<div> tag",
+      "<span> tag"
+    ],
+    correct: "a",
+    explanation: "The <title> tag is crucial for SEO as it appears in search results and browser tabs. It's the first thing search engines and users see."
+  },
+  {
+    level: 1,
+    q: "What is the purpose of the alt attribute on images?",
+    options: [
+      "To describe images for search engines and screen readers",
+      "To make images load faster",
+      "To add special effects to images",
+      "To change image colors"
+    ],
+    correct: "a",
+    explanation: "Alt text describes images for search engines (helping image SEO) and screen readers (accessibility for visually impaired users)."
+  },
+  {
+    level: 1,
+    q: "How many H1 tags should a page typically have?",
+    options: [
+      "One",
+      "Two or three",
+      "As many as you want",
+      "Zero"
+    ],
+    correct: "a",
+    explanation: "Each page should have exactly one H1 tag that clearly describes the main topic. Multiple H1s can confuse search engines."
+  },
+  {
+    level: 1,
+    q: "What is 'search intent'?",
+    options: [
+      "The reason behind a user's search query",
+      "The speed of search results",
+      "The number of search results",
+      "The time of day people search"
+    ],
+    correct: "a",
+    explanation: "Search intent is the WHY behind a search - is the user looking to learn, buy, navigate, or find specific information?"
+  },
+
+  // LEVEL 2 - MEDIUM: Technical SEO
+  {
+    level: 2,
+    q: "What is the purpose of robots.txt?",
+    options: [
+      "To control which pages search bots can crawl",
+      "To block all visitors from a website",
+      "To speed up website loading",
+      "To create sitemaps automatically"
+    ],
+    correct: "a",
+    explanation: "robots.txt tells search engine crawlers which pages or sections they should or shouldn't access on your site."
+  },
+  {
+    level: 2,
+    q: "What does a 404 status code mean?",
+    options: [
+      "Page not found",
+      "Server error",
+      "Page moved permanently",
+      "Request successful"
+    ],
+    correct: "a",
+    explanation: "404 means the requested page doesn't exist. It's important to fix 404s for good user experience and SEO."
+  },
+  {
+    level: 2,
+    q: "What is an XML sitemap?",
+    options: [
+      "A file listing all important pages on your site",
+      "A visual map of your website design",
+      "A database of user information",
+      "A backup of your website files"
+    ],
+    correct: "a",
+    explanation: "An XML sitemap is a file that lists all your important pages, helping search engines discover and crawl your content efficiently."
+  },
+  {
+    level: 2,
+    q: "What does LCP measure in Core Web Vitals?",
+    options: [
+      "How long the largest content element takes to load",
+      "How quickly a user can interact with the page",
+      "How much the layout shifts during loading",
+      "How many links are on the page"
+    ],
+    correct: "a",
+    explanation: "LCP (Largest Contentful Paint) measures loading performance - specifically how long the main content takes to appear."
+  },
+  {
+    level: 2,
+    q: "What is the difference between 301 and 302 redirects?",
+    options: [
+      "301 is permanent, 302 is temporary",
+      "301 is temporary, 302 is permanent",
+      "301 is for errors, 302 is for success",
+      "There is no difference"
+    ],
+    correct: "a",
+    explanation: "301 redirects are permanent (passes most SEO value), while 302 redirects are temporary (doesn't pass full SEO value)."
+  },
+
+  // LEVEL 3 - HARD: GEO & AI
+  {
+    level: 3,
+    q: "What is GEO (Generative Engine Optimization)?",
+    options: [
+      "Optimizing content for AI-powered search engines",
+      "Creating geographic-specific content",
+      "Generating automatic content",
+      "Optimizing for geo-location services"
+    ],
+    correct: "a",
+    explanation: "GEO is about optimizing your content so AI systems like ChatGPT, Google's SGE, and Bing Copilot can understand and cite it accurately."
+  },
+  {
+    level: 3,
+    q: "What is Schema markup?",
+    options: [
+      "Structured data that helps search engines understand content",
+      "A color scheme for websites",
+      "A database structure",
+      "A programming language"
+    ],
+    correct: "a",
+    explanation: "Schema markup is structured data code that helps search engines understand your content better, enabling rich results in search."
+  },
+  {
+    level: 3,
+    q: "What does E-E-A-T stand for?",
+    options: [
+      "Experience, Expertise, Authoritativeness, Trustworthiness",
+      "Engine, Engagement, Analytics, Technology",
+      "Every Employee Acts Together",
+      "Electronic Exchange of Art and Technology"
+    ],
+    correct: "a",
+    explanation: "E-E-A-T is Google's framework for evaluating content quality. The extra 'E' for Experience was added in 2022."
+  },
+  {
+    level: 3,
+    q: "Why are 'facts over fluff' important for GEO?",
+    options: [
+      "AI systems prefer accurate, verifiable information",
+      "Longer content always ranks better",
+      "AI can't understand short sentences",
+      "Facts are easier to write"
+    ],
+    correct: "a",
+    explanation: "AI systems prioritize factual, accurate information because they need to provide reliable answers. Fluff gets filtered out."
+  },
+  {
+    level: 3,
+    q: "What is an entity in SEO?",
+    options: [
+      "A distinct, well-defined concept/person/place/thing",
+      "A company that does SEO",
+      "A search engine bot",
+      "A type of keyword"
+    ],
+    correct: "a",
+    explanation: "Entities are distinct things (people, places, organizations) that search engines can understand and connect to the Knowledge Graph."
+  },
+
+  // LEVEL 4 - EXPERT: Authority & Advanced
+  {
+    level: 4,
+    q: "What is the difference between a dofollow and nofollow backlink?",
+    options: [
+      "Dofollow passes SEO value, nofollow doesn't",
+      "Nofollow is from better websites",
+      "Dofollow is from social media",
+      "There is no difference"
+    ],
+    correct: "a",
+    explanation: "Dofollow links pass link equity (SEO value) to your site, while nofollow links tell search engines not to count the link for ranking."
+  },
+  {
+    level: 4,
+    q: "What is Google Business Profile important for?",
+    options: [
+      "Local SEO and appearing in Google Maps/local results",
+      "International SEO only",
+      "Image optimization",
+      "Video ranking"
+    ],
+    correct: "a",
+    explanation: "Google Business Profile is essential for local SEO - it helps you appear in local pack results and Google Maps when people search nearby."
+  },
+  {
+    level: 4,
+    q: "What is VEO (Video Engine Optimization)?",
+    options: [
+      "Optimizing videos to rank in search results",
+      "Creating virtual reality content",
+      "Video editing software",
+      "A type of video format"
+    ],
+    correct: "a",
+    explanation: "VEO is optimizing your video content (especially on YouTube) so it ranks well in both YouTube and Google search results."
+  },
+  {
+    level: 4,
+    q: "What is 'domain authority'?",
+    options: [
+      "A metric predicting how well a website will rank",
+      "The age of your domain name",
+      "The authority of your domain registrar",
+      "How many domains you own"
+    ],
+    correct: "a",
+    explanation: "Domain Authority (DA) is a search engine ranking score that predicts how likely a website is to rank on search engine result pages."
+  },
+  {
+    level: 4,
+    q: "For social search optimization, what matters most?",
+    options: [
+      "Creating shareable, valuable content that sparks engagement",
+      "Posting as frequently as possible",
+      "Using as many hashtags as possible",
+      "Having the most followers"
+    ],
+    correct: "a",
+    explanation: "Quality content that people actually want to share and engage with is what drives social search signals - not just posting frequency or hashtags."
+  },
+  {
+    level: 4,
+    q: "What is a 'featured snippet' and why is it valuable?",
+    options: [
+      "A highlighted answer at the top of search results - Position Zero",
+      "A special type of advertisement",
+      "A paid placement in search",
+      "An error in search results"
+    ],
+    correct: "a",
+    explanation: "Featured snippets are 'Position Zero' - they appear above regular results and give you huge visibility and authority."
+  }
+];
+---
+
+<div class="final-test-container" id="final-test">
+  <div class="final-test-header">
+    <h2>🏆 Final SEO & GEO Mastery Test</h2>
+    <p class="test-subtitle">Test your knowledge across all 4 levels - from basics to advanced strategies</p>
+    <div class="test-info">
+      <span class="info-pill">20 Questions</span>
+      <span class="info-pill">Covers All Levels</span>
+      <span class="info-pill">Progressive Difficulty</span>
+    </div>
+  </div>
+
+  <div class="difficulty-indicator">
+    <div class="level-bar level-1" title="Level 1: Basics">
+      <span>Easy</span>
+    </div>
+    <div class="level-bar level-2" title="Level 2: Technical">
+      <span>Medium</span>
+    </div>
+    <div class="level-bar level-3" title="Level 3: GEO/AI">
+      <span>Hard</span>
+    </div>
+    <div class="level-bar level-4" title="Level 4: Authority">
+      <span>Expert</span>
+    </div>
+  </div>
+
+  <form class="final-test-form" id="finalTestForm">
+    {questions.map((question, index) => {
+      const levelClass = `level-${question.level}`;
+      return (
+        <div class={`final-question ${levelClass}`} data-question={index + 1} data-level={question.level}>
+          <div class="question-header">
+            <span class="question-number">{index + 1}</span>
+            <span class={`difficulty-badge ${levelClass}`}>
+              Level {question.level}
+            </span>
+          </div>
+          <p class="question-text">{question.q}</p>
+          <div class="options">
+            {question.options.map((option: string, optIndex: number) => {
+              const letter = String.fromCharCode(97 + optIndex);
+              return (
+                <label class="option-label">
+                  <input
+                    type="radio"
+                    name={`final-q${index + 1}`}
+                    value={letter}
+                    data-correct={question.correct}
+                    data-level={question.level}
+                  />
+                  <span class="option-letter">{letter.toUpperCase()})</span>
+                  <span class="option-text">{option}</span>
+                </label>
+              );
+            })}
+          </div>
+          <p class="explanation" id={`explanation-${index + 1}`} style="display: none;">
+            <span class="explanation-icon">💡</span>
+            <span class="explanation-text">{question.explanation}</span>
+          </p>
+        </div>
+      );
+    })}
+    <div class="submit-section">
+      <button type="submit" class="submit-btn">
+        <span>Submit Final Test</span>
+        <span class="btn-icon">🏆</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="final-result" id="finalResult" style="display: none;">
+    <div class="result-content">
+      <div class="result-score"></div>
+      <div class="result-message"></div>
+      <div class="result-breakdown"></div>
+      <button class="retake-btn">Retake Test</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .final-test-container {
+    max-width: 900px;
+    margin: 60px auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+  }
+
+  .final-test-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .final-test-header h2 {
+    font-size: 2.2em;
+    margin: 0 0 15px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .test-subtitle {
+    color: #666;
+    font-size: 1.1em;
+    margin: 0 0 20px 0;
+  }
+
+  .test-info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .info-pill {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+
+  .difficulty-indicator {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .level-bar {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: transform 0.3s ease;
+  }
+
+  .level-bar:hover {
+    transform: scale(1.05);
+  }
+
+  .level-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  .level-2 { background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%); }
+  .level-3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .level-4 { background: linear-gradient(135deg, #f5576c 0%, #4facfe 100%); }
+
+  .final-question {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-left: 5px solid #667eea;
+    transition: all 0.3s ease;
+  }
+
+  .final-question.level-1 { border-left-color: #667eea; }
+  .final-question.level-2 { border-left-color: #764ba2; }
+  .final-question.level-3 { border-left-color: #f093fb; }
+  .final-question.level-4 { border-left-color: #f5576c; }
+
+  .final-question:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .question-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .difficulty-badge {
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: white;
+  }
+
+  .difficulty-badge.level-1 { background: #667eea; }
+  .difficulty-badge.level-2 { background: #764ba2; }
+  .difficulty-badge.level-3 { background: #f093fb; }
+  .difficulty-badge.level-4 { background: #f5576c; }
+
+  .question-text {
+    font-size: 1.15em;
+    color: #333;
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .option-label:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+  }
+
+  .option-label input:checked + .option-letter {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .option-label input:checked ~ .option-text {
+    color: #667eea;
+    font-weight: 600;
+  }
+
+  .option-letter {
+    background: #f0f0f0;
+    color: #666;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85em;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .option-text {
+    flex: 1;
+  }
+
+  .option-label input[type="radio"] {
+    display: none;
+  }
+
+  .explanation {
+    margin-top: 15px;
+    padding: 15px 18px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+    border-left: 4px solid #ffc107;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .explanation-icon {
+    font-size: 1.2em;
+  }
+
+  .explanation-text {
+    flex: 1;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .submit-section {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 18px 50px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-icon {
+    font-size: 1.3em;
+  }
+
+  .final-result {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .result-score {
+    font-size: 4em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .result-score.excellent {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-score.good {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-score.needs-work {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-message {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .result-breakdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .breakdown-item {
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+  }
+
+  .breakdown-item.level-1 { background: #667eea; }
+  .breakdown-item.level-2 { background: #764ba2; }
+  .breakdown-item.level-3 { background: #f093fb; }
+  .breakdown-item.level-4 { background: #f5576c; }
+
+  .breakdown-score {
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  .breakdown-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+
+  .retake-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .retake-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  /* Correct/Incorrect styling */
+  .option-label.correct {
+    border-color: #28a745 !important;
+    background: #d4edda !important;
+  }
+
+  .option-label.incorrect {
+    border-color: #dc3545 !important;
+    background: #f8d7da !important;
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .final-test-container {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .final-question {
+    background: #252540;
+    border-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .question-text {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .option-label {
+    border-color: #3a3a5a;
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .option-label:hover {
+    border-color: #667eea;
+    background: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .explanation {
+    background: linear-gradient(135deg, #3a3a2a 0%, #4a4a3a 100%);
+    border-left-color: #ffd700;
+  }
+
+  :global(body.dark-mode) .explanation-text {
+    color: #b0b0b0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .final-test-container {
+      padding: 25px;
+      margin: 30px auto;
+    }
+
+    .final-test-header h2 {
+      font-size: 1.6em;
+    }
+
+    .difficulty-indicator {
+      flex-direction: column;
+    }
+
+    .question-text {
+      font-size: 1em;
+    }
+
+    .result-breakdown {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('finalTestForm') as HTMLFormElement;
+  const resultDiv = document.getElementById('finalResult') as HTMLElement;
+
+  if (form && resultDiv) {
+    form.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      let correct = 0;
+      let total = 0;
+      const levelScores: Record<number, { correct: number; total: number }> = {
+        1: { correct: 0, total: 0 },
+        2: { correct: 0, total: 0 },
+        3: { correct: 0, total: 0 },
+        4: { correct: 0, total: 0 }
+      };
+
+      const questions = document.querySelectorAll('.final-question');
+
+      questions.forEach((question) => {
+        const questionEl = question as HTMLElement;
+        const level = parseInt(questionEl.dataset.level || '1');
+        const selected = formData.get(`final-q${questionEl.dataset.question}`);
+        const inputs = questionEl.querySelectorAll('input[type="radio"]');
+
+        levelScores[level].total++;
+
+        // Reset styling
+        questionEl.querySelectorAll('.option-label').forEach((label) => {
+          label.classList.remove('correct', 'incorrect');
+        });
+
+        // Find correct answer
+        inputs.forEach((input) => {
+          const inputEl = input as HTMLInputElement;
+          const label = inputEl.closest('.option-label') as HTMLElement;
+          if (inputEl.dataset.correct === inputEl.value) {
+            label.classList.add('correct');
+          } else if (inputEl.value === selected) {
+            label.classList.add('incorrect');
+          }
+        });
+
+        // Show explanation
+        const explanation = questionEl.querySelector('.explanation') as HTMLElement;
+        if (explanation) {
+          explanation.style.display = 'flex';
+        }
+
+        // Score calculation
+        if (selected) {
+          total++;
+          const firstInput = inputs[0] as HTMLInputElement;
+          const correctAnswer = firstInput?.dataset.correct;
+          if (selected === correctAnswer) {
+            correct++;
+            levelScores[level].correct++;
+          }
+        }
+      });
+
+      // Hide form, show results
+      form.style.display = 'none';
+      resultDiv.style.display = 'block';
+
+      // Calculate percentage
+      const percentage = Math.round((correct / total) * 100);
+
+      // Display score
+      const scoreDiv = resultDiv.querySelector('.result-score') as HTMLElement;
+      const messageDiv = resultDiv.querySelector('.result-message') as HTMLElement;
+      const breakdownDiv = resultDiv.querySelector('.result-breakdown') as HTMLElement;
+
+      let scoreClass = 'needs-work';
+      let message = '';
+
+      if (percentage >= 90) {
+        scoreClass = 'excellent';
+        message = '🎉 Outstanding! You\'re an SEO & GEO Master!';
+      } else if (percentage >= 75) {
+        scoreClass = 'good';
+        message = '👏 Great job! You have solid SEO knowledge!';
+      } else if (percentage >= 60) {
+        scoreClass = 'good';
+        message = '👍 Good effort! Review the levels to improve.';
+      } else {
+        message = '📚 Keep learning! Review the levels and try again.';
+      }
+
+      scoreDiv.textContent = `${correct}/${total} (${percentage}%)`;
+      scoreDiv.className = `result-score ${scoreClass}`;
+      messageDiv.textContent = message;
+
+      // Build breakdown
+      let breakdownHTML = '';
+      for (let i = 1; i <= 4; i++) {
+        const scores = levelScores[i];
+        const levelPercent = scores.total > 0 ? Math.round((scores.correct / scores.total) * 100) : 0;
+        breakdownHTML += `
+          <div class="breakdown-item level-${i}">
+            <div class="breakdown-score">${levelPercent}%</div>
+            <div class="breakdown-label">Level ${i}</div>
+          </div>
+        `;
+      }
+      breakdownDiv.innerHTML = breakdownHTML;
+
+      // Retake button
+      const retakeBtn = resultDiv.querySelector('.retake-btn') as HTMLElement;
+      retakeBtn.onclick = () => location.reload();
+
+      // Scroll to top
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+</script>
