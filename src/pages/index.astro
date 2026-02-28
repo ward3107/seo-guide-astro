@@ -2,13 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import LevelCard from '../components/LevelCard.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const levels = [
   {
     level: 1,
     title: 'SEO Basics',
     description: 'Content & Structure - Learn the foundational HTML elements that make websites search-friendly.',
     icon: '📘',
-    href: '/level1',
+    href: `${base}/level1`,
     topicCount: '13 Topics + Quiz',
     topics: [
       'What is SEO & GEO?',
@@ -31,7 +33,7 @@ const levels = [
     title: 'Technical SEO',
     description: 'Robots, Speed & Status Codes - Master the technical infrastructure that powers search rankings.',
     icon: '🛠️',
-    href: '/level2',
+    href: `${base}/level2`,
     topicCount: '10 Topics + Quiz',
     topics: [
       'Introduction to Technical SEO',
@@ -50,7 +52,7 @@ const levels = [
     title: 'Advanced GEO',
     description: 'AI Optimization & Schema - Future-proof your content for AI-driven search experiences.',
     icon: '🤖',
-    href: '/level3',
+    href: `${base}/level3`,
     topicCount: '9 Topics + Quiz',
     topics: [
       'SEO vs. GEO: The Big Shift',
@@ -69,7 +71,7 @@ const levels = [
     title: 'Authority & Channels',
     description: 'Off-Page & Local SEO - Build authority through backlinks, reviews, local presence, and social channels.',
     icon: '🌐',
-    href: '/level4',
+    href: `${base}/level4`,
     topicCount: '6 Modules + Mini-Quizzes',
     topics: [
       'Off-Page SEO Fundamentals',
