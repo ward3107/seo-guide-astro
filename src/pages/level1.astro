@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 
 const levelNumber = 1;
 const levelTitle = 'SEO & GEO Basics';
@@ -20,10 +19,11 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
     <span class="badge">LEVEL {levelNumber}</span>
     <h1>📘 {levelTitle}</h1>
     <p class="subtitle">{levelSubtitle}</p>
-    <div class="reading-time-badge">⏱️ ~30 min read</div>
+    <div class="reading-time-badge">⏱️ ~35 min read</div>
     <div class="meta">
       <strong>Created for:</strong> Waseem (English Teacher & Coder)<br />
       <strong>Level:</strong> Beginner - No prior SEO knowledge needed<br />
+      <strong>Time:</strong> ~35 minutes to read + 10-question quiz<br />
       <strong>Date:</strong> February 2026<br />
       <strong>Format:</strong> Learn → Practice → Quiz
     </div>
@@ -33,348 +33,625 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
   <section class="toc-section">
     <h3>📑 Table of Contents</h3>
     <ul class="toc-list">
-      <li><a href="#intro">🧠 Introduction: What is SEO & GEO?</a></li>
-      <li><a href="#library">📚 The Library Analogy</a></li>
-      <li><a href="#tools">🛠️ The 5 Essential HTML Tools</a></li>
-      <li><a href="#title">Tool #1: The Title Tag</a></li>
-      <li><a href="#h1">Tool #2: The H1 Heading</a></li>
-      <li><a href="#links">Tool #3: Links (Anchor Tags)</a></li>
-      <li><a href="#alt">Tool #4: Alt Attributes</a></li>
-      <li><a href="#schema">Tool #5: Schema Markup</a></li>
-      <li><a href="#intent">Search Intent: The "Why"</a></li>
-      <li><a href="#practice">✅ Practice Checklist</a></li>
-      <li><a href="#quiz">📝 Quiz</a></li>
+      <li><a href="#what-is-seo-geo">1. What is SEO & GEO?</a></li>
+      <li><a href="#library-analogy">2. The Library Analogy</a></li>
+      <li><a href="#five-tools">3. The 5 Essential Tools</a></li>
+      <li><a href="#tool-title">4. Tool #1: The ID Card (&lt;title&gt;)</a></li>
+      <li><a href="#tool-h1">5. Tool #2: The Boss (&lt;h1&gt;)</a></li>
+      <li><a href="#tool-links">6. Tool #3: The Doors (&lt;a&gt; Links)</a></li>
+      <li><a href="#tool-alt">7. Tool #4: The Eyes (alt= Text)</a></li>
+      <li><a href="#tool-schema">8. Tool #5: The Form (Schema)</a></li>
+      <li><a href="#search-intent">9. 🧠 Search Intent: The "Why" Behind the Query</a></li>
+      <li><a href="#view-source">10. How to View Source Code</a></li>
+      <li><a href="#checklist">11. Practice Checklist</a></li>
+      <li><a href="#why-coders">12. Why Companies Hire Coders</a></li>
+      <li><a href="#off-page-seo">13. 🌐 Beyond Your Page: Off-Page SEO</a></li>
+      <li><a href="#quiz">🎯 Level 1 Quiz</a></li>
     </ul>
   </section>
 
-  <!-- Introduction -->
-  <section id="intro">
-    <h2>🧠 What is SEO & GEO?</h2>
+  <!-- What is SEO & GEO -->
+  <section id="what-is-seo-geo">
+    <h2>1. What is SEO & GEO?</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p><strong>SEO</strong> = Search Engine Optimization - making your website appear in Google, Bing, etc.</p>
-      <p><strong>GEO</strong> = Generative Engine Optimization - making your content useful for AI like ChatGPT.</p>
-    </div>
-
-    <div class="reflect-box">
-      <h4>🤔 Reflect</h4>
-      <p>When you search for something, where do you click first? The top 3 results? That's SEO at work.</p>
-      <p>When you ask ChatGPT a question, how does it know what to say? That's GEO.</p>
-    </div>
-
+    <h3>🔍 SEO (Search Engine Optimization)</h3>
+    <p>Making your website <strong>easy to find</strong> on Google.</p>
     <div class="tip-box">
-      <h4>💡 Key Insight</h4>
-      <p>SEO and GEO are cousins. They both want <strong>clear, accurate, helpful information</strong>.</p>
+      <h4>💡 Analogy</h4>
+      <p>Like putting the right label on a book so the librarian knows where to shelve it.</p>
+    </div>
+
+    <h3>🤖 GEO (Generative Engine Optimization)</h3>
+    <p>Making your website <strong>easy for AI to understand and quote</strong>.</p>
+    <div class="tip-box">
+      <h4>💡 Analogy</h4>
+      <p>Like writing clearly so an AI can read your book and share your information.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h4>🔧 Why Coders Matter</h4>
+      <p>Marketers can write content, but <strong>only coders can fix the code</strong>. You build the foundation; they decorate the house.</p>
     </div>
   </section>
 
   <!-- The Library Analogy -->
-  <section id="library">
-    <h2>📚 The Library Analogy</h2>
+  <section id="library-analogy">
+    <h2>2. 📚 The Library Analogy</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>Think of Google as a giant library. Your website is a book in that library.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Real World</th>
+          <th>Internet World</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>📚 Library</td>
+          <td>🌐 Google</td>
+        </tr>
+        <tr>
+          <td>📖 Book</td>
+          <td>🌐 Website</td>
+        </tr>
+        <tr>
+          <td>📋 Book Label</td>
+          <td>🏷️ SEO Tags</td>
+        </tr>
+        <tr>
+          <td>📇 Card Catalog</td>
+          <td>📝 Schema</td>
+        </tr>
+        <tr>
+          <td>🚪 Door</td>
+          <td>🔗 Link</td>
+        </tr>
+      </tbody>
+    </table>
 
-      <ul>
-        <li><strong>The Title Tag</strong> = The book's title on the spine</li>
-        <li><strong>The H1 Heading</strong> = The chapter title on the first page</li>
-        <li><strong>Links</strong> = References to other books</li>
-        <li><strong>Alt Text</strong> = Descriptions of pictures for blind readers</li>
-        <li><strong>Schema</strong> = The catalog card with book details</li>
-      </ul>
-    </div>
-
-    <div class="reflect-box">
-      <h4>🤔 Reflect</h4>
-      <p>Would you find a book with no title? No author? No description? That's what a website without SEO looks like to Google.</p>
+    <div class="warning-box">
+      <h4>⚠️ Key Insight</h4>
+      <p>If Google can't find your "book," it doesn't matter how good it is!</p>
     </div>
   </section>
 
   <!-- The 5 Essential Tools -->
-  <section id="tools">
-    <h2>🛠️ The 5 Essential HTML Tools</h2>
+  <section id="five-tools">
+    <h2>3. 🛠️ The 5 Essential Tools</h2>
 
-    <p>These 5 HTML elements are the foundation of SEO. Master these, and you're ahead of 90% of websites.</p>
+    <p>As a coder, you need to master these <strong>5 HTML tools</strong>:</p>
 
-    <div class="tools-grid">
-      <div class="tool-card">
-        <span class="tool-number">1</span>
-        <h3>Title Tag</h3>
-        <p>The most important SEO element</p>
-      </div>
-      <div class="tool-card">
-        <span class="tool-number">2</span>
-        <h3>H1 Heading</h3>
-        <p>Your main page headline</p>
-      </div>
-      <div class="tool-card">
-        <span class="tool-number">3</span>
-        <h3>Links</h3>
-        <p>Connect your content</p>
-      </div>
-      <div class="tool-card">
-        <span class="tool-number">4</span>
-        <h3>Alt Attributes</h3>
-        <p>Describe your images</p>
-      </div>
-      <div class="tool-card">
-        <span class="tool-number">5</span>
-        <h3>Schema Markup</h3>
-        <p>Help search engines understand</p>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tool</th>
+          <th>Code</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>ID Card</strong></td>
+          <td><code>&lt;title&gt;</code></td>
+          <td>Tells Google your page name</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Boss</strong></td>
+          <td><code>&lt;h1&gt;</code></td>
+          <td>Tells Google your main topic</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Doors</strong></td>
+          <td><code>&lt;a href=""&gt;</code></td>
+          <td>Helps Google navigate</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Eyes</strong></td>
+          <td><code>alt=""</code></td>
+          <td>Helps Google "see" images</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Form</strong></td>
+          <td><code>Schema (JSON)</code></td>
+          <td>Helps AI trust your facts</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- Tool #1: Title Tag -->
-  <section id="title">
-    <h2>🏷️ Tool #1: The Title Tag</h2>
+  <section id="tool-title">
+    <h2>4. 🏷️ Tool #1: The ID Card (&lt;title&gt;)</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>The <code>&lt;title&gt;</code> tag appears in the browser tab and is the main blue link in search results.</p>
+    <h3>What It Is</h3>
+    <p>The hidden title that Google reads first. It appears in:</p>
+    <ul>
+      <li>Search results</li>
+      <li>Browser tabs</li>
+      <li>Bookmarks</li>
+    </ul>
 
-      <pre><code>&lt;title&gt;Waseem | English Teacher & SEO Coder&lt;/title&gt;</code></pre>
+    <h3>Where It Lives</h3>
+    <p>Inside the <code>&lt;head&gt;</code> section (humans don't see it, but bots do).</p>
 
-      <p><strong>Best Practices:</strong></p>
+    <h3>Example</h3>
+    <pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;English Lessons for Beginners | Waseem's School&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Visible content here --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>What Google Learns</h3>
+    <p><em>"This page is about <strong>English Lessons</strong>, for <strong>Beginners</strong>, at <strong>Waseem's School</strong>."</em></p>
+
+    <div class="tip-box">
+      <h4>✅ Best Practices</h4>
       <ul>
         <li>Keep it under 60 characters</li>
-        <li>Put important keywords first</li>
-        <li>Make it readable for humans</li>
-        <li>Include your brand name at the end</li>
-      </ul>
-    </div>
-
-    <div class="practice-box">
-      <h4>✍️ Practice</h4>
-      <p>Write a title tag for:</p>
-      <ol>
-        <li>A coffee shop in Haifa</li>
-        <li>A JavaScript tutorial for beginners</li>
-        <li>A recipe for chocolate chip cookies</li>
-      </ol>
-    </div>
-
-    <div class="verify-box">
-      <h4>✅ Verify</h4>
-      <ul>
-        <li>Is each under 60 characters?</li>
-        <li>Does it include the main keyword?</li>
-        <li>Would a human want to click it?</li>
+        <li>Include your main keyword</li>
+        <li>Add your brand name</li>
       </ul>
     </div>
   </section>
 
   <!-- Tool #2: H1 Heading -->
-  <section id="h1">
-    <h2>📌 Tool #2: The H1 Heading</h2>
+  <section id="tool-h1">
+    <h2>5. 📌 Tool #2: The Boss (&lt;h1&gt;)</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>The <code>&lt;h1&gt;</code> is your main page heading. Think of it as the chapter title of your page.</p>
+    <h3>What It Is</h3>
+    <p>The main heading that humans see on the page. Only <strong>ONE</strong> per page!</p>
 
-      <pre><code>&lt;h1&gt;SEO Basics: The Complete Guide&lt;/h1&gt;</code></pre>
+    <h3>Hierarchy</h3>
+    <pre><code>&lt;h1&gt; = Main Title (The Boss)
+&lt;h2&gt; = Chapter Title
+&lt;h3&gt; = Subsection
+&lt;p&gt;  = Regular text</code></pre>
 
-      <p><strong>Rules:</strong></p>
+    <h3>Example</h3>
+    <pre><code>&lt;h1&gt;Free English Lessons for Beginners&lt;/h1&gt;
+&lt;h2&gt;Grammar Basics&lt;/h2&gt;
+&lt;h3&gt;Present Tense&lt;/h3&gt;
+&lt;p&gt;Learn how to use present tense...&lt;/p&gt;</code></pre>
+
+    <div class="tip-box">
+      <h4>✅ Best Practices</h4>
       <ul>
-        <li>Use only ONE H1 per page</li>
-        <li>Make it descriptive and compelling</li>
-        <li>Include your main keyword naturally</li>
-        <li>Match what the page is actually about</li>
+        <li>Only ONE <code>&lt;h1&gt;</code> per page</li>
+        <li>Make it descriptive</li>
+        <li>Include your main keyword</li>
       </ul>
-    </div>
-
-    <div class="reflect-box">
-      <h4>🤔 Reflect</h4>
-      <p>What's the difference between a Title Tag and an H1?</p>
-      <p><em>Answer: Title is for search results (external), H1 is for page visitors (internal).</em></p>
     </div>
   </section>
 
   <!-- Tool #3: Links -->
-  <section id="links">
-    <h2>🔗 Tool #3: Links (Anchor Tags)</h2>
+  <section id="tool-links">
+    <h2>6. 🔗 Tool #3: The Doors (&lt;a&gt; Links)</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>Links help search engines discover pages and understand what's important.</p>
+    <h3>What It Is</h3>
+    <p>Links that help Google (and users) navigate from one page to another.</p>
 
-      <pre><code>&lt;a href="about.html"&gt;About Me&lt;/a&gt;</code></pre>
+    <h3>Example</h3>
+    <pre><code>&lt;a href="contact.html"&gt;Contact Us&lt;/a&gt;
+&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;</code></pre>
 
-      <p><strong>Types of Links:</strong></p>
-      <ul>
-        <li><strong>Internal links:</strong> Connect your pages together</li>
-        <li><strong>External links:</strong> Link to other trusted sites</li>
-        <li><strong>Anchor text:</strong> The clickable words (make them descriptive!)</li>
-      </ul>
+    <div class="warning-box">
+      <h4>⚠️ Why It Matters</h4>
+      <p>If a page has <strong>no links</strong> pointing to it, Google <strong>cannot find it</strong>. Links are like <strong>roads</strong> between pages.</p>
     </div>
 
     <div class="tip-box">
-      <h4>💡 Pro Tip</h4>
-      <p>Good anchor: <a href="#">"Learn SEO basics"</a></p>
-      <p>Bad anchor: <a href="#">"Click here"</a></p>
+      <h4>✅ Best Practices</h4>
+      <ul>
+        <li>Use descriptive link text (not "click here")</li>
+        <li>Make sure all links work (no broken doors!)</li>
+        <li>Link to important pages from your homepage</li>
+      </ul>
     </div>
   </section>
 
   <!-- Tool #4: Alt Attributes -->
-  <section id="alt">
-    <h2>🖼️ Tool #4: Alt Attributes</h2>
+  <section id="tool-alt">
+    <h2>7. 🖼️ Tool #4: The Eyes (alt= Text)</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>The <code>alt</code> attribute describes images for search engines and accessibility.</p>
+    <h3>What It Is</h3>
+    <p>A description of an image for Google (which is "blind" to pictures).</p>
 
-      <pre><code>&lt;img src="waseem.jpg" alt="Waseem teaching English in a Haifa classroom"&gt;</code></pre>
+    <h3>Example</h3>
+    <pre><code>&lt;img src="cake.jpg" alt="Chocolate cake with strawberries on top"&gt;</code></pre>
 
-      <p><strong>Why it matters:</strong></p>
+    <div class="highlight-box">
+      <h4>🔧 Why It Matters</h4>
       <ul>
-        <li>Helps blind users (screen readers read it aloud)</li>
-        <li>Tells Google what the image shows</li>
-        <li>Helps rank in Google Images</li>
+        <li>Google <strong>cannot see images</strong>, only read text</li>
+        <li><code>alt</code> text tells Google what the image shows</li>
+        <li>Helps with accessibility (screen readers)</li>
       </ul>
     </div>
 
-    <div class="practice-box">
-      <h4>✍️ Practice</h4>
-      <p>Write alt text for:</p>
-      <ol>
-        <li>A logo for "Waseem's English School"</li>
-        <li>A photo of you teaching a class</li>
-        <li>A screenshot of code</li>
-      </ol>
-    </div>
+    <h3>Bad vs Good</h3>
+    <pre><code>&lt;!-- ❌ Bad --&gt;
+&lt;img src="img123.jpg" alt="image"&gt;
+
+&lt;!-- ✅ Good --&gt;
+&lt;img src="cake.jpg" alt="Chocolate cake recipe"&gt;</code></pre>
   </section>
 
   <!-- Tool #5: Schema Markup -->
-  <section id="schema">
-    <h2>📊 Tool #5: Schema Markup</h2>
+  <section id="tool-schema">
+    <h2>8. 📊 Tool #5: The Form (Schema)</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>Schema is code that tells search engines exactly what your content means.</p>
+    <h3>What It Is</h3>
+    <p>Structured data (JSON) that tells AI <strong>exact facts</strong> about your content.</p>
 
-      <pre><code>&lt;script type="application/ld+json"&gt;
+    <h3>Analogy</h3>
+    <ul>
+      <li><strong>Without Schema:</strong> Writing an essay to the bank</li>
+      <li><strong>With Schema:</strong> Filling out a clear form</li>
+    </ul>
+
+    <h3>Example: Local Business</h3>
+    <pre><code>&lt;script type="application/ld+json"&gt;
 &#123;
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Waseem",
-  "jobTitle": "English Teacher"
+  "@type": "LocalBusiness",
+  "name": "Waseem English School",
+  "address": &#123;
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St",
+    "addressLocality": "Haifa",
+    "addressCountry": "Israel"
+  &#125;,
+  "telephone": "+972-53-426-0632",
+  "priceRange": "$"
 &#125;
 &lt;/script&gt;</code></pre>
 
-      <p><strong>Why it's powerful:</strong></p>
-      <ul>
-        <li>Creates rich snippets (star ratings, prices, etc.)</li>
-        <li>Helps AI understand your content</li>
-        <li>Stands out in search results</li>
-      </ul>
-    </div>
+    <h3>Common Types</h3>
+    <ul>
+      <li><code>LocalBusiness</code> - For shops, schools, offices</li>
+      <li><code>Recipe</code> - For cooking recipes</li>
+      <li><code>Product</code> - For e-commerce</li>
+      <li><code>Article</code> - For blog posts</li>
+      <li><code>Event</code> - For concerts, workshops</li>
+    </ul>
 
-    <div class="reflect-box">
-      <h4>🤔 Reflect</h4>
-      <p>Schema is like giving Google a cheat sheet about your content. The more they understand, the better they can rank you.</p>
+    <div class="tip-box">
+      <h4>✅ Best Practices</h4>
+      <ul>
+        <li>Put it in the <code>&lt;head&gt;</code> section</li>
+        <li>Use correct JSON format</li>
+        <li>Test with Google's <a href="https://search.google.com/test/rich-results" target="_blank">Rich Results Test</a></li>
+      </ul>
     </div>
   </section>
 
   <!-- Search Intent -->
-  <section id="intent">
-    <h2>🎯 Search Intent: The "Why"</h2>
+  <section id="search-intent">
+    <h2>9. 🧠 Search Intent: The "Why" Behind the Query</h2>
 
-    <div class="learn-box">
-      <h4>🎓 Learn</h4>
-      <p>Search intent is WHY someone searches. Match their intent, rank higher.</p>
+    <h3>🧠 What Is Search Intent?</h3>
+    <p>Think of search intent as the <strong>motivation</strong> behind someone's search. When a person types words into Google, they have a goal in mind.</p>
 
-      <p><strong>The 4 Types:</strong></p>
-      <ul>
-        <li><strong>Informational:</strong> "How to bake bread"</li>
-        <li><strong>Navigational:</strong> "Facebook login"</li>
-        <li><strong>Transactional:</strong> "Buy iPhone 15"</li>
-        <li><strong>Commercial:</strong> "Best laptop 2024"</li>
-      </ul>
+    <p>For example, if someone searches <strong>"best running shoes"</strong>, they might want to:</p>
+    <ul>
+      <li><strong>Buy</strong> shoes right now (transactional intent)</li>
+      <li><strong>Compare</strong> different brands (commercial intent)</li>
+      <li><strong>Learn</strong> how to choose running shoes (informational intent)</li>
+    </ul>
+
+    <p>Modern AI engines don't just match <strong>words</strong>—they try to understand <strong>intent</strong>. Your content needs to match what the user actually wants.</p>
+
+    <div class="reflect-box">
+      <h4>🤔 Reflection #1</h4>
+      <p>If someone searches "how to fix a leaky faucet," are they looking to buy, to learn, or to find a service? How would you write the H1 heading to match that intent?</p>
     </div>
 
-    <div class="practice-box">
-      <h4>✍️ Practice</h4>
-      <p>What's the search intent for:</p>
-      <ol>
-        <li>"SEO basics"</li>
-        <li>"order pizza online"</li>
-        <li>"Waseem English teacher"</li>
-      </ol>
+    <div class="reflect-box">
+      <h4>🤔 Reflection #2</h4>
+      <p>Look at your own project's main keyword. What is the user <em>really</em> trying to achieve? Does your content deliver that?</p>
+    </div>
+
+    <h3>💻 Code Example: Intent-Aligned Headings</h3>
+    <p>Notice how the heading structure changes based on what the user wants:</p>
+
+    <pre><code>&lt;!-- ❓ Informational Intent (User wants to LEARN) --&gt;
+&lt;h1&gt;How to Fix a Leaky Faucet in 5 Simple Steps&lt;/h1&gt;
+&lt;h2&gt;Tools You'll Need&lt;/h2&gt;
+&lt;h2&gt;Step-by-Step Instructions&lt;/h2&gt;
+&lt;h2&gt;When to Call a Professional&lt;/h2&gt;
+
+&lt;!-- 🛒 Transactional Intent (User wants to BUY) --&gt;
+&lt;h1&gt;Buy Premium Faucets | Free Shipping & Installation&lt;/h1&gt;
+&lt;h2&gt;Featured Products&lt;/h2&gt;
+&lt;h2&gt;Customer Reviews&lt;/h2&gt;
+&lt;h2&gt;Add to Cart&lt;/h2&gt;
+
+&lt;!-- 🔧 Service Intent (User wants to HIRE) --&gt;
+&lt;h1&gt;Emergency Faucet Repair | Licensed Plumbers&lt;/h1&gt;
+&lt;h2&gt;Our Services&lt;/h2&gt;
+&lt;h2&gt;Why Choose Us&lt;/h2&gt;
+&lt;h2&gt;Request a Quote&lt;/h2&gt;</code></pre>
+
+    <h3>Types of Search Intent</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Intent Type</th>
+          <th>User Goal</th>
+          <th>Example Query</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>📚 Informational</td>
+          <td>To learn</td>
+          <td>"how to tie a tie"</td>
+        </tr>
+        <tr>
+          <td>🛍️ Transactional</td>
+          <td>To buy</td>
+          <td>"buy nike shoes online"</td>
+        </tr>
+        <tr>
+          <td>🔍 Navigational</td>
+          <td>To find a specific site</td>
+          <td>"facebook login"</td>
+        </tr>
+        <tr>
+          <td>🏢 Commercial</td>
+          <td>To compare/research</td>
+          <td>"best laptop 2026"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="key-takeaway-box">
+      <h4>🎯 Key Takeaway</h4>
+      <p>Match your content to the user's goal, not just their keywords. AI engines prioritize pages that satisfy the <em>intent</em> behind the search.</p>
+    </div>
+  </section>
+
+  <!-- View Source Code -->
+  <section id="view-source">
+    <h2>10. 🔍 How to View Source Code</h2>
+
+    <h3>Step-by-Step</h3>
+    <ol>
+      <li><strong>Open any website</strong> (e.g., <code>example.com</code>)</li>
+      <li><strong>Right-click</strong> anywhere on the page</li>
+      <li><strong>Select "View Page Source"</strong> (or press <code>Ctrl+U</code> on Windows / <code>Cmd+Option+U</code> on Mac)</li>
+      <li><strong>Use Search</strong> to find what you need:
+        <ul>
+          <li>Press <code>Ctrl+F</code> (Windows) or <code>Cmd+F</code> (Mac)</li>
+          <li>Type what you're looking for:
+            <ul>
+              <li><code>&lt;title</code> → Find the page title</li>
+              <li><code>&lt;h1</code> → Find the main heading</li>
+              <li><code>alt=</code> → Find image descriptions</li>
+              <li><code>ld+json</code> → Find Schema</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="highlight-box">
+      <h4>💡 Pro Tip</h4>
+      <p>Don't try to read everything! Just <strong>search</strong> for what you need.</p>
     </div>
   </section>
 
   <!-- Practice Checklist -->
-  <section id="practice">
-    <h2>✅ Practice Checklist</h2>
+  <section id="checklist">
+    <h2>11. ✅ Practice Checklist</h2>
 
+    <h3>Weekly Practice (5 minutes)</h3>
     <div class="checklist">
-      <label><input type="checkbox" /> Title tag under 60 characters</label>
-      <label><input type="checkbox" /> One H1 heading per page</label>
-      <label><input type="checkbox" /> All images have alt text</label>
-      <label><input type="checkbox" /> Internal links between pages</label>
-      <label><input type="checkbox" /> Schema markup added</label>
-      <label><input type="checkbox" /> Content matches search intent</label>
+      <label><input type="checkbox" /> Open 3 different websites</label>
+      <label><input type="checkbox" /> View Source (<code>Ctrl+U</code>)</label>
+      <label><input type="checkbox" /> Find the <code>&lt;title&gt;</code> tag</label>
+      <label><input type="checkbox" /> Find the <code>&lt;h1&gt;</code> tag</label>
+      <label><input type="checkbox" /> Find one <code>alt=</code> attribute</label>
+      <label><input type="checkbox" /> Ask: "Is this clear and descriptive?"</label>
+    </div>
+
+    <h3>Your Own Website Checklist</h3>
+    <p>Before launching any page, check:</p>
+    <div class="checklist">
+      <label><input type="checkbox" /> Does it have a <code>&lt;title&gt;</code> with keywords?</label>
+      <label><input type="checkbox" /> Does it have ONE <code>&lt;h1&gt;</code>?</label>
+      <label><input type="checkbox" /> Are all images tagged with <code>alt=</code>?</label>
+      <label><input type="checkbox" /> Do all links work?</label>
+      <label><input type="checkbox" /> Is Schema added (if applicable)?</label>
+      <label><input type="checkbox" /> Does the content match user search intent?</label>
     </div>
   </section>
 
   <!-- Why Companies Hire Coders -->
-  <section>
-    <h2>💼 Why Companies Hire Coders for SEO</h2>
+  <section id="why-coders">
+    <h2>12. 💼 Why Companies Hire Coders for SEO</h2>
 
-    <p>Many people think SEO = "writing blog posts." That's only 20% of the story.</p>
+    <h3>The Problem</h3>
+    <p>Marketers know <strong>what</strong> to do, but <strong>cannot edit code</strong>.</p>
 
-    <p><strong>The other 80% requires coding:</strong></p>
+    <h3>What Only Coders Can Do</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Marketer</th>
+          <th>Coder (You)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Write content</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Edit <code>&lt;title&gt;</code></td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Add Schema JSON</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Fix broken links</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Optimize images</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Debug <code>&lt;head&gt;</code> section</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <h4>🔧 Your Value</h4>
+      <p>You are the <strong>builder</strong>. They are the <strong>decorators</strong>.</p>
+    </div>
+  </section>
+
+  <!-- Off-Page SEO -->
+  <section id="off-page-seo">
+    <h2>13. 🌐 Beyond Your Page: Off-Page SEO</h2>
+
+    <h3>🧠 What Is Off-Page SEO?</h3>
+    <p>So far, we've focused on what happens <strong>on your website</strong>—your HTML tags, your content, your structure. But SEO isn't just about what's on your page.</p>
+
+    <p><strong>Off-Page SEO</strong> is about what happens <strong>across the rest of the internet</strong>. When other websites link to your content, mention your brand, or share your work, they're sending signals to Google about your <strong>trustworthiness</strong> and <strong>authority</strong>.</p>
+
+    <p>Think of it like a reputation. If one person recommends a restaurant, you might try it. If <strong>hundreds</strong> of people—including food critics and news sites—all recommend the same restaurant, you'll trust it much more.</p>
+
+    <h3>The Power of Backlinks</h3>
+    <p>A <strong>backlink</strong> is simply a link from another website to yours. Each backlink is like a "vote of confidence" in your content. But not all votes are equal:</p>
+
     <ul>
-      <li>Fixing technical issues (broken links, slow pages)</li>
-      <li>Implementing schema markup</li>
-      <li>Optimizing site structure</li>
-      <li>Monitoring analytics and fixing problems</li>
-      <li>Keeping up with algorithm updates</li>
+      <li>🏛️ A link from a reputable news site = <strong>High value</strong></li>
+      <li>🎓 A link from a university = <strong>High value</strong></li>
+      <li>🏢 A link from an industry blog = <strong>Medium value</strong></li>
+      <li>🤖 A link from a spammy site = <strong>Low or negative value</strong></li>
     </ul>
 
-    <div class="tip-box">
-      <h4>💡 Your Advantage</h4>
-      <p>As someone who can CODE and understands SEO, you're in the top 5% of job candidates.</p>
+    <div class="reflect-box">
+      <h4>🤔 Reflection</h4>
+      <p>Why might Google trust a page that's linked from a reputable news site more than a page with no external links? Think about how you evaluate information in real life.</p>
+    </div>
+
+    <h3>What's Coming Next</h3>
+    <p>In <strong>Level 4</strong>, we'll dive deep into:</p>
+    <ul>
+      <li>How to build quality backlinks ethically</li>
+      <li>Guest posting and content partnerships</li>
+      <li>Social signals and brand mentions</li>
+      <li>Domain authority and trust metrics</li>
+      <li>Avoiding link schemes and penalties</li>
+    </ul>
+
+    <div class="key-takeaway-box">
+      <h4>🎯 Key Takeaway</h4>
+      <p>Your on-page SEO gets you in the game, but off-page SEO determines if you win. Build great content, and the links will follow naturally.</p>
+    </div>
+
+    <div class="success-box">
+      <h4>✅ For Now</h4>
+      <p>Focus on creating valuable content that people <strong>want</strong> to link to. The rest will come with time and the strategies you'll learn in advanced levels.</p>
     </div>
   </section>
 
   <!-- Quiz Section -->
   <section id="quiz" class="quiz-section">
-    <h2>📝 Level 1 Quiz: SEO Basics</h2>
+    <h2>🎯 Level 1 Quiz: SEO Basics</h2>
+    <p>Test your understanding of SEO & GEO basics!</p>
 
     <form id="quiz" class="quiz-form">
       <div class="question" data-question="1">
-        <p><strong>1. What is the primary purpose of the title tag?</strong></p>
-        <label><input type="radio" name="q1" value="a"> a) Describe images</label>
-        <label><input type="radio" name="q1" value="b"> b) Display in browser tab and search results</label>
-        <label><input type="radio" name="q1" value="c"> c) Create links</label>
-        <label><input type="radio" name="q1" value="d"> d) Style the page</label>
+        <p><strong>1. What does SEO stand for?</strong></p>
+        <label><input type="radio" name="q1" value="a"> a) Site Entry Optimization</label>
+        <label><input type="radio" name="q1" value="b"> b) Search Engine Optimization</label>
+        <label><input type="radio" name="q1" value="c"> c) Site Enhancement Order</label>
       </div>
 
       <div class="question" data-question="2">
-        <p><strong>2. How many H1 headings should a page have?</strong></p>
-        <label><input type="radio" name="q2" value="a"> a) Zero</label>
-        <label><input type="radio" name="q2" value="b"> b) One</label>
-        <label><input type="radio" name="q2" value="c"> c) Multiple</label>
-        <label><input type="radio" name="q2" value="d"> d) As many as you want</label>
+        <p><strong>2. What is the purpose of the &lt;title&gt; tag?</strong></p>
+        <label><input type="radio" name="q2" value="a"> a) To make the page look pretty</label>
+        <label><input type="radio" name="q2" value="b"> b) To tell Google the page name</label>
+        <label><input type="radio" name="q2" value="c"> c) To create a heading</label>
       </div>
 
       <div class="question" data-question="3">
-        <p><strong>3. What does the alt attribute do?</strong></p>
-        <label><input type="radio" name="q3" value="a"> a) Makes images load faster</label>
-        <label><input type="radio" name="q3" value="b"> b) Describes images for accessibility and SEO</label>
-        <label><input type="radio" name="q3" value="c"> c) Creates image captions</label>
-        <label><input type="radio" name="q3" value="d"> d) Nothing important</label>
+        <p><strong>3. How many &lt;h1&gt; tags should you have per page?</strong></p>
+        <label><input type="radio" name="q3" value="a"> a) As many as you want</label>
+        <label><input type="radio" name="q3" value="b"> b) Exactly one</label>
+        <label><input type="radio" name="q3" value="c"> c) None</label>
       </div>
 
       <div class="question" data-question="4">
-        <p><strong>4. What is schema markup?</strong></p>
-        <label><input type="radio" name="q4" value="a"> a) A styling framework</label>
-        <label><input type="radio" name="q4" value="b"> b) Structured data that helps search engines understand content</label>
-        <label><input type="radio" name="q4" value="c"> c) A database system</label>
-        <label><input type="radio" name="q4" value="d"> d) A type of link</label>
+        <p><strong>4. What does the alt= attribute do?</strong></p>
+        <label><input type="radio" name="q4" value="a"> a) Makes images load faster</label>
+        <label><input type="radio" name="q4" value="b"> b) Describes images for Google</label>
+        <label><input type="radio" name="q4" value="c"> c) Creates image effects</label>
+      </div>
+
+      <div class="question" data-question="5">
+        <p><strong>5. What is Schema?</strong></p>
+        <label><input type="radio" name="q5" value="a"> a) A type of database</label>
+        <label><input type="radio" name="q5" value="b"> b) Structured data for AI</label>
+        <label><input type="radio" name="q5" value="c"> c) An HTML tag</label>
+      </div>
+
+      <div class="question" data-question="6">
+        <p><strong>6. Where should the &lt;title&gt; tag be placed?</strong></p>
+        <label><input type="radio" name="q6" value="a"> a) In the &lt;body&gt; section</label>
+        <label><input type="radio" name="q6" value="b"> b) In the &lt;head&gt; section</label>
+        <label><input type="radio" name="q6" value="c"> c) At the end of the page</label>
+      </div>
+
+      <div class="question" data-question="7">
+        <p><strong>7. What happens if a page has no links pointing to it?</strong></p>
+        <label><input type="radio" name="q7" value="a"> a) It loads faster</label>
+        <label><input type="radio" name="q7" value="b"> b) Google cannot find it</label>
+        <label><input type="radio" name="q7" value="c"> c) It ranks higher</label>
+      </div>
+
+      <div class="question" data-question="8">
+        <p><strong>8. What is search intent?</strong></p>
+        <label><input type="radio" name="q8" value="a"> a) The speed of a search</label>
+        <label><input type="radio" name="q8" value="b"> b) The motivation behind a query</label>
+        <label><input type="radio" name="q8" value="c"> c) The number of results</label>
+      </div>
+
+      <div class="question" data-question="9">
+        <p><strong>9. What is GEO?</strong></p>
+        <label><input type="radio" name="q9" value="a"> a) Global Earth Organization</label>
+        <label><input type="radio" name="q9" value="b"> b) Generative Engine Optimization</label>
+        <label><input type="radio" name="q9" value="c"> c) Graphic Enhancement Option</label>
+      </div>
+
+      <div class="question" data-question="10">
+        <p><strong>10. Who can add Schema to a website?</strong></p>
+        <label><input type="radio" name="q10" value="a"> a) Only marketers</label>
+        <label><input type="radio" name="q10" value="b"> b) Only coders</label>
+        <label><input type="radio" name="q10" value="c"> c) Anyone with code access</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Quiz</button>
@@ -508,7 +785,11 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
   .reflect-box,
   .practice-box,
   .verify-box,
-  .tip-box {
+  .tip-box,
+  .highlight-box,
+  .warning-box,
+  .success-box,
+  .key-takeaway-box {
     padding: 20px;
     border-radius: 12px;
     margin: 20px 0;
@@ -535,15 +816,42 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
   }
 
   .tip-box {
-    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    border-left: 5px solid #17a2b8;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
     border-left: 5px solid #ffc107;
+  }
+
+  .warning-box {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-left: 5px solid #dc3545;
+  }
+
+  .success-box {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-left: 5px solid #28a745;
+  }
+
+  .key-takeaway-box {
+    background: #e0f7fa;
+    padding: 20px;
+    border-left: 5px solid #00d4aa;
+    border-radius: 5px;
+    font-weight: 500;
   }
 
   .learn-box h4,
   .reflect-box h4,
   .practice-box h4,
   .verify-box h4,
-  .tip-box h4 {
+  .tip-box h4,
+  .highlight-box h4,
+  .warning-box h4,
+  .success-box h4,
+  .key-takeaway-box h4 {
     margin-top: 0;
     margin-bottom: 10px;
   }
@@ -604,42 +912,36 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
     color: #e83e8c;
   }
 
-  /* Tools Grid */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
     margin: 30px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  .tool-card {
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-  }
-
-  .tool-number {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
+  th {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border-radius: 50%;
-    line-height: 50px;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 15px;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
   }
 
-  .tool-card h3 {
-    color: #667eea;
-    margin-bottom: 5px;
+  td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
   }
 
-  .tool-card p {
-    color: #666;
-    margin: 0;
+  tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+
+  tr:hover {
+    background: #f1f1f1;
+    transition: background 0.3s;
   }
 
   /* Checklist */
@@ -825,10 +1127,6 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
       font-size: 1.1em;
     }
 
-    .tools-grid {
-      grid-template-columns: 1fr;
-    }
-
     .level-nav {
       flex-direction: column;
     }
@@ -849,7 +1147,13 @@ const levelSubtitle = 'The 5 Essential HTML Tools for Making Websites Search-Fri
     q1: 'b',
     q2: 'b',
     q3: 'b',
-    q4: 'b'
+    q4: 'b',
+    q5: 'b',
+    q6: 'b',
+    q7: 'b',
+    q8: 'b',
+    q9: 'b',
+    q10: 'c'
   };
 
   if (quizForm && quizResult) {
