@@ -2,99 +2,125 @@
 /**
  * Sidebar Table of Contents Component
  *
- * Displays a sticky sidebar with navigation links to page sections
+ * Displays a collapsible sidebar with navigation links to page sections
+ * Pushes main content when open (doesn't overlay)
  * Includes scroll spy functionality to highlight active section
  *
  * @param sections - Array of section objects with id, title, icon
- * @param title - Sidebar title (default: "Contents")
  */
 interface Section {
   id: string;
   title: string;
   icon?: string;
-  level?: number;
 }
 
 interface Props {
   sections: Section[];
-  title?: string;
 }
 
-const { sections, title = "📑 Contents" } = Astro.props;
+const { sections } = Astro.props;
 ---
 
 <aside class="sidebar-toc" aria-label="Table of contents">
-  <div class="sidebar-header">
-    <h4>{title}</h4>
-    <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
-      <span class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-    </button>
-  </div>
+  <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
+    <span class="toggle-icon">☰</span>
+  </button>
 
-  <nav class="toc-nav" id="tocNav">
-    <ul class="toc-list" role="list">
-      {sections.map((section) => (
-        <li class="toc-item" data-section={section.id}>
-          <a
-            href={`#${section.id}`}
-            class="toc-link"
-            data-target={section.id}
-            style={section.level ? `--level: ${section.level}` : ''}
-          >
-            {section.icon && <span class="toc-icon">{section.icon}</span>}
-            <span class="toc-text">{section.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h4>📑 Contents</h4>
+      <button class="sidebar-close" aria-label="Close sidebar" id="sidebarClose">
+        ✕
+      </button>
+    </div>
 
-  <div class="sidebar-footer" id="sidebarFooter">
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-      ↑ Top
-    </button>
+    <nav class="toc-nav" id="tocNav">
+      <ul class="toc-list" role="list">
+        {sections.map((section) => (
+          <li class="toc-item" data-section={section.id}>
+            <a
+              href={`#${section.id}`}
+              class="toc-link"
+              data-target={section.id}
+            >
+              {section.icon && <span class="toc-icon">{section.icon}</span>}
+              <span class="toc-text">{section.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        ↑ Top
+      </button>
+    </div>
   </div>
 </aside>
 
-<div class="backdrop" id="sidebarBackdrop"></div>
-
 <style>
+  /* Sidebar Container */
   .sidebar-toc {
     position: fixed;
     top: 0;
-    inset-inline-start: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Toggle Button (visible when sidebar closed) */
+  .sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+  }
+
+  .toggle-icon {
+    font-size: 1.5em;
+  }
+
+  /* Sidebar Content */
+  .sidebar-content {
     width: 280px;
     height: 100vh;
     background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
     color: white;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
   }
 
-  .sidebar-toc.open {
+  .sidebar-toc.open .sidebar-content {
     transform: translateX(0);
   }
 
-  /* RTL support */
-  [dir="rtl"] .sidebar-toc {
-    inset-inline-start: auto;
-    inset-inline-end: 0;
-  }
-
-  [dir="rtl"] .sidebar-toc {
-    transform: translateX(100%);
-  }
-
-  [dir="rtl"] .sidebar-toc.open {
-    transform: translateX(0);
+  /* Hide toggle when sidebar is open */
+  .sidebar-toc.open .sidebar-toggle {
+    transform: translateX(280px);
   }
 
   .sidebar-header {
@@ -112,37 +138,23 @@ const { sections, title = "📑 Contents" } = Astro.props;
     font-weight: 600;
   }
 
-  .sidebar-toggle {
+  .sidebar-close {
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.2em;
     transition: background 0.2s;
   }
 
-  .sidebar-toggle:hover {
+  .sidebar-close:hover {
     background: rgba(255, 255, 255, 0.3);
-  }
-
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s;
   }
 
   .toc-nav {
@@ -182,7 +194,7 @@ const { sections, title = "📑 Contents" } = Astro.props;
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     transition: all 0.2s;
-    border-inline-start: 3px solid transparent;
+    border-left: 3px solid transparent;
   }
 
   .toc-link:hover {
@@ -193,19 +205,20 @@ const { sections, title = "📑 Contents" } = Astro.props;
   .toc-link.active {
     background: rgba(255, 255, 255, 0.15);
     color: white;
-    border-inline-start-color: #ffd93d;
-    font-weight: 500;
+    border-left-color: #ffd93d;
+  }
+
+  /* Make topics bold */
+  .toc-text {
+    flex: 1;
+    font-size: 0.95em;
+    line-height: 1.4;
+    font-weight: 700;
   }
 
   .toc-icon {
     font-size: 1.1em;
     opacity: 0.9;
-  }
-
-  .toc-text {
-    flex: 1;
-    font-size: 0.9em;
-    line-height: 1.4;
   }
 
   .sidebar-footer {
@@ -222,7 +235,7 @@ const { sections, title = "📑 Contents" } = Astro.props;
     color: white;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.2s;
   }
 
@@ -230,53 +243,52 @@ const { sections, title = "📑 Contents" } = Astro.props;
     background: rgba(255, 255, 255, 0.25);
   }
 
-  /* Backdrop */
-  .backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-    z-index: 999;
-  }
-
-  .backdrop.show {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Desktop: Sidebar visible by default */
+  /* Desktop: Sidebar visible by default, but collapsible */
   @media (min-width: 1025px) {
-    .sidebar-toc {
+    .sidebar-content {
       transform: translateX(0);
     }
 
     .sidebar-toggle {
-      display: none;
+      left: 290px;
+    }
+
+    .toggle-icon {
+      content: '◀';
+    }
+
+    .sidebar-toc.closed .sidebar-content {
+      transform: translateX(-100%);
+    }
+
+    .sidebar-toc.closed .sidebar-toggle {
+      left: 20px;
+    }
+
+    .sidebar-toc.closed .toggle-icon::before {
+      content: '☰';
+    }
+
+    .sidebar-toggle {
+      width: 40px;
+      height: 40px;
+      font-size: 0.9em;
     }
   }
 
   /* Tablet/Mobile: Sidebar hidden by default */
   @media (max-width: 1024px) {
-    .sidebar-toc {
-      position: fixed;
+    .sidebar-content {
       transform: translateX(-100%);
     }
 
-    .sidebar-toc.open {
+    .sidebar-toggle {
+      left: 20px;
       transform: translateX(0);
     }
-  }
 
-  /* RTL adjustments */
-  @media (max-width: 1024px) {
-    [dir="rtl"] .sidebar-toc {
-      transform: translateX(100%);
-    }
-
-    [dir="rtl"] .sidebar-toc.open {
-      transform: translateX(0);
+    .sidebar-toc.open .sidebar-toggle {
+      transform: translateX(280px);
     }
   }
 </style>
@@ -284,23 +296,37 @@ const { sections, title = "📑 Contents" } = Astro.props;
 <script>
   const sidebarToc = document.querySelector('.sidebar-toc');
   const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  const sidebarClose = document.getElementById('sidebarClose');
   const backToTopBtn = document.getElementById('backToTop');
   const tocLinks = document.querySelectorAll('.toc-link');
 
-  // Toggle sidebar
-  sidebarToggle?.addEventListener('click', () => {
-    sidebarToc?.classList.toggle('open');
-    sidebarBackdrop?.classList.toggle('show');
-  });
+  // Toggle sidebar and add body classes for push layout
+  function toggleSidebar() {
+    const isOpen = sidebarToc?.classList.toggle('open');
+    const isClosed = sidebarToc?.classList.toggle('closed');
 
-  // Close sidebar when clicking backdrop
-  sidebarBackdrop?.addEventListener('click', () => {
-    sidebarToc?.classList.remove('open');
-    sidebarBackdrop?.classList.remove('show');
-  });
+    // Add body classes for desktop push behavior
+    if (window.innerWidth >= 1025) {
+      if (!isClosed) {
+        document.body.classList.add('sidebar-open');
+        document.body.classList.remove('sidebar-closed');
+      } else {
+        document.body.classList.remove('sidebar-open');
+        document.body.classList.add('sidebar-closed');
+      }
+    }
+  }
 
-  // Close sidebar when clicking a link (mobile)
+  // Initialize: sidebar is open by default on desktop
+  if (window.innerWidth >= 1025) {
+    document.body.classList.add('sidebar-open');
+    sidebarToc?.classList.remove('closed');
+  }
+
+  sidebarToggle?.addEventListener('click', toggleSidebar);
+  sidebarClose?.addEventListener('click', toggleSidebar);
+
+  // Click on link - scroll to section
   tocLinks.forEach(link => {
     link.addEventListener('click', (e: Event) => {
       e.preventDefault();
@@ -309,12 +335,6 @@ const { sections, title = "📑 Contents" } = Astro.props;
         const target = document.querySelector(href);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-          // Close sidebar on mobile
-          if (window.innerWidth <= 1024) {
-            sidebarToc?.classList.remove('open');
-            sidebarBackdrop?.classList.remove('show');
-          }
         }
       }
     });
@@ -326,7 +346,6 @@ const { sections, title = "📑 Contents" } = Astro.props;
   });
 
   // Scroll spy - highlight active section
-  // Query sections from DOM using data-section attributes
   const tocItems = document.querySelectorAll('.toc-item');
   const sections = Array.from(tocItems)
     .map(item => {

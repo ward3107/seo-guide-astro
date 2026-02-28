@@ -545,6 +545,23 @@ const levels = [
       padding: 2px 4px;
       border-radius: 3px;
     }
+
+    /* Sidebar TOC - Push Layout */
+    @media (min-width: 1025px) {
+      body {
+        transition: margin-left 0.3s ease-in-out;
+      }
+
+      /* When sidebar is open on desktop */
+      body.sidebar-open {
+        margin-left: 280px;
+      }
+
+      /* When sidebar is closed on desktop */
+      body.sidebar-closed {
+        margin-left: 0;
+      }
+    }
   </style>
 
   <!-- Inline Scripts for Core Functionality -->
