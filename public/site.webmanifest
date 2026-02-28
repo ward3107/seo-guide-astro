@@ -2,23 +2,38 @@
   "name": "Waseem | SEO & GEO Portfolio",
   "short_name": "Waseem SEO",
   "description": "English Teacher & Full-Stack Developer specializing in SEO and GEO",
-  "start_url": "/",
+  "start_url": "/seo-guide-astro/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/seo-guide-astro/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/seo-guide-astro/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/seo-guide-astro/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/seo-guide-astro/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
   "categories": ["education", "portfolio", "technology"],
   "lang": "en",
   "dir": "ltr",
-  "scope": "/",
+  "scope": "/seo-guide-astro/",
   "author": {
     "name": "Waseem",
     "url": "https://github.com/ward3107"
