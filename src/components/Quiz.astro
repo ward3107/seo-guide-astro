@@ -251,19 +251,24 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
     const resultDiv = quizContainer.querySelector('.quiz-result');
     const questions = quizContainer.querySelectorAll('.question');
 
+    if (!form || !resultDiv) return;
+
     // Track selected options
-    form?.addEventListener('change', (e) => {
-      if (e.target.type === 'radio') {
-        const label = e.target.closest('.option-label');
-        label?.closest('.options')?.querySelectorAll('.option-label').forEach(l => {
-          l.classList.remove('selected');
-        });
-        label?.classList.add('selected');
+    form.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target && target.type === 'radio') {
+        const label = target.closest('.option-label');
+        if (label) {
+          label.closest('.options')?.querySelectorAll('.option-label').forEach(l => {
+            l.classList.remove('selected');
+          });
+          label.classList.add('selected');
+        }
       }
     });
 
     // Handle form submission
-    form?.addEventListener('submit', (e) => {
+    form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
 
       let score = 0;
@@ -271,8 +276,9 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
       const passingScore = Astro.props.passingScore;
 
       questions.forEach((question) => {
-        const selected = question.querySelector('input[type="radio"]:checked');
-        const correct = question.querySelector('input[type="radio"]').dataset.correct;
+        const selected = question.querySelector('input[type="radio"]:checked') as HTMLInputElement;
+        const correctInput = question.querySelector('input[type="radio"]') as HTMLInputElement;
+        const correct = correctInput?.dataset.correct;
         const explanation = question.querySelector('.explanation');
 
         // Reset classes
@@ -280,7 +286,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
           label.classList.remove('correct', 'incorrect');
         });
 
-        if (selected) {
+        if (selected && correct) {
           if (selected.value === correct) {
             score++;
             selected.closest('.option-label')?.classList.add('correct');
@@ -292,7 +298,9 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
         }
 
         // Show explanation
-        explanation?.classList.add('show');
+        if (explanation) {
+          explanation.classList.add('show');
+        }
       });
 
       const percentage = Math.round((score / total) * 100);

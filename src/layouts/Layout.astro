@@ -4,13 +4,15 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  currentLevel?: number;
 }
 
 const {
   title = 'Waseem | English Teacher & Full-Stack SEO Developer',
   description = 'Waseem - English Teacher & Full-Stack Developer specializing in SEO and GEO. Building websites that Google AND AI love. Based in Haifa, Israel.',
   image = '/favicon.svg',
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  currentLevel = 0
 } = Astro.props;
 
 const levels = [

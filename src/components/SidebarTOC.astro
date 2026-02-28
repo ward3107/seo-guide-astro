@@ -302,10 +302,10 @@ const { sections, title = "📑 Contents" } = Astro.props;
 
   // Close sidebar when clicking a link (mobile)
   tocLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', (e: Event) => {
+      e.preventDefault();
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
-        e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -326,7 +326,14 @@ const { sections, title = "📑 Contents" } = Astro.props;
   });
 
   // Scroll spy - highlight active section
-  const sections = Astro.props.sections.map(s => document.getElementById(s.id)).filter(Boolean);
+  // Query sections from DOM using data-section attributes
+  const tocItems = document.querySelectorAll('.toc-item');
+  const sections = Array.from(tocItems)
+    .map(item => {
+      const sectionId = item.getAttribute('data-section');
+      return sectionId ? document.getElementById(sectionId) : null;
+    })
+    .filter((el): el is HTMLElement => el !== null);
 
   function updateActiveLink() {
     const scrollPosition = window.pageYOffset + 150;
@@ -342,7 +349,8 @@ const { sections, title = "📑 Contents" } = Astro.props;
 
     tocLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.dataset.target === activeId) {
+      const target = link as HTMLElement;
+      if (target.dataset.target === activeId) {
         link.classList.add('active');
       }
     });
