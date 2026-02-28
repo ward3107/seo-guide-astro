@@ -1,0 +1,689 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Quiz from '../components/Quiz.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const allQuestions = [
+  // LEVEL 1 - EASY: Basics (10 questions)
+  {
+    q: "What does SEO stand for?",
+    options: [
+      "Search Engine Optimization",
+      "Site Enhancement Organization",
+      "Social Email Outreach",
+      "System Entry Operation"
+    ],
+    correct: "a",
+    explanation: "SEO stands for Search Engine Optimization - the practice of optimizing websites to rank higher in search engine results."
+  },
+  {
+    q: "Which HTML tag is the MOST important for SEO?",
+    options: [
+      "<title> tag",
+      "<meta> tag",
+      "<div> tag",
+      "<span> tag"
+    ],
+    correct: "a",
+    explanation: "The <title> tag is crucial for SEO as it appears in search results and browser tabs. It's the first thing search engines and users see."
+  },
+  {
+    q: "What is the purpose of the alt attribute on images?",
+    options: [
+      "To describe images for search engines and screen readers",
+      "To make images load faster",
+      "To add special effects to images",
+      "To change image colors"
+    ],
+    correct: "a",
+    explanation: "Alt text describes images for search engines (helping image SEO) and screen readers (accessibility for visually impaired users)."
+  },
+  {
+    q: "How many H1 tags should a page typically have?",
+    options: [
+      "One",
+      "Two or three",
+      "As many as you want",
+      "Zero"
+    ],
+    correct: "a",
+    explanation: "Each page should have exactly one H1 tag that clearly describes the main topic. Multiple H1s can confuse search engines."
+  },
+  {
+    q: "What is 'search intent'?",
+    options: [
+      "The reason behind a user's search query",
+      "The speed of search results",
+      "The number of search results",
+      "The time of day people search"
+    ],
+    correct: "a",
+    explanation: "Search intent is the WHY behind a search - is the user looking to learn, buy, navigate, or find specific information?"
+  },
+  {
+    q: "What is anchor text?",
+    options: [
+      "The clickable text in a hyperlink",
+      "The text in your title tag",
+      "The text in your meta description",
+      "The alt text of an image"
+    ],
+    correct: "a",
+    explanation: "Anchor text is the visible, clickable text in a hyperlink. It's important for SEO as it gives context about the linked page."
+  },
+  {
+    q: "What is the meta description?",
+    options: [
+      "A brief summary of the page content for search results",
+      "The main heading of the page",
+      "A list of keywords",
+      "The page title"
+    ],
+    correct: "a",
+    explanation: "The meta description is a short summary (150-160 characters) that appears in search results below the title, influencing click-through rates."
+  },
+  {
+    q: "Why is URL structure important for SEO?",
+    options: [
+      "It helps search engines understand page hierarchy and content",
+      "It only affects how pretty the link looks",
+      "It has no impact on SEO",
+      "Only the domain name matters"
+    ],
+    correct: "a",
+    explanation: "Clean, descriptive URLs help both search engines and users understand what the page is about and how it fits into your site structure."
+  },
+  {
+    q: "What is keyword stuffing?",
+    options: [
+      "Overusing keywords unnaturally to manipulate rankings",
+      "Researching keywords for your content",
+      "Using keywords naturally in content",
+      "Adding meta keywords tag"
+    ],
+    correct: "a",
+    explanation: "Keyword stuffing is an outdated, black-hat tactic that can hurt your rankings. Search engines now prefer natural, valuable content."
+  },
+  {
+    q: "What are internal links?",
+    options: [
+      "Links that connect pages within the same website",
+      "Links from other websites to yours",
+      "Links to social media",
+      "Links in your navigation menu only"
+    ],
+    correct: "a",
+    explanation: "Internal links connect your pages together, helping search engines discover content and understand site structure, while distributing link equity."
+  },
+
+  // LEVEL 2 - MEDIUM: Technical SEO (10 questions)
+  {
+    q: "What is the purpose of robots.txt?",
+    options: [
+      "To control which pages search bots can crawl",
+      "To block all visitors from a website",
+      "To speed up website loading",
+      "To create sitemaps automatically"
+    ],
+    correct: "a",
+    explanation: "robots.txt tells search engine crawlers which pages or sections they should or shouldn't access on your site."
+  },
+  {
+    q: "What does a 404 status code mean?",
+    options: [
+      "Page not found",
+      "Server error",
+      "Page moved permanently",
+      "Request successful"
+    ],
+    correct: "a",
+    explanation: "404 means the requested page doesn't exist. It's important to fix 404s for good user experience and SEO."
+  },
+  {
+    q: "What is an XML sitemap?",
+    options: [
+      "A file listing all important pages on your site",
+      "A visual map of your website design",
+      "A database of user information",
+      "A backup of your website files"
+    ],
+    correct: "a",
+    explanation: "An XML sitemap is a file that lists all your important pages, helping search engines discover and crawl your content efficiently."
+  },
+  {
+    q: "What does LCP measure in Core Web Vitals?",
+    options: [
+      "How long the largest content element takes to load",
+      "How quickly a user can interact with the page",
+      "How much the layout shifts during loading",
+      "How many links are on the page"
+    ],
+    correct: "a",
+    explanation: "LCP (Largest Contentful Paint) measures loading performance - specifically how long the main content takes to appear."
+  },
+  {
+    q: "What is the difference between 301 and 302 redirects?",
+    options: [
+      "301 is permanent, 302 is temporary",
+      "301 is temporary, 302 is permanent",
+      "301 is for errors, 302 is for success",
+      "There is no difference"
+    ],
+    correct: "a",
+    explanation: "301 redirects are permanent (passes most SEO value), while 302 redirects are temporary (doesn't pass full SEO value)."
+  },
+  {
+    q: "What does FID stand for in Core Web Vitals?",
+    options: [
+      "First Input Delay - time until user can interact",
+      "First Image Display - when images appear",
+      "Final Input Data - form submission speed",
+      "Fast Initial Download - page load time"
+    ],
+    correct: "a",
+    explanation: "FID (First Input Delay) measures how long it takes for the page to respond to the first user interaction (click, tap, etc.)."
+  },
+  {
+    q: "What is CLS in Core Web Vitals?",
+    options: [
+      "Cumulative Layout Shift - visual stability metric",
+      "Content Loading Speed - how fast content appears",
+      "Click Level Score - user interaction rate",
+      "Cache Loading System - browser caching"
+    ],
+    correct: "a",
+    explanation: "CLS measures visual stability - how much the page layout shifts unexpectedly during loading. Lower is better (target < 0.1)."
+  },
+  {
+    q: "What is HTTPS and why is it important for SEO?",
+    options: [
+      "Secure protocol - Google uses it as a ranking signal",
+      "Faster version of HTTP",
+      "New HTML version",
+      "Type of sitemap"
+    ],
+    correct: "a",
+    explanation: "HTTPS encrypts data between user and server. Google has used it as a ranking signal since 2014 and marks non-HTTPS sites as 'not secure'."
+  },
+  {
+    q: "What is a canonical tag?",
+    options: [
+      "Tells search engines the preferred version of a page",
+      "Lists all pages on a website",
+      "Creates a sitemap automatically",
+      "Blocks search engines from indexing"
+    ],
+    correct: "a",
+    explanation: "The canonical tag tells search engines which version of a page is the 'master' when you have duplicate or similar content."
+  },
+  {
+    q: "What is mobile-first indexing?",
+    options: [
+      "Google primarily uses the mobile version for indexing",
+      "Websites must be built on mobile devices first",
+      "Only mobile-friendly sites can rank",
+      "A type of mobile app"
+    ],
+    correct: "a",
+    explanation: "Mobile-first indexing means Google predominantly uses the mobile version of your site for indexing and ranking."
+  },
+
+  // LEVEL 3 - HARD: GEO & AI (10 questions)
+  {
+    q: "What is GEO (Generative Engine Optimization)?",
+    options: [
+      "Optimizing content for AI-powered search engines",
+      "Creating geographic-specific content",
+      "Generating automatic content",
+      "Optimizing for geo-location services"
+    ],
+    correct: "a",
+    explanation: "GEO is about optimizing your content so AI systems like ChatGPT, Google's SGE, and Bing Copilot can understand and cite it accurately."
+  },
+  {
+    q: "What is Schema markup?",
+    options: [
+      "Structured data that helps search engines understand content",
+      "A color scheme for websites",
+      "A database structure",
+      "A programming language"
+    ],
+    correct: "a",
+    explanation: "Schema markup is structured data code that helps search engines understand your content better, enabling rich results in search."
+  },
+  {
+    q: "What does E-E-A-T stand for?",
+    options: [
+      "Experience, Expertise, Authoritativeness, Trustworthiness",
+      "Engine, Engagement, Analytics, Technology",
+      "Every Employee Acts Together",
+      "Electronic Exchange of Art and Technology"
+    ],
+    correct: "a",
+    explanation: "E-E-A-T is Google's framework for evaluating content quality. The extra 'E' for Experience was added in 2022."
+  },
+  {
+    q: "Why are 'facts over fluff' important for GEO?",
+    options: [
+      "AI systems prefer accurate, verifiable information",
+      "Longer content always ranks better",
+      "AI can't understand short sentences",
+      "Facts are easier to write"
+    ],
+    correct: "a",
+    explanation: "AI systems prioritize factual, accurate information because they need to provide reliable answers. Fluff gets filtered out."
+  },
+  {
+    q: "What is an entity in SEO?",
+    options: [
+      "A distinct, well-defined concept/person/place/thing",
+      "A company that does SEO",
+      "A search engine bot",
+      "A type of keyword"
+    ],
+    correct: "a",
+    explanation: "Entities are distinct things (people, places, organizations) that search engines can understand and connect to the Knowledge Graph."
+  },
+  {
+    q: "What is the Knowledge Graph?",
+    options: [
+      "Google's database of interconnected entities and facts",
+      "A visual chart of keyword rankings",
+      "A type of sitemap",
+      "An analytics tool"
+    ],
+    correct: "a",
+    explanation: "The Knowledge Graph is Google's massive database of billions of facts about people, places, and things, and how they're connected."
+  },
+  {
+    q: "What is a featured snippet?",
+    options: [
+      "A highlighted answer at the top of search results",
+      "A paid advertisement",
+      "A social media post",
+      "An image in search results"
+    ],
+    correct: "a",
+    explanation: "Featured snippets (Position Zero) are highlighted answers at the top of search results, extracted from pages that best answer the query."
+  },
+  {
+    q: "What is NLP in the context of SEO?",
+    options: [
+      "Natural Language Processing - AI understanding human language",
+      "New Link Building - getting more backlinks",
+      "Next Level Promotion - marketing strategy",
+      "Network Location Protocol - server setup"
+    ],
+    correct: "a",
+    explanation: "NLP (Natural Language Processing) is how AI systems understand and interpret human language, which is crucial for GEO."
+  },
+  {
+    q: "What is structured data?",
+    options: [
+      "Formatted code that helps search engines understand content",
+      "Well-organized HTML files",
+      "A database structure",
+      "Organized CSS files"
+    ],
+    correct: "a",
+    explanation: "Structured data is a standardized format for providing information about a page, helping search engines understand content and enable rich results."
+  },
+  {
+    q: "Why is originality important for GEO?",
+    options: [
+      "AI values unique insights and first-hand experience",
+      "Only new content can rank",
+      "AI penalizes all older content",
+      "Originality doesn't matter for AI"
+    ],
+    correct: "a",
+    explanation: "AI systems prioritize unique, original content with real-world experience because generic content is widely available and less valuable."
+  },
+
+  // LEVEL 4 - EXPERT: Authority & Advanced (10 questions)
+  {
+    q: "What is the difference between dofollow and nofollow backlinks?",
+    options: [
+      "Dofollow passes SEO value, nofollow doesn't",
+      "Nofollow is from better websites",
+      "Dofollow is from social media",
+      "There is no difference"
+    ],
+    correct: "a",
+    explanation: "Dofollow links pass link equity (SEO value) to your site, while nofollow links tell search engines not to count the link for ranking."
+  },
+  {
+    q: "What is Google Business Profile important for?",
+    options: [
+      "Local SEO and appearing in Google Maps/local results",
+      "International SEO only",
+      "Image optimization",
+      "Video ranking"
+    ],
+    correct: "a",
+    explanation: "Google Business Profile is essential for local SEO - it helps you appear in local pack results and Google Maps when people search nearby."
+  },
+  {
+    q: "What is VEO (Video Engine Optimization)?",
+    options: [
+      "Optimizing videos to rank in search results",
+      "Creating virtual reality content",
+      "Video editing software",
+      "A type of video format"
+    ],
+    correct: "a",
+    explanation: "VEO is optimizing your video content (especially on YouTube) so it ranks well in both YouTube and Google search results."
+  },
+  {
+    q: "What is domain authority?",
+    options: [
+      "A metric predicting how well a website will rank",
+      "The age of your domain name",
+      "The authority of your domain registrar",
+      "How many domains you own"
+    ],
+    correct: "a",
+    explanation: "Domain Authority (DA) is a search engine ranking score that predicts how likely a website is to rank on search engine result pages."
+  },
+  {
+    q: "What matters most for social search optimization?",
+    options: [
+      "Creating shareable, valuable content that sparks engagement",
+      "Posting as frequently as possible",
+      "Using as many hashtags as possible",
+      "Having the most followers"
+    ],
+    correct: "a",
+    explanation: "Quality content that people actually want to share and engage with is what drives social search signals - not just posting frequency or hashtags."
+  },
+  {
+    q: "What is link building?",
+    options: [
+      "Getting other websites to link to your website",
+      "Creating internal navigation links",
+      "Adding links to social media",
+      "Building a new website"
+    ],
+    correct: "a",
+    explanation: "Link building is the process of acquiring hyperlinks from other websites to your own, which is a key factor in how search engines rank pages."
+  },
+  {
+    q: "What is anchor text diversity?",
+    options: [
+      "Using varied, natural anchor text in backlinks",
+      "Having links from many different websites",
+      "Linking to many different pages",
+      "Using the same anchor text everywhere"
+    ],
+    correct: "a",
+    explanation: "Anchor text diversity means having a natural mix of different anchor texts pointing to your site, which looks more organic to search engines."
+  },
+  {
+    q: "What is local SEO?",
+    options: [
+      "Optimizing for location-based searches",
+      "SEO done by local businesses only",
+      "Optimizing for local language",
+      "A type of on-page SEO"
+    ],
+    correct: "a",
+    explanation: "Local SEO helps businesses appear in location-based searches, like 'coffee near me' or 'restaurants in Haifa'."
+  },
+  {
+    q: "What are review signals?",
+    options: [
+      "Quantity and quality of online reviews affect local rankings",
+      "Signals that tell you when to review content",
+      "Analytics for review pages",
+      "A type of backlink analysis"
+    ],
+    correct: "a",
+    explanation: "Review signals include the number, rating, and diversity of reviews across platforms like Google, Yelp, and Facebook, which impact local SEO."
+  },
+  {
+    q: "What is the 'local pack'?",
+    options: [
+      "Top 3 local business listings shown in search results",
+      "A group of local SEO tools",
+      "Local business directory listings",
+      "Pack of local backlinks"
+    ],
+    correct: "a",
+    explanation: "The local pack (or map pack) shows the top 3 local businesses relevant to a search query, displayed prominently in search results with a map."
+  }
+];
+---
+
+<Layout title="Final SEO & GEO Mastery Test | Waseem's SEO Guide">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Final Test</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">FINAL EXAM</span>
+    <h1>🏆 SEO & GEO Mastery Test</h1>
+    <p class="subtitle">40 Questions • All Levels • Progressive Difficulty • Refresh to Restart</p>
+  </header>
+
+  <!-- Difficulty Guide -->
+  <section class="difficulty-guide">
+    <h2>Test Structure</h2>
+    <div class="level-breakdown">
+      <div class="level-item level-1">
+        <span class="level-icon">📘</span>
+        <div class="level-info">
+          <h3>Questions 1-10</h3>
+          <p>Level 1: SEO Basics</p>
+          <span class="difficulty-label">Easy</span>
+        </div>
+      </div>
+      <div class="level-item level-2">
+        <span class="level-icon">🛠️</span>
+        <div class="level-info">
+          <h3>Questions 11-20</h3>
+          <p>Level 2: Technical SEO</p>
+          <span class="difficulty-label">Medium</span>
+        </div>
+      </div>
+      <div class="level-item level-3">
+        <span class="level-icon">🤖</span>
+        <div class="level-info">
+          <h3>Questions 21-30</h3>
+          <p>Level 3: GEO & AI</p>
+          <span class="difficulty-label">Hard</span>
+        </div>
+      </div>
+      <div class="level-item level-4">
+        <span class="level-icon">🌐</span>
+        <div class="level-info">
+          <h3>Questions 31-40</h3>
+          <p>Level 4: Authority & Advanced</p>
+          <span class="difficulty-label">Expert</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instructions -->
+  <section class="instructions">
+    <h2>📋 Instructions</h2>
+    <ul>
+      <li>✅ Answer all 40 questions to the best of your ability</li>
+      <li>⏱️ Take your time - there's no time limit</li>
+      <li>🔄 <strong>Refresh the page</strong> to start over</li>
+      <li>💡 Click Submit to see your results with explanations</li>
+    </ul>
+  </section>
+
+  <!-- Quiz -->
+  <section class="quiz-section">
+    <Quiz id="final-exam" title="" questions={allQuestions} />
+  </section>
+
+  <!-- Back to Home -->
+  <div class="back-home">
+    <a href={`${base}/`}>← Back to Home</a>
+  </div>
+</Layout>
+
+<style>
+  .difficulty-guide {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .difficulty-guide h2 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 25px;
+  }
+
+  .level-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .level-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .level-item.level-1 { background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-color: #667eea; }
+  .level-item.level-2 { background: linear-gradient(135deg, #764ba215 0%, #f093fb15 100%); border-color: #764ba2; }
+  .level-item.level-3 { background: linear-gradient(135deg, #f093fb15 0%, #f5576c15 100%); border-color: #f093fb; }
+  .level-item.level-4 { background: linear-gradient(135deg, #f5576c15 0%, #4facfe15 100%); border-color: #f5576c; }
+
+  .level-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .level-icon {
+    font-size: 2.5em;
+  }
+
+  .level-info h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 1.1em;
+  }
+
+  .level-info p {
+    margin: 0 0 8px 0;
+    color: #666;
+    font-size: 0.95em;
+  }
+
+  .difficulty-label {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: white;
+  }
+
+  .level-1 .difficulty-label { background: #667eea; }
+  .level-2 .difficulty-label { background: #764ba2; }
+  .level-3 .difficulty-label { background: #f093fb; }
+  .level-4 .difficulty-label { background: #f5576c; }
+
+  .instructions {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+  }
+
+  .instructions h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+  }
+
+  .instructions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .instructions li {
+    padding: 10px 0;
+    font-size: 1.05em;
+    color: #555;
+    border-bottom: 1px dashed #ddd;
+  }
+
+  .instructions li:last-child {
+    border-bottom: none;
+  }
+
+  .quiz-section {
+    margin-bottom: 30px;
+  }
+
+  .back-home {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .back-home a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .difficulty-guide {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .level-info h3 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .level-info p {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .instructions li {
+    color: #b0b0b0;
+    border-bottom-color: #3a3a5a;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .level-breakdown {
+      grid-template-columns: 1fr;
+    }
+
+    .level-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
