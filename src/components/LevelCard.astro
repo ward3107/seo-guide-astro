@@ -2,7 +2,7 @@
 /**
  * LevelCard Component
  *
- * Displays a level card with icon, title, description, and topics list
+ * Displays a level card with icon, title, description, and collapsible topics list
  *
  * @param level - The level number (1-4)
  * @param title - The level title
@@ -43,17 +43,27 @@ const colors = {
 };
 
 const levelColor = colors[level as keyof typeof colors] || '#667eea';
+const cardId = `level-card-${level}`;
 ---
 
-<article class={`level-card ${active ? 'active' : ''}`} style={active ? `--level-color: ${levelColor}` : ''}>
-  <span class="icon" aria-hidden="true">{icon}</span>
-  <span class="level-badge">Level {level}</span>
-  <h3>{title}</h3>
-  <p>{description}</p>
-  <span class="topic-count">{topicCount}</span>
-  <ul aria-label={`Level ${level} topics`}>
-    {topics.map(topic => <li>{topic}</li>)}
-  </ul>
+<article class={`level-card ${active ? 'active' : ''}`} style={`--level-color: ${levelColor}`} id={cardId}>
+  <button class="card-toggle" aria-expanded="false" aria-controls={`topics-${level}`}>
+    <div class="card-header">
+      <span class="icon" aria-hidden="true">{icon}</span>
+      <div class="header-content">
+        <span class="level-badge">Level {level}</span>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <span class="topic-count">{topicCount}</span>
+      </div>
+      <span class="expand-icon">▼</span>
+    </div>
+  </button>
+  <div class="topics-list" id={`topics-${level}`} aria-hidden="true">
+    <ul aria-label={`Level ${level} topics`}>
+      {topics.map(topic => <li>{topic}</li>)}
+    </ul>
+  </div>
   <a href={href} class="card-link" aria-label={`Start Level ${level}: ${title}`}>
     Start Learning →
   </a>
@@ -63,7 +73,7 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
   .level-card {
     background: white;
     border-radius: 20px;
-    padding: 30px;
+    padding: 0;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
@@ -101,10 +111,29 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
     opacity: 1;
   }
 
+  .card-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 30px;
+    text-align: left;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
   .icon {
     font-size: 3em;
     display: block;
-    margin-bottom: 15px;
+    flex-shrink: 0;
+  }
+
+  .header-content {
+    flex: 1;
   }
 
   .level-badge {
@@ -118,12 +147,12 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
     margin-bottom: 15px;
   }
 
-  .level-card h3 {
+  .header-content h3 {
     margin: 10px 0;
     color: #333;
   }
 
-  .level-card p {
+  .header-content p {
     color: #666;
     margin-bottom: 15px;
     line-height: 1.5;
@@ -137,34 +166,60 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
     border-radius: 15px;
     font-size: 0.85em;
     font-weight: 500;
-    margin-bottom: 15px;
   }
 
-  .level-card ul {
+  .expand-icon {
+    font-size: 1.2em;
+    color: #667eea;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .card-toggle[aria-expanded="true"] .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .topics-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .topics-list[aria-hidden="false"] {
+    max-height: 500px;
+  }
+
+  .topics-list ul {
     list-style: none;
-    padding: 0;
-    margin: 15px 0;
+    padding: 0 30px 30px;
+    margin: 0;
   }
 
-  .level-card li {
-    padding: 6px 0;
-    padding-left: 20px;
+  .topics-list li {
+    padding: 8px 0;
+    padding-left: 24px;
     position: relative;
     color: #555;
     font-size: 0.9em;
+    border-bottom: 1px dashed #e0e0e0;
   }
 
-  .level-card li::before {
+  .topics-list li:last-child {
+    border-bottom: none;
+  }
+
+  .topics-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #667eea;
+    color: var(--level-color, #667eea);
     font-weight: bold;
   }
 
   .card-link {
     display: inline-block;
-    margin-top: 15px;
+    margin: 0 30px 30px;
+    padding: 12px 0;
     color: #667eea;
     text-decoration: none;
     font-weight: 600;
@@ -181,16 +236,17 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
     color: #e0e0e0;
   }
 
-  :global(body.dark-mode) .level-card h3 {
+  :global(body.dark-mode) .header-content h3 {
     color: #e0e0e0;
   }
 
-  :global(body.dark-mode) .level-card p {
+  :global(body.dark-mode) .header-content p {
     color: #b0b0b0;
   }
 
-  :global(body.dark-mode) .level-card li {
+  :global(body.dark-mode) .topics-list li {
     color: #b0b0b0;
+    border-bottom-color: #3a3a5a;
   }
 
   :global(body.dark-mode) .topic-count {
@@ -200,12 +256,31 @@ const levelColor = colors[level as keyof typeof colors] || '#667eea';
 
   /* Responsive */
   @media (max-width: 768px) {
-    .level-card {
+    .card-toggle {
       padding: 20px;
     }
 
-    .level-card ul {
-      display: none;
+    .icon {
+      font-size: 2em;
+    }
+
+    .card-toggle {
+      gap: 15px;
     }
   }
 </style>
+
+<script>
+  const card = document.getElementById(`level-card-${Astro.props.level}`);
+  const toggle = card?.querySelector('.card-toggle') as HTMLButtonElement;
+  const topicsList = card?.querySelector('.topics-list') as HTMLElement;
+
+  if (toggle && topicsList) {
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      topicsList.setAttribute('aria-hidden', String(isExpanded));
+    });
+  }
+</script>
