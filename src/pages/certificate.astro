@@ -1,0 +1,566 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// Get current date for certificate
+const currentDate = new Date();
+const formattedDate = currentDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout title="Certificate | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Certificate</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">🎓 CERTIFICATE</span>
+    <h1>Certificate of Completion</h1>
+    <p class="subtitle">Congratulations on completing Waseem's SEO & GEO Course!</p>
+  </header>
+
+  <section class="certificate-intro">
+    <h2>🏆 Your Achievement</h2>
+    <p>Enter your name below to generate your personalized certificate of completion for the SEO & GEO Mastery Course.</p>
+  </section>
+
+  <div class="certificate-generator">
+    <div class="input-section">
+      <label for="studentName" class="name-label">Enter Your Full Name:</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="studentName"
+          name="studentName"
+          placeholder="John Doe"
+          maxlength="50"
+          aria-label="Enter your full name for the certificate"
+        />
+        <button class="generate-btn" id="generateBtn">Generate Certificate</button>
+      </div>
+      <p class="input-hint">Your name will appear on the certificate exactly as you type it.</p>
+    </div>
+
+    <div class="certificate-preview" id="certificatePreview">
+      <div class="certificate-border">
+        <div class="certificate-inner">
+          <!-- Certificate Header -->
+          <div class="cert-header">
+            <div class="cert-logo">🎓</div>
+            <h1 class="cert-title">Certificate of Completion</h1>
+            <p class="cert-subtitle">SEO & GEO Mastery Course</p>
+          </div>
+
+          <!-- Certificate Body -->
+          <div class="cert-body">
+            <p class="cert-presentation">This is to proudly certify that</p>
+            <p class="cert-name" id="certName">[Your Name]</p>
+            <p class="cert-description">
+              has successfully completed the comprehensive SEO & GEO Mastery Course,
+              demonstrating proficiency in:
+            </p>
+            <ul class="cert-skills">
+              <li>Search Engine Optimization (SEO) Fundamentals</li>
+              <li>Technical SEO & Performance Optimization</li>
+              <li>Generative Engine Optimization (GEO)</li>
+              <li>Local SEO & Authority Building</li>
+            </ul>
+          </div>
+
+          <!-- Certificate Footer -->
+          <div class="cert-footer">
+            <div class="cert-date">
+              <span class="date-label">Date of Completion</span>
+              <span class="date-value" id="certDate">{formattedDate}</span>
+            </div>
+            <div class="cert-instructor">
+              <span class="instructor-label">Course Instructor</span>
+              <span class="instructor-value">Waseem</span>
+            </div>
+            <div class="cert-seal">
+              <div class="seal-inner">✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="print-btn" id="printBtn">🖨️ Print Certificate</button>
+      <button class="download-btn" id="downloadBtn">⬇️ Download as Image</button>
+      <a href={`${base}/`} class="home-btn">← Back to Home</a>
+    </div>
+  </div>
+
+  <section class="certificate-note">
+    <p>💡 <strong>Tip:</strong> For best results when printing, use landscape orientation and high-quality paper.</p>
+  </section>
+</Layout>
+
+<style>
+  .certificate-intro {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .certificate-intro h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+  }
+
+  .certificate-intro p {
+    color: #555;
+    font-size: 1.1em;
+    line-height: 1.6;
+  }
+
+  .certificate-generator {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+  }
+
+  .input-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .name-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+
+  .input-group input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1.1em;
+    transition: border-color 0.3s ease;
+  }
+
+  .input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+
+  .generate-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .input-hint {
+    color: #666;
+    font-size: 0.95em;
+    font-style: italic;
+  }
+
+  .certificate-preview {
+    background: #f5f5f5;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+
+  .certificate-border {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .certificate-inner {
+    background: white;
+    padding: 50px;
+    border-radius: 5px;
+    position: relative;
+    min-height: 500px;
+  }
+
+  .cert-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .cert-logo {
+    font-size: 4em;
+    margin-bottom: 10px;
+  }
+
+  .cert-title {
+    font-size: 2.5em;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 10px 0;
+    font-family: 'Georgia', serif;
+  }
+
+  .cert-subtitle {
+    font-size: 1.3em;
+    color: #666;
+    margin: 0;
+  }
+
+  .cert-body {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .cert-presentation {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 15px;
+  }
+
+  .cert-name {
+    font-size: 2.8em;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+    font-family: 'Georgia', serif;
+    padding: 15px;
+    border-bottom: 3px solid #667eea;
+    display: inline-block;
+    min-width: 300px;
+  }
+
+  .cert-description {
+    font-size: 1.1em;
+    color: #666;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+
+  .cert-skills {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .cert-skills li {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: #555;
+    font-size: 0.95em;
+  }
+
+  .cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .cert-date,
+  .cert-instructor {
+    flex: 1;
+  }
+
+  .cert-date {
+    text-align: left;
+  }
+
+  .cert-instructor {
+    text-align: right;
+  }
+
+  .date-label,
+  .instructor-label {
+    display: block;
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 5px;
+  }
+
+  .date-value,
+  .instructor-value {
+    font-size: 1.1em;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .cert-seal {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  .seal-inner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .print-btn,
+  .download-btn,
+  .home-btn {
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .print-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+  }
+
+  .download-btn {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+  }
+
+  .home-btn {
+    background: #f8f9fa;
+    color: #667eea;
+    border: 2px solid #667eea;
+  }
+
+  .print-btn:hover,
+  .download-btn:hover,
+  .home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .certificate-note {
+    background: #fff9e6;
+    border-left: 4px solid #ffc107;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .certificate-note p {
+    color: #856404;
+    margin: 0;
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .certificate-intro {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .certificate-intro p {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .input-section,
+  :global(body.dark-mode) .certificate-preview {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .name-label {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .input-group input {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .input-hint {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .certificate-note {
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .certificate-note p {
+    color: #b0b0b0;
+  }
+
+  /* Print styles */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+
+    .certificate-preview,
+    .certificate-preview * {
+      visibility: visible;
+    }
+
+    .certificate-preview {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background: white;
+    }
+
+    .certificate-border {
+      box-shadow: none;
+    }
+
+    @page {
+      size: landscape;
+      margin: 0.5cm;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .input-group {
+      flex-direction: column;
+    }
+
+    .cert-footer {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cert-date,
+    .cert-instructor {
+      text-align: center;
+    }
+
+    .cert-seal {
+      position: static;
+      transform: none;
+      margin: 20px 0;
+    }
+
+    .cert-name {
+      font-size: 2em;
+      min-width: auto;
+      width: 100%;
+    }
+
+    .cert-title {
+      font-size: 1.8em;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .print-btn,
+    .download-btn,
+    .home-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  const generateBtn = document.getElementById('generateBtn');
+  const printBtn = document.getElementById('printBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const studentNameInput = document.getElementById('studentName') as HTMLInputElement;
+  const certName = document.getElementById('certName');
+
+  // Generate certificate with user's name
+  generateBtn?.addEventListener('click', () => {
+    if (!studentNameInput || !certName) return;
+
+    const name = studentNameInput.value.trim();
+    if (name) {
+      certName.textContent = name;
+      certName.style.color = '#667eea';
+
+      // Scroll to certificate
+      certName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      // Flash the input to indicate it's required
+      studentNameInput.style.borderColor = '#dc3545';
+      setTimeout(() => {
+        studentNameInput.style.borderColor = '#e0e0e0';
+      }, 1000);
+      studentNameInput.focus();
+    }
+  });
+
+  // Allow Enter key to generate
+  studentNameInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      generateBtn?.click();
+    }
+  });
+
+  // Print certificate
+  printBtn?.addEventListener('click', () => {
+    window.print();
+  });
+
+  // Download as image (using html2canvas would be ideal, but simple print works for now)
+  downloadBtn?.addEventListener('click', () => {
+    // For now, redirect to print dialog with instructions
+    alert('To save as PDF:\n\n1. Click Print\n2. Select "Save as PDF" as the destination\n3. Click Save\n\nAlternatively, use your browser\'s screenshot tool to capture the certificate.');
+    window.print();
+  });
+</script>
