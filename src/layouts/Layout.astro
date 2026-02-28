@@ -546,19 +546,19 @@ const levels = [
       border-radius: 3px;
     }
 
-    /* Sidebar TOC - Push Layout */
+    /* Sidebar TOC - Push Layout (only when sidebar exists) */
     @media (min-width: 1025px) {
-      body {
+      body:has(.sidebar-toc) {
         transition: margin-left 0.3s ease-in-out;
       }
 
       /* When sidebar is open on desktop */
-      body.sidebar-open {
+      body:has(.sidebar-toc).sidebar-open {
         margin-left: 280px;
       }
 
       /* When sidebar is closed on desktop */
-      body.sidebar-closed {
+      body:has(.sidebar-toc).sidebar-closed {
         margin-left: 0;
       }
     }

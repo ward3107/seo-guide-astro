@@ -300,31 +300,36 @@ const { sections } = Astro.props;
   const backToTopBtn = document.getElementById('backToTop');
   const tocLinks = document.querySelectorAll('.toc-link');
 
-  // Toggle sidebar and add body classes for push layout
-  function toggleSidebar() {
-    const isOpen = sidebarToc?.classList.toggle('open');
-    const isClosed = sidebarToc?.classList.toggle('closed');
+  // Only run sidebar logic if sidebar exists on this page
+  if (sidebarToc) {
+    const sidebar = sidebarToc as HTMLElement;
 
-    // Add body classes for desktop push behavior
-    if (window.innerWidth >= 1025) {
-      if (!isClosed) {
-        document.body.classList.add('sidebar-open');
-        document.body.classList.remove('sidebar-closed');
-      } else {
-        document.body.classList.remove('sidebar-open');
-        document.body.classList.add('sidebar-closed');
+    // Toggle sidebar and add body classes for push layout
+    function toggleSidebar() {
+      sidebar.classList.toggle('open');
+      const isClosed = sidebar.classList.toggle('closed');
+
+      // Add body classes for desktop push behavior
+      if (window.innerWidth >= 1025) {
+        if (!isClosed) {
+          document.body.classList.add('sidebar-open');
+          document.body.classList.remove('sidebar-closed');
+        } else {
+          document.body.classList.remove('sidebar-open');
+          document.body.classList.add('sidebar-closed');
+        }
       }
     }
-  }
 
-  // Initialize: sidebar is open by default on desktop
-  if (window.innerWidth >= 1025) {
-    document.body.classList.add('sidebar-open');
-    sidebarToc?.classList.remove('closed');
-  }
+    // Initialize: sidebar is open by default on desktop
+    if (window.innerWidth >= 1025) {
+      document.body.classList.add('sidebar-open');
+      sidebar.classList.remove('closed');
+    }
 
-  sidebarToggle?.addEventListener('click', toggleSidebar);
-  sidebarClose?.addEventListener('click', toggleSidebar);
+    sidebarToggle?.addEventListener('click', toggleSidebar);
+    sidebarClose?.addEventListener('click', toggleSidebar);
+  }
 
   // Click on link - scroll to section
   tocLinks.forEach(link => {
