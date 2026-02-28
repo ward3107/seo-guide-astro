@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://ward3107.github.io',
-  base: '/SEO-Guide.html',
+  base: '/seo-guide-astro',
   build: {
     format: 'directory',
   },
