@@ -125,6 +125,51 @@ const levels = [
     </p>
   </section>
 
+  <!-- About the Course Section -->
+  <section class="about-course">
+    <h2>About This Course</h2>
+    <div class="course-grid">
+      <div class="course-item">
+        <span class="course-icon">🎯</span>
+        <h3>Comprehensive Curriculum</h3>
+        <p>Four progressive levels covering everything from basic HTML optimization to advanced AI-driven GEO strategies.</p>
+      </div>
+      <div class="course-item">
+        <span class="course-icon">📚</span>
+        <h3>Practical & Hands-On</h3>
+        <p>Real examples, code snippets, checklists, and quizzes to reinforce your learning at each step.</p>
+      </div>
+      <div class="course-item">
+        <span class="course-icon">🤖</span>
+        <h3>Future-Proof Skills</h3>
+        <p>Learn GEO (Generative Engine Optimization) to stay ahead as AI-powered search becomes the new standard.</p>
+      </div>
+      <div class="course-item">
+        <span class="course-icon">💼</span>
+        <h3>Career-Ready Knowledge</h3>
+        <p>Skills that employers are actively seeking - SEO, technical optimization, and AI content strategy.</p>
+      </div>
+    </div>
+    <div class="course-stats">
+      <div class="stat">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Progressive Levels</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">38+</span>
+        <span class="stat-label">Topics Covered</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">40+</span>
+        <span class="stat-label">Quiz Questions</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">∞</span>
+        <span class="stat-label">Lifetime Access</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Learning Levels Section -->
   <section class="levels-section" aria-labelledby="levels-title">
     <h2 id="levels-title">🎓 Learn SEO & GEO</h2>
@@ -253,6 +298,93 @@ const levels = [
   .about strong {
     color: #667eea;
     font-weight: 600;
+  }
+
+  /* About Course Section */
+  .about-course {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 50px 40px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .about-course h2 {
+    text-align: center;
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 40px;
+  }
+
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .course-item {
+    text-align: center;
+    padding: 25px 20px;
+    background: white;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .course-item:hover {
+    border-color: #667eea;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+  }
+
+  .course-icon {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .course-item h3 {
+    color: #333;
+    margin: 0 0 12px 0;
+    font-size: 1.2em;
+  }
+
+  .course-item p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95em;
+    margin: 0;
+  }
+
+  .course-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    border-top: 2px solid #e9ecef;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2.5em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    display: block;
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 5px;
   }
 
   /* Levels Section */
@@ -398,6 +530,34 @@ const levels = [
 
   :global(body.dark-mode) .about p {
     color: #c0c0c0;
+  }
+
+  :global(body.dark-mode) .about-course {
+    background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+  }
+
+  :global(body.dark-mode) .about-course h2 {
+    color: #a8dadc;
+  }
+
+  :global(body.dark-mode) .course-item {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .course-item h3 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .course-item p {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .course-stats {
+    border-top-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .stat-label {
+    color: #b0b0b0;
   }
 
   :global(body.dark-mode) .levels-section h2 {
