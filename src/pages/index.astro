@@ -1,14 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getEntry } from 'astro:content';
+import LevelCard from '../components/LevelCard.astro';
 
 const base = import.meta.env.BASE_URL;
-
-// Get all level content
-const level1 = await getEntry('levels', 'level1');
-const level2 = await getEntry('levels', 'level2');
-const level3 = await getEntry('levels', 'level3');
-const level4 = await getEntry('levels', 'level4');
 
 const levels = [
   {
@@ -16,36 +10,77 @@ const levels = [
     title: 'SEO Basics',
     description: 'Content & Structure - Learn the foundational HTML elements that make websites search-friendly.',
     icon: '📘',
+    href: `${base}/level1`,
     topicCount: '13 Topics + Quiz',
-    slug: 'level1',
-    color: '#667eea'
+    topics: [
+      'What is SEO & GEO?',
+      'The Library Analogy',
+      'The 5 Essential Tools',
+      'Tool #1: The Title Tag',
+      'Tool #2: The H1 Heading',
+      'Tool #3: Links (Anchor Tags)',
+      'Tool #4: Alt Attributes',
+      'Tool #5: Schema Markup',
+      'Search Intent: The "Why"',
+      'How to View Source Code',
+      'Practice Checklist',
+      'Why Companies Hire Coders',
+      'Off-Page SEO Basics'
+    ]
   },
   {
     level: 2,
     title: 'Technical SEO',
     description: 'Robots, Speed & Status Codes - Master the technical infrastructure that powers search rankings.',
     icon: '🛠️',
+    href: `${base}/level2`,
     topicCount: '10 Topics + Quiz',
-    slug: 'level2',
-    color: '#764ba2'
+    topics: [
+      'Introduction to Technical SEO',
+      'The Security Guard (robots.txt)',
+      'The Table of Contents (XML Sitemaps)',
+      'The Bot\'s Language (Status Codes)',
+      'Speed & Performance Basics',
+      'Core Web Vitals Metrics',
+      'LCP, FID, CLS Explained',
+      'Technical Audit Checklist',
+      'Deep Dive Questions'
+    ]
   },
   {
     level: 3,
     title: 'Advanced GEO',
     description: 'AI Optimization & Schema - Future-proof your content for AI-driven search experiences.',
     icon: '🤖',
+    href: `${base}/level3`,
     topicCount: '9 Topics + Quiz',
-    slug: 'level3',
-    color: '#f093fb'
+    topics: [
+      'SEO vs. GEO: The Big Shift',
+      'Pillar 1: Facts Over Fluff',
+      'Pillar 2: Schema for Trust',
+      'Pillar 3: AI-Ready Structure',
+      'Entity Optimization',
+      'E-E-A-T: The Trust Framework',
+      'GEO Audit Checklist',
+      'Knowledge Graph & Entities',
+      'Portfolio Completion'
+    ]
   },
   {
     level: 4,
     title: 'Authority & Channels',
     description: 'Off-Page & Local SEO - Build authority through backlinks, reviews, local presence, and social channels.',
     icon: '🌐',
-    topicCount: '6 Modules + Quiz',
-    slug: 'level4',
-    color: '#4facfe'
+    href: `${base}/level4`,
+    topicCount: '6 Modules + Mini-Quizzes',
+    topics: [
+      'Off-Page SEO Fundamentals',
+      'Local SEO & Google Business Profile',
+      'Reviews & Reputation Management',
+      'Video SEO (YouTube Optimization)',
+      'Social Search Optimization',
+      'Authority Building Capstone'
+    ]
   }
 ];
 ---
@@ -93,31 +128,14 @@ const levels = [
   <!-- Learning Levels Section -->
   <section class="levels-section" aria-labelledby="levels-title">
     <h2 id="levels-title">🎓 Learn SEO & GEO</h2>
-    <p class="levels-intro">
-      Click on any level below to expand and start learning! All content is available right here.
+    <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 1.1em;">
+      Explore my comprehensive guides on Search Engine Optimization and Generative Engine Optimization.
+      Click on any level to start learning!
     </p>
 
-    <div class="accordions">
-      {levels.map((levelData, index) => (
-        <div class={`level-accordion ${index === 0 ? 'level-1' : index === 1 ? 'level-2' : index === 2 ? 'level-3' : 'level-4'}`} data-level={levelData.slug}>
-          <button class="accordion-header" aria-expanded="false" style={`--level-color: ${levelData.color}`}>
-            <div class="header-content">
-              <span class="icon">{levelData.icon}</span>
-              <div class="header-text">
-                <span class="level-badge">Level {levelData.level}</span>
-                <h3>{levelData.title}</h3>
-                <p>{levelData.description}</p>
-                <span class="topic-count">{levelData.topicCount}</span>
-              </div>
-            </div>
-            <span class="accordion-icon">▼</span>
-          </button>
-          <div class="accordion-content" id={`content-${levelData.slug}`}>
-            <div class="content-inner" id={`inner-${levelData.slug}`}>
-              Loading...
-            </div>
-          </div>
-        </div>
+    <div class="cards-grid">
+      {levels.map(levelData => (
+        <LevelCard {...levelData} />
       ))}
     </div>
   </section>
@@ -137,26 +155,6 @@ const levels = [
     </a>
   </section>
 </Layout>
-
-<!-- Level 1 Content Template (hidden, cloned by JS) -->
-<template id="template-level1">
-  <fragments set:html={level1?.render()} />
-</template>
-
-<!-- Level 2 Content Template (hidden, cloned by JS) -->
-<template id="template-level2">
-  <fragments set:html={level2?.render()} />
-</template>
-
-<!-- Level 3 Content Template (hidden, cloned by JS) -->
-<template id="template-level3">
-  <fragments set:html={level3?.render()} />
-</template>
-
-<!-- Level 4 Content Template (hidden, cloned by JS) -->
-<template id="template-level4">
-  <fragments set:html={level4?.render()} />
-</template>
 
 <style>
   /* Hero Section */
@@ -251,146 +249,11 @@ const levels = [
     margin-bottom: 10px;
   }
 
-  .levels-intro {
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 1.05em;
-  }
-
-  /* Accordion Styles */
-  .accordions {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .level-accordion {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-  }
-
-  .level-accordion:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  }
-
-  .accordion-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 25px 30px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-  }
-
-  .accordion-header:hover {
-    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
-  }
-
-  .accordion-header[aria-expanded="true"] {
-    background: linear-gradient(135deg, var(--level-color) 0%, var(--level-color)dd 100%);
-  }
-
-  .accordion-header[aria-expanded="true"] .header-text h3,
-  .accordion-header[aria-expanded="true"] .header-text p,
-  .accordion-header[aria-expanded="true"] .header-text .topic-count {
-    color: white;
-  }
-
-  .header-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex: 1;
-  }
-
-  .accordion-header .icon {
-    font-size: 2.5em;
-    flex-shrink: 0;
-  }
-
-  .header-text {
-    flex: 1;
-  }
-
-  .level-badge {
-    display: inline-block;
-    background: var(--level-color);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .header-text h3 {
-    font-size: 1.4em;
-    margin: 0 0 5px 0;
-    color: #333;
-  }
-
-  .header-text p {
-    margin: 0 0 8px 0;
-    color: #666;
-    font-size: 0.95em;
-  }
-
-  .topic-count {
-    display: inline-block;
-    color: #999;
-    font-size: 0.85em;
-  }
-
-  .accordion-icon {
-    font-size: 1.2em;
-    color: #667eea;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  .accordion-header[aria-expanded="true"] .accordion-icon {
-    transform: rotate(180deg);
-    color: white;
-  }
-
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, opacity 0.3s ease;
-    opacity: 0;
-  }
-
-  .accordion-content.active {
-    max-height: none;
-    opacity: 1;
-  }
-
-  .content-inner {
-    padding: 0;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-
-  /* Custom scrollbar for content */
-  .content-inner::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .content-inner::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  .content-inner::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 4px;
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
   }
 
   /* CTA Section */
@@ -464,34 +327,6 @@ const levels = [
     color: #a8dadc;
   }
 
-  :global(body.dark-mode) .level-accordion {
-    background: #1e1e30;
-  }
-
-  :global(body.dark-mode) .accordion-header {
-    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e30 100%);
-  }
-
-  :global(body.dark-mode) .accordion-header:hover {
-    background: linear-gradient(135deg, #3a3a5a 0%, #2a2a4a 100%);
-  }
-
-  :global(body.dark-mode) .header-text h3 {
-    color: #a8dadc;
-  }
-
-  :global(body.dark-mode) .header-text p {
-    color: #c0c0c0;
-  }
-
-  :global(body.dark-mode) .topic-count {
-    color: #888;
-  }
-
-  :global(body.dark-mode) .content-inner::-webkit-scrollbar-track {
-    background: #2a2a4a;
-  }
-
   :global(body.dark-mode) .cta-section {
     background: linear-gradient(135deg, #533483 0%, #6a4c9c 100%);
   }
@@ -522,24 +357,8 @@ const levels = [
       font-size: 1.5em;
     }
 
-    .accordion-header {
-      padding: 20px;
-    }
-
-    .header-content {
-      gap: 12px;
-    }
-
-    .accordion-header .icon {
-      font-size: 2em;
-    }
-
-    .header-text h3 {
-      font-size: 1.1em;
-    }
-
-    .header-text p {
-      font-size: 0.85em;
+    .cards-grid {
+      grid-template-columns: 1fr;
     }
 
     .cta-section {
@@ -556,88 +375,3 @@ const levels = [
     }
   }
 </style>
-
-<script>
-  // Level content URLs (generated Astro pages)
-  const levelUrls = {
-    level1: `${import.meta.env.BASE_URL}/level1`,
-    level2: `${import.meta.env.BASE_URL}/level2`,
-    level3: `${import.meta.env.BASE_URL}/level3`,
-    level4: `${import.meta.env.BASE_URL}/level4`
-  };
-
-  // Store loaded content
-  const loadedContent: Record<string, string> = {};
-
-  // Accordion functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const accordions = document.querySelectorAll('.level-accordion');
-
-    accordions.forEach(accordion => {
-      const header = accordion.querySelector('.accordion-header') as HTMLButtonElement;
-      const content = accordion.querySelector('.accordion-content') as HTMLElement;
-      const contentInner = accordion.querySelector('.content-inner') as HTMLElement;
-      const levelSlug = accordion.getAttribute('data-level');
-
-      if (!header || !content || !contentInner || !levelSlug) return;
-
-      header.addEventListener('click', async () => {
-        const isExpanded = header.getAttribute('aria-expanded') === 'true';
-
-        // Close all other accordions
-        accordions.forEach(other => {
-          if (other !== accordion) {
-            const otherHeader = other.querySelector('.accordion-header') as HTMLButtonElement;
-            const otherContent = other.querySelector('.accordion-content') as HTMLElement;
-            if (otherHeader && otherContent) {
-              otherHeader.setAttribute('aria-expanded', 'false');
-              otherContent.classList.remove('active');
-              otherContent.style.maxHeight = '0';
-            }
-          }
-        });
-
-        // Toggle current accordion
-        if (isExpanded) {
-          header.setAttribute('aria-expanded', 'false');
-          content.classList.remove('active');
-          content.style.maxHeight = '0';
-        } else {
-          header.setAttribute('aria-expanded', 'true');
-
-          // Load content if not already loaded
-          if (!loadedContent[levelSlug]) {
-            contentInner.innerHTML = '<p style="padding: 40px; text-align: center;">Loading...</p>';
-            try {
-              const response = await fetch(levelUrls[levelSlug as keyof typeof levelUrls]);
-              if (response.ok) {
-                const html = await response.text();
-                // Extract the main content from the page
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const mainContent = doc.querySelector('.container')?.innerHTML;
-                if (mainContent) {
-                  loadedContent[levelSlug] = mainContent;
-                  contentInner.innerHTML = mainContent;
-                } else {
-                  contentInner.innerHTML = '<p style="padding: 40px; text-align: center;">Content not found.</p>';
-                }
-              } else {
-                contentInner.innerHTML = '<p style="padding: 40px; text-align: center;">Failed to load content.</p>';
-              }
-            } catch (error) {
-              console.error('Error loading content:', error);
-              contentInner.innerHTML = '<p style="padding: 40px; text-align: center;">Error loading content.</p>';
-            }
-          }
-
-          content.classList.add('active');
-          // Set max-height after content is loaded for smooth animation
-          requestAnimationFrame(() => {
-            content.style.maxHeight = contentInner.scrollHeight + 'px';
-          });
-        }
-      });
-    });
-  });
-</script>
