@@ -18,10 +18,10 @@ const {
 const base = import.meta.env.BASE_URL;
 
 const levels = [
-  { number: 1, title: 'SEO Basics', icon: '📘', href: '/level1', color: '#667eea' },
-  { number: 2, title: 'Technical SEO', icon: '🛠️', href: '/level2', color: '#764ba2' },
-  { number: 3, title: 'Advanced GEO', icon: '🤖', href: '/level3', color: '#f093fb' },
-  { number: 4, title: 'Authority & Channels', icon: '🌐', href: '/level4', color: '#4facfe' }
+  { number: 1, title: 'SEO Basics', icon: '📘', href: `${base}/level1`, color: '#667eea' },
+  { number: 2, title: 'Technical SEO', icon: '🛠️', href: `${base}/level2`, color: '#764ba2' },
+  { number: 3, title: 'Advanced GEO', icon: '🤖', href: `${base}/level3`, color: '#f093fb' },
+  { number: 4, title: 'Authority & Channels', icon: '🌐', href: `${base}/level4`, color: '#4facfe' }
 ];
 ---
 
@@ -92,10 +92,10 @@ const levels = [
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <div class="container" id="main-content">
+  <div class="container" id="main-content" data-base={base}>
     <!-- Navigation -->
     <nav class="nav-links" aria-label="Level navigation">
-      <a href="/" class="nav-btn">🏠 Home</a>
+      <a href={base} class="nav-btn">🏠 Home</a>
       {levels.map(level => (
         <a href={level.href} class="nav-btn" style={currentLevel === level.number ? 'background: linear-gradient(135deg, ' + level.color + ' 0%, ' + level.color + 'aa 100%);' : ''}>
           {level.icon} Level {level.number}
@@ -608,12 +608,13 @@ const levels = [
     // Search Functionality
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
+    const baseURL = document.querySelector('[data-base]')?.getAttribute('data-base') || '';
 
     const searchData = [
-      { title: 'SEO Basics', page: 'Level 1: SEO Basics', url: '/level1', content: 'Learn SEO basics including title tags, h1 headings, alt attributes, meta descriptions, and schema markup.', keywords: ['seo', 'basics', 'html', 'title', 'h1', 'alt', 'schema'] },
-      { title: 'Technical SEO', page: 'Level 2: Technical SEO', url: '/level2', content: 'Technical SEO covers robots.txt, HTTP status codes, site speed, mobile optimization, and technical infrastructure.', keywords: ['technical', 'robots', 'status codes', 'speed', 'http'] },
-      { title: 'Advanced GEO', page: 'Level 3: Advanced GEO', url: '/level3', content: 'GEO (Generative Engine Optimization) optimizes for AI-driven search. Focus on facts over fluff and E-E-A-T framework.', keywords: ['geo', 'ai', 'optimization', 'eeat', 'facts', 'chatgpt'] },
-      { title: 'Authority & Channels', page: 'Level 4: Authority & Channels', url: '/level4', content: 'Level 4 covers Off-Page SEO, Local SEO, Google Business Profile, Reviews, Video SEO, and Social Search optimization.', keywords: ['authority', 'off-page', 'local seo', 'reviews', 'video seo', 'social search'] }
+      { title: 'SEO Basics', page: 'Level 1: SEO Basics', url: `${baseURL}/level1`, content: 'Learn SEO basics including title tags, h1 headings, alt attributes, meta descriptions, and schema markup.', keywords: ['seo', 'basics', 'html', 'title', 'h1', 'alt', 'schema'] },
+      { title: 'Technical SEO', page: 'Level 2: Technical SEO', url: `${baseURL}/level2`, content: 'Technical SEO covers robots.txt, HTTP status codes, site speed, mobile optimization, and technical infrastructure.', keywords: ['technical', 'robots', 'status codes', 'speed', 'http'] },
+      { title: 'Advanced GEO', page: 'Level 3: Advanced GEO', url: `${baseURL}/level3`, content: 'GEO (Generative Engine Optimization) optimizes for AI-driven search. Focus on facts over fluff and E-E-A-T framework.', keywords: ['geo', 'ai', 'optimization', 'eeat', 'facts', 'chatgpt'] },
+      { title: 'Authority & Channels', page: 'Level 4: Authority & Channels', url: `${baseURL}/level4`, content: 'Level 4 covers Off-Page SEO, Local SEO, Google Business Profile, Reviews, Video SEO, and Social Search optimization.', keywords: ['authority', 'off-page', 'local seo', 'reviews', 'video seo', 'social search'] }
     ];
 
     function performSearch() {
