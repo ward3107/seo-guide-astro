@@ -182,11 +182,11 @@ const cardId = `level-card-${level}`;
   .topics-list {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.5s ease;
   }
 
   .topics-list[aria-hidden="false"] {
-    max-height: 500px;
+    max-height: 1000px;
   }
 
   .topics-list ul {
@@ -270,19 +270,18 @@ const cardId = `level-card-${level}`;
   }
 </style>
 
-<script>
-  // Find all level cards and attach event listeners
-  document.querySelectorAll('.level-card').forEach(card => {
-    const toggle = card.querySelector('.card-toggle') as HTMLButtonElement;
-    const topicsList = card.querySelector('.topics-list') as HTMLElement;
+<script define:vars={{ cardId }}>
+  // Only target this specific card
+  const card = document.getElementById(cardId);
+  const toggle = card?.querySelector('.card-toggle');
+  const topicsList = card?.querySelector('.topics-list');
 
-    if (toggle && topicsList) {
-      toggle.addEventListener('click', () => {
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+  if (toggle && topicsList) {
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-        toggle.setAttribute('aria-expanded', String(!isExpanded));
-        topicsList.setAttribute('aria-hidden', String(isExpanded));
-      });
-    }
-  });
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      topicsList.setAttribute('aria-hidden', String(isExpanded));
+    });
+  }
 </script>
