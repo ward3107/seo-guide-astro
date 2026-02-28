@@ -185,22 +185,26 @@ const levels = [
     </div>
   </section>
 
-  <!-- Final Test CTA Section -->
-  <section class="final-test-cta" aria-labelledby="final-test-title">
-    <h2 id="final-test-title">🏆 Ready to Test Your Knowledge?</h2>
-    <p>
-      Take the comprehensive Final Exam covering all 4 levels - 40 questions progressing from basics to expert topics.
-      Test your understanding of SEO, Technical SEO, GEO & AI, and Authority Building.
+  <!-- Quiz Options Section -->
+  <section class="quiz-options" aria-labelledby="quiz-title">
+    <h2 id="quiz-title">📝 Test Your Knowledge</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1em;">
+      Choose how you want to test your SEO & GEO skills
     </p>
-    <div class="test-features">
-      <span class="feature">40 Questions</span>
-      <span class="feature">All Levels</span>
-      <span class="feature">Progressive Difficulty</span>
-      <span class="feature">Instant Results</span>
+    <div class="quiz-cards">
+      <a href={`${base}/quick-quiz`} class="quiz-card quick">
+        <span class="quiz-icon">⚡</span>
+        <h3>Quick Quiz</h3>
+        <p>5 questions • Random selection • 5 minutes</p>
+        <span class="quiz-btn">Start Quick Quiz →</span>
+      </a>
+      <a href={`${base}/final-test`} class="quiz-card full">
+        <span class="quiz-icon">🏆</span>
+        <h3>Final Exam</h3>
+        <p>40 questions • All levels • Comprehensive</p>
+        <span class="quiz-btn">Start Final Test →</span>
+      </a>
     </div>
-    <a href={`${base}/final-test`} class="final-test-btn">
-      Start Final Test →
-    </a>
   </section>
 
   <!-- CTA Section -->
@@ -385,6 +389,102 @@ const levels = [
     color: #666;
     font-size: 0.9em;
     margin-top: 5px;
+  }
+
+  /* Quiz Options Section */
+  .quiz-options {
+    margin-bottom: 40px;
+  }
+
+  .quiz-options h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+  }
+
+  .quiz-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .quiz-card {
+    display: block;
+    background: white;
+    border-radius: 20px;
+    padding: 35px 30px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-align: center;
+  }
+
+  .quiz-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .quiz-card.quick {
+    border-color: #667eea;
+  }
+
+  .quiz-card.quick:hover {
+    border-color: #764ba2;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  }
+
+  .quiz-card.full {
+    border-color: #f093fb;
+  }
+
+  .quiz-card.full:hover {
+    border-color: #f5576c;
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.05) 0%, rgba(245, 87, 108, 0.05) 100%);
+  }
+
+  .quiz-icon {
+    font-size: 3em;
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .quiz-card h3 {
+    color: #333;
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+  }
+
+  .quiz-card p {
+    color: #666;
+    margin: 0 0 20px 0;
+    font-size: 1em;
+  }
+
+  .quiz-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all 0.3s ease;
+  }
+
+  .quiz-card.quick .quiz-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .quiz-card.full .quiz-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+  }
+
+  .quiz-card:hover .quiz-btn {
+    transform: scale(1.05);
   }
 
   /* Levels Section */
@@ -578,6 +678,22 @@ const levels = [
 
   :global(body.dark-mode) .final-test-cta p {
     color: #c0c0c0;
+  }
+
+  :global(body.dark-mode) .quiz-options h2 {
+    color: #a8dadc;
+  }
+
+  :global(body.dark-mode) .quiz-card {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .quiz-card h3 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .quiz-card p {
+    color: #b0b0b0;
   }
 
   /* Responsive */
