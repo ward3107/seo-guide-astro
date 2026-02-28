@@ -198,6 +198,12 @@ const levels = [
         <p>5 questions • Random selection • 5 minutes</p>
         <span class="quiz-btn">Start Quick Quiz →</span>
       </a>
+      <a href={`${base}/timed-challenge`} class="quiz-card timed">
+        <span class="quiz-icon">⏱️</span>
+        <h3>Timed Challenge</h3>
+        <p>Race the clock • 40 questions • 3 difficulty modes</p>
+        <span class="quiz-btn">Start Challenge →</span>
+      </a>
       <a href={`${base}/final-test`} class="quiz-card full">
         <span class="quiz-icon">🏆</span>
         <h3>Final Exam</h3>
@@ -437,6 +443,15 @@ const levels = [
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
   }
 
+  .quiz-card.timed {
+    border-color: #ffc107;
+  }
+
+  .quiz-card.timed:hover {
+    border-color: #ff9800;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%);
+  }
+
   .quiz-card.full {
     border-color: #f093fb;
   }
@@ -475,6 +490,11 @@ const levels = [
 
   .quiz-card.quick .quiz-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .quiz-card.timed .quiz-btn {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
     color: white;
   }
 
