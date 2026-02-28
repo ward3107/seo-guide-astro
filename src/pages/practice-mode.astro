@@ -1,0 +1,874 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Practice Mode | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li><a href={`${base}/final-test`}>Final Test</a></li>
+      <li aria-current="page">Practice Mode</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">💡 PRACTICE MODE</span>
+    <h1>Learn with Hints</h1>
+    <p class="subtitle">Practice at your own pace - Get helpful hints when you're stuck</p>
+  </header>
+
+  <section class="practice-intro">
+    <h2>🎯 About Practice Mode</h2>
+    <ul>
+      <li>💡 <strong>Instant Hints</strong> - Get helpful tips for each question</li>
+      <li>✅ <strong>Immediate Feedback</strong> - Learn right away if you're correct</li>
+      <li>📚 <strong>Learn by Doing</strong> - Practice makes perfect</li>
+      <li>🔄 <strong>Unlimited Practice</strong> - Try as many times as you want</li>
+    </ul>
+  </section>
+
+  <div class="practice-container" id="practiceContainer">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text">
+      <span id="progressText">Question 1 of 15</span>
+      <span id="scoreText">Score: 0</span>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <div class="question-header">
+        <span class="question-number" id="questionNumber">Question 1</span>
+        <button class="hint-btn" id="hintBtn" aria-label="Show hint">
+          <span class="hint-icon">💡</span>
+          <span class="hint-text">Show Hint</span>
+        </button>
+      </div>
+
+      <p class="question-text" id="questionText">Loading question...</p>
+
+      <div class="hint-box" id="hintBox" aria-live="polite">
+        <span class="hint-label">💡 Hint:</span>
+        <span class="hint-content" id="hintContent"></span>
+      </div>
+
+      <div class="options" id="optionsContainer">
+        <!-- Options will be injected here -->
+      </div>
+
+      <div class="feedback" id="feedback" aria-live="polite">
+        <span class="feedback-icon" id="feedbackIcon"></span>
+        <span class="feedback-text" id="feedbackText"></span>
+      </div>
+
+      <div class="action-buttons" id="actionButtons" style="display: none;">
+        <button class="next-btn" id="nextBtn">Next Question →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="practice-result" id="practiceResult" style="display: none;">
+    <div class="result-content">
+      <div class="result-score"></div>
+      <div class="result-message"></div>
+      <div class="result-stats">
+        <div class="stat-item">
+          <span class="stat-value" id="statCorrect">0</span>
+          <span class="stat-label">Correct</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statWrong">0</span>
+          <span class="stat-label">Need Practice</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statHints">0</span>
+          <span class="stat-label">Hints Used</span>
+        </div>
+      </div>
+      <button class="retry-btn" id="retryBtn">Practice Again</button>
+      <a href={`${base}/final-test`} class="full-test-btn">Ready for Final Test →</a>
+    </div>
+  </div>
+
+  <div class="back-home">
+    <a href={`${base}/`}>← Back to Home</a>
+  </div>
+</Layout>
+
+<style>
+  .practice-intro {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .practice-intro h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+  }
+
+  .practice-intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .practice-intro li {
+    padding: 12px 0;
+    font-size: 1.05em;
+    color: #555;
+    border-bottom: 1px dashed #ddd;
+  }
+
+  .practice-intro li:last-child {
+    border-bottom: none;
+  }
+
+  .practice-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+
+  .question-card {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .question-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  .hint-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #fff9e6;
+    border: 2px solid #ffc107;
+    border-radius: 25px;
+    color: #856404;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .hint-btn:hover {
+    background: #ffc107;
+    color: white;
+  }
+
+  .hint-btn.hint-shown {
+    background: #ffc107;
+    color: white;
+  }
+
+  .hint-icon {
+    font-size: 1.1em;
+  }
+
+  .question-text {
+    font-size: 1.3em;
+    color: #333;
+    margin: 0 0 25px 0;
+    line-height: 1.5;
+  }
+
+  .hint-box {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+    border-left: 4px solid #ffc107;
+    border-radius: 12px;
+    display: none;
+  }
+
+  .hint-box.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hint-label {
+    font-weight: 600;
+    color: #856404;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .hint-content {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 22px;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+  }
+
+  .option-label:hover:not(.disabled) {
+    border-color: #667eea;
+    background: #f8f9ff;
+    transform: translateX(5px);
+  }
+
+  .option-label.correct {
+    border-color: #28a745;
+    background: #d4edda;
+  }
+
+  .option-label.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
+  }
+
+  .option-label.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .option-letter {
+    background: #f0f0f0;
+    color: #666;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .option-label.correct .option-letter {
+    background: #28a745;
+    color: white;
+  }
+
+  .option-label.incorrect .option-letter {
+    background: #dc3545;
+    color: white;
+  }
+
+  .option-text {
+    flex: 1;
+    font-size: 1.05em;
+  }
+
+  .option-label input[type="radio"] {
+    display: none;
+  }
+
+  .feedback {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  .feedback.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .feedback.correct {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-left: 4px solid #28a745;
+  }
+
+  .feedback.incorrect {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-left: 4px solid #dc3545;
+  }
+
+  .feedback-icon {
+    font-size: 2em;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .feedback-text {
+    font-size: 1.1em;
+    color: #333;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  .next-btn {
+    padding: 15px 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .next-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  .practice-result {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .result-score {
+    font-size: 4em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .result-score.excellent {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-score.good {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-score.needs-work {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-message {
+    font-size: 1.4em;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #667eea;
+  }
+
+  .stat-label {
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  .retry-btn, .full-test-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .retry-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+  }
+
+  .full-test-btn {
+    background: #f8f9fa;
+    color: #667eea;
+    border: 2px solid #667eea;
+  }
+
+  .retry-btn:hover, .full-test-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .back-home a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .practice-intro {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .practice-intro li {
+    color: #b0b0b0;
+    border-bottom-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .question-card,
+  :global(body.dark-mode) .practice-result {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .question-text,
+  :global(body.dark-mode) .result-message {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .option-label {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .option-label:hover:not(.disabled) {
+    border-color: #667eea;
+    background: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .option-text {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .hint-box {
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .hint-content {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .stat-value {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .stat-label {
+    color: #b0b0b0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .question-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .result-stats {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .retry-btn, .full-test-btn {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  interface Question {
+    q: string;
+    options: string[];
+    correct: string;
+    hint: string;
+  }
+
+  // Practice questions with hints
+  const practiceQuestions: Question[] = [
+    {
+      q: "What does SEO stand for?",
+      options: ["Search Engine Optimization", "Site Enhancement Organization", "Social Email Outreach", "System Entry Operation"],
+      correct: "a",
+      hint: "Think about what you want your website to do in search engines like Google..."
+    },
+    {
+      q: "Which HTML tag is MOST important for SEO?",
+      options: ["<title> tag", "<meta> tag", "<div> tag", "<span> tag"],
+      correct: "a",
+      hint: "This tag appears in the browser tab and is the first thing users see in search results."
+    },
+    {
+      q: "What is the purpose of robots.txt?",
+      options: ["Control which pages search bots can crawl", "Speed up website", "Block all visitors", "Create sitemaps"],
+      correct: "a",
+      hint: "Think of it as instructions for search engine crawlers - like a security guard telling them which areas they can visit."
+    },
+    {
+      q: "What is GEO (Generative Engine Optimization)?",
+      options: ["Optimizing for AI-powered search engines", "Creating geographic content", "Auto-generating content", "Location optimization"],
+      correct: "a",
+      hint: "GEO is about optimizing for AI systems like ChatGPT and Google's SGE (Search Generative Experience)."
+    },
+    {
+      q: "How many H1 tags should a page have?",
+      options: ["One", "Two or three", "As many as you want", "Zero"],
+      correct: "a",
+      hint: "H1 is like the main title of a book - a book only has one main title."
+    },
+    {
+      q: "What does a 404 status code mean?",
+      options: ["Page not found", "Server error", "Page moved", "Success"],
+      correct: "a",
+      hint: "When you try to visit a page that doesn't exist, the server returns this code."
+    },
+    {
+      q: "What is Schema markup?",
+      options: ["Structured data helping search engines understand content", "Color scheme", "Database structure", "Programming language"],
+      correct: "a",
+      hint: "It's code that helps search engines understand the meaning behind your content - like telling them 'this is a recipe' or 'this is a review'."
+    },
+    {
+      q: "What is the meta description?",
+      options: ["Brief summary for search results", "Main heading", "Keyword list", "Page title"],
+      correct: "a",
+      hint: "It's the short description that appears under your page title in Google search results."
+    },
+    {
+      q: "What is LCP in Core Web Vitals?",
+      options: ["Largest Contentful Paint - loading time", "Link Click Performance", "Last Content Published", "Local Cache Priority"],
+      correct: "a",
+      hint: "It measures how long the largest content element takes to load - like a big image or hero text."
+    },
+    {
+      q: "What is E-E-A-T?",
+      options: ["Experience, Expertise, Authoritativeness, Trustworthiness", "Engine, Engagement, Analytics", "Every Employee Acts Together", "Electronic Exchange Art"],
+      correct: "a",
+      hint: "Google's framework for evaluating content quality - think about what makes you trust a website."
+    },
+    {
+      q: "What is an XML sitemap?",
+      options: ["File listing important pages for search engines", "Visual site map", "User database", "Backup file"],
+      correct: "a",
+      hint: "It's like a table of contents for your website that helps search engines discover all your important pages."
+    },
+    {
+      q: "What is keyword stuffing?",
+      options: ["Overusing keywords unnaturally", "Researching keywords", "Natural keyword usage", "Meta keywords tag"],
+      correct: "a",
+      hint: "It's a black-hat SEO tactic where people repeat keywords excessively - and Google penalizes it!"
+    },
+    {
+      q: "What is the purpose of alt text?",
+      options: ["Describe images for search engines and accessibility", "Make images load faster", "Add effects to images", "Change image colors"],
+      correct: "a",
+      hint: "It helps visually impaired users understand images AND helps search engines know what the image is about."
+    },
+    {
+      q: "What is a 301 redirect?",
+      options: ["Permanent redirect passing SEO value", "Temporary redirect", "Error page", "Success message"],
+      correct: "a",
+      hint: "Use this when a page has permanently moved - it passes the SEO value to the new location."
+    },
+    {
+      q: "What is a canonical tag?",
+      options: ["Tells search engines the preferred version of a page", "Lists all website pages", "Blocks search engines", "Creates XML sitemap"],
+      correct: "a",
+      hint: "Use this when you have similar or duplicate content - it tells Google which version is the 'main' one."
+    }
+  ];
+
+  // Game state
+  let currentQuestion = 0;
+  let score = 0;
+  let correct = 0;
+  let wrong = 0;
+  let hintsUsed = 0;
+  let questionAnswered = false;
+
+  // DOM elements
+  const questionCard = document.getElementById('questionCard');
+  const practiceResult = document.getElementById('practiceResult');
+  const questionNumber = document.getElementById('questionNumber');
+  const questionText = document.getElementById('questionText');
+  const optionsContainer = document.getElementById('optionsContainer');
+  const hintBtn = document.getElementById('hintBtn');
+  const hintBox = document.getElementById('hintBox');
+  const hintContent = document.getElementById('hintContent');
+  const feedback = document.getElementById('feedback');
+  const feedbackIcon = document.getElementById('feedbackIcon');
+  const feedbackText = document.getElementById('feedbackText');
+  const actionButtons = document.getElementById('actionButtons');
+  const nextBtn = document.getElementById('nextBtn');
+  const retryBtn = document.getElementById('retryBtn');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const scoreText = document.getElementById('scoreText');
+
+  // Load question
+  function loadQuestion() {
+    if (!questionNumber || !questionText || !optionsContainer || !hintBox) return;
+
+    const q = practiceQuestions[currentQuestion];
+    questionNumber.textContent = `Question ${currentQuestion + 1}`;
+    questionText.textContent = q.q;
+    if (progressText) progressText.textContent = `Question ${currentQuestion + 1} of ${practiceQuestions.length}`;
+    if (scoreText) scoreText.textContent = `Score: ${score}`;
+
+    // Update progress bar
+    const progress = (currentQuestion / practiceQuestions.length) * 100;
+    if (progressFill) progressFill.style.width = `${progress}%`;
+
+    // Hide hint
+    hintBox.classList.remove('show');
+    if (hintBtn) {
+      hintBtn.classList.remove('hint-shown');
+      (hintBtn.querySelector('.hint-text') as HTMLElement).textContent = 'Show Hint';
+    }
+
+    // Render options
+    optionsContainer.innerHTML = q.options.map((opt: string, index: number) => {
+      const letter = String.fromCharCode(97 + index);
+      return `
+        <label class="option-label" data-value="${letter}">
+          <input type="radio" name="practice-answer" value="${letter}">
+          <span class="option-letter">${letter.toUpperCase()}</span>
+          <span class="option-text">${opt}</span>
+        </label>
+      `;
+    }).join('');
+
+    // Add click handlers
+    const labels = optionsContainer.querySelectorAll('.option-label');
+    labels.forEach(label => {
+      label.addEventListener('click', () => handleAnswer((label as HTMLElement).dataset.value || ''));
+    });
+
+    // Reset state
+    if (feedback) feedback.classList.remove('show', 'correct', 'incorrect');
+    if (actionButtons) actionButtons.style.display = 'none';
+    questionAnswered = false;
+  }
+
+  // Handle hint button
+  hintBtn?.addEventListener('click', () => {
+    if (!hintBox || !hintContent || !hintBtn) return;
+
+    const q = practiceQuestions[currentQuestion];
+    hintContent.textContent = q.hint;
+    hintBox.classList.toggle('show');
+
+    if (hintBox.classList.contains('show')) {
+      hintsUsed++;
+      hintBtn.classList.add('hint-shown');
+      (hintBtn.querySelector('.hint-text') as HTMLElement).textContent = 'Hide Hint';
+    } else {
+      hintBtn.classList.remove('hint-shown');
+      (hintBtn.querySelector('.hint-text') as HTMLElement).textContent = 'Show Hint';
+    }
+  });
+
+  // Handle answer
+  function handleAnswer(value: string) {
+    if (questionAnswered) return;
+    questionAnswered = true;
+
+    const q = practiceQuestions[currentQuestion];
+    const isCorrect = value === q.correct;
+
+    if (isCorrect) {
+      score += 10;
+      correct++;
+      if (scoreText) scoreText.textContent = `Score: ${score}`;
+    } else {
+      wrong++;
+    }
+
+    // Show feedback on options
+    const labels = optionsContainer?.querySelectorAll('.option-label');
+    labels?.forEach(label => {
+      const labelEl = label as HTMLElement;
+      const val = labelEl.dataset.value;
+      labelEl.classList.add('disabled');
+
+      if (val === q.correct) {
+        labelEl.classList.add('correct');
+      } else if (val === value && !isCorrect) {
+        labelEl.classList.add('incorrect');
+      }
+    });
+
+    // Show feedback message
+    if (feedback && feedbackIcon && feedbackText) {
+      feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+      feedbackIcon.textContent = isCorrect ? '✅' : '❌';
+      feedbackText.textContent = isCorrect
+        ? 'Correct! Well done! 🎉'
+        : `Not quite. The correct answer is ${q.correct.toUpperCase()}. Keep learning! 💪`;
+    }
+
+    // Show next button
+    if (actionButtons) actionButtons.style.display = 'block';
+  }
+
+  // Next question
+  nextBtn?.addEventListener('click', () => {
+    currentQuestion++;
+
+    if (currentQuestion >= practiceQuestions.length) {
+      showResults();
+    } else {
+      loadQuestion();
+    }
+  });
+
+  // Show results
+  function showResults() {
+    if (!questionCard || !practiceResult) return;
+
+    questionCard.style.display = 'none';
+    practiceResult.style.display = 'block';
+
+    // Update final progress
+    if (progressFill) progressFill.style.width = '100%';
+
+    // Show stats
+    const statCorrect = document.getElementById('statCorrect');
+    const statWrong = document.getElementById('statWrong');
+    const statHints = document.getElementById('statHints');
+    const finalScore = practiceResult.querySelector('.result-score') as HTMLElement;
+    const messageDiv = practiceResult.querySelector('.result-message') as HTMLElement;
+
+    if (statCorrect) statCorrect.textContent = correct.toString();
+    if (statWrong) statWrong.textContent = wrong.toString();
+    if (statHints) statHints.textContent = hintsUsed.toString();
+
+    const percentage = Math.round((correct / practiceQuestions.length) * 100);
+    let scoreClass = 'needs-work';
+    let message = '';
+
+    if (percentage >= 90) {
+      scoreClass = 'excellent';
+      message = '🏆 Outstanding! You\'re ready for the final test!';
+    } else if (percentage >= 70) {
+      scoreClass = 'good';
+      message = `👏 Great job! You got ${correct} out of ${practiceQuestions.length} correct. Keep practicing!`;
+    } else {
+      message = `📚 Good practice! You got ${correct} correct. Review the levels and try again.`;
+    }
+
+    if (finalScore) {
+      finalScore.textContent = `${percentage}%`;
+      finalScore.className = `result-score ${scoreClass}`;
+    }
+    if (messageDiv) messageDiv.textContent = message;
+  }
+
+  // Retry
+  retryBtn?.addEventListener('click', () => {
+    location.reload();
+  });
+
+  // Initialize
+  loadQuestion();
+</script>

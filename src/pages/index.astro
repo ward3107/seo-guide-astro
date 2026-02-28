@@ -192,6 +192,12 @@ const levels = [
       Choose how you want to test your SEO & GEO skills
     </p>
     <div class="quiz-cards">
+      <a href={`${base}/practice-mode`} class="quiz-card practice">
+        <span class="quiz-icon">💡</span>
+        <h3>Practice Mode</h3>
+        <p>15 questions • Learn with hints • Immediate feedback</p>
+        <span class="quiz-btn">Start Practice →</span>
+      </a>
       <a href={`${base}/quick-quiz`} class="quiz-card quick">
         <span class="quiz-icon">⚡</span>
         <h3>Quick Quiz</h3>
@@ -452,6 +458,15 @@ const levels = [
     background: linear-gradient(135deg, rgba(255, 193, 7, 0.05) 0%, rgba(255, 152, 0, 0.05) 100%);
   }
 
+  .quiz-card.practice {
+    border-color: #20c997;
+  }
+
+  .quiz-card.practice:hover {
+    border-color: #17a2b8;
+    background: linear-gradient(135deg, rgba(32, 201, 151, 0.05) 0%, rgba(23, 162, 184, 0.05) 100%);
+  }
+
   .quiz-card.full {
     border-color: #f093fb;
   }
@@ -495,6 +510,11 @@ const levels = [
 
   .quiz-card.timed .quiz-btn {
     background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: white;
+  }
+
+  .quiz-card.practice .quiz-btn {
+    background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
     color: white;
   }
 
