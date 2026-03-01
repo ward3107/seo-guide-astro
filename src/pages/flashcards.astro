@@ -88,6 +88,7 @@ const base = import.meta.env.BASE_URL;
     <!-- Action Buttons -->
     <div class="action-buttons">
       <button class="shuffle-btn" id="shuffleBtn">🔀 Shuffle Cards</button>
+      <button class="practice-mode-btn" id="practiceModeBtn" style="display: none;">📚 Study Practice Cards</button>
       <button class="reset-btn" id="resetBtn">🔄 Reset Progress</button>
     </div>
   </div>
@@ -384,6 +385,21 @@ const base = import.meta.env.BASE_URL;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
 
+  .practice-mode-btn {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: white;
+    display: none;
+  }
+
+  .practice-mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+  }
+
+  .practice-mode-btn.active {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  }
+
   .back-home {
     text-align: center;
     margin: 40px 0;
@@ -518,6 +534,7 @@ const base = import.meta.env.BASE_URL;
   let currentIndex = 0;
   let filteredCards = [...flashcards];
   let cardStatus: Record<number, 'known' | 'practice' | null> = {};
+  let isPracticeMode = false;
 
   // DOM elements
   const flashcard = document.getElementById('flashcard');
@@ -536,6 +553,7 @@ const base = import.meta.env.BASE_URL;
   const practiceBtn = document.getElementById('practiceBtn');
   const shuffleBtn = document.getElementById('shuffleBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const practiceModeBtn = document.getElementById('practiceModeBtn');
 
   const categoryNames: Record<string, string> = {
     basics: 'SEO Basics',
@@ -595,17 +613,54 @@ const base = import.meta.env.BASE_URL;
 
     if (knownCountEl) knownCountEl.textContent = known.toString();
     if (practiceCountEl) practiceCountEl.textContent = practice.toString();
+
+    // Show/hide practice mode button
+    if (practiceModeBtn) {
+      if (practice > 0) {
+        practiceModeBtn.style.display = 'inline-block';
+        if (isPracticeMode) {
+          practiceModeBtn.textContent = '← Show All Cards';
+          practiceModeBtn.classList.add('active');
+        } else {
+          practiceModeBtn.textContent = `📚 Study Practice Cards (${practice})`;
+          practiceModeBtn.classList.remove('active');
+        }
+      } else {
+        practiceModeBtn.style.display = 'none';
+        if (isPracticeMode) {
+          // Exit practice mode if no practice cards left
+          isPracticeMode = false;
+          applyCurrentFilter();
+        }
+      }
+    }
   }
 
   // Filter cards by category
   function filterCards(category: string) {
-    if (category === 'all') {
-      filteredCards = [...flashcards];
-    } else {
-      filteredCards = flashcards.filter(c => c.category === category);
+    let cards = category === 'all' ? [...flashcards] : flashcards.filter(c => c.category === category);
+
+    // Apply practice mode filter if active
+    if (isPracticeMode) {
+      cards = cards.filter(c => cardStatus[flashcards.indexOf(c)] === 'practice');
     }
+
+    filteredCards = cards;
     currentIndex = 0;
     updateCard();
+  }
+
+  // Apply current filter (category + practice mode)
+  function applyCurrentFilter() {
+    const category = (categorySelect as HTMLSelectElement).value;
+    filterCards(category);
+  }
+
+  // Toggle practice mode
+  function togglePracticeMode() {
+    isPracticeMode = !isPracticeMode;
+    updateStats();
+    applyCurrentFilter();
   }
 
   // Flip card
@@ -677,6 +732,7 @@ const base = import.meta.env.BASE_URL;
   practiceBtn?.addEventListener('click', () => markCard('practice'));
   shuffleBtn?.addEventListener('click', shuffleCards);
   resetBtn?.addEventListener('click', resetProgress);
+  practiceModeBtn?.addEventListener('click', togglePracticeMode);
 
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
