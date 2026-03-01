@@ -137,17 +137,11 @@ const levels = [
       <!-- Social Share Buttons -->
       <div class="social-share">
         <span class="share-label">Share this portfolio:</span>
-        <a href="https://twitter.com/intent/tweet?text=Check%20out%20Waseem's%20SEO%20%26%20GEO%20portfolio!%20https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn twitter">
-          🐦 Tweet
-        </a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn linkedin">
-          💼 LinkedIn
-        </a>
         <a href="https://wa.me/?text=Check%20out%20this%20amazing%20SEO%20portfolio!%20https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp">
           💬 WhatsApp
         </a>
-        <button class="share-btn copy" onclick="copyURL()" id="copyBtn">
-          📋 Copy Link
+        <button class="share-btn share" onclick="shareContent()" id="shareBtn">
+          📤 Share
         </button>
       </div>
 
@@ -309,10 +303,12 @@ const levels = [
       justify-content: center;
       z-index: 1000;
       transition: all 0.3s ease;
+      opacity: 0.5;
     }
 
     .theme-toggle:hover {
       transform: scale(1.1);
+      opacity: 1;
     }
 
     body.dark-mode .theme-toggle {
@@ -338,10 +334,15 @@ const levels = [
       justify-content: center;
       z-index: 999;
       transition: all 0.3s ease;
+      opacity: 0.5;
     }
 
     .back-to-top.show {
       display: flex;
+    }
+
+    .back-to-top:hover {
+      opacity: 1;
     }
 
     body.dark-mode .back-to-top {
@@ -418,22 +419,12 @@ const levels = [
       font-weight: 600;
     }
 
-    .share-btn.twitter {
-      background: #1DA1F2;
-      color: white;
-    }
-
-    .share-btn.linkedin {
-      background: #0077B5;
-      color: white;
-    }
-
     .share-btn.whatsapp {
       background: #25D366;
       color: white;
     }
 
-    .share-btn.copy {
+    .share-btn.share {
       background: #6c757d;
       color: white;
     }
@@ -530,14 +521,32 @@ const levels = [
       });
     }
 
-    // Copy URL
-    function copyURL() {
-      navigator.clipboard.writeText(window.location.href);
-      const copyBtn = document.getElementById('copyBtn');
-      if (copyBtn) {
-        copyBtn.textContent = '✓ Copied!';
+    // Share content using Web Share API
+    function shareContent() {
+      const shareData = {
+        title: 'Waseem | English Teacher & Full-Stack SEO Developer',
+        text: "Check out Waseem's SEO & GEO portfolio!",
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {
+          // Fallback to copy if share fails or is canceled
+          copyToClipboard(window.location.href);
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        copyToClipboard(window.location.href);
+      }
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      const shareBtn = document.getElementById('shareBtn');
+      if (shareBtn) {
+        shareBtn.textContent = '✓ Copied!';
         setTimeout(() => {
-          copyBtn.textContent = '📋 Copy Link';
+          shareBtn.textContent = '📤 Share';
         }, 2000);
       }
     }

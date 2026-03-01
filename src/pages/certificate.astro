@@ -13,95 +13,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 ---
 
 <Layout title="Certificate | Waseem's SEO Guide">
-  <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <ol>
-      <li><a href={`${base}/`}>Home</a></li>
-      <li aria-current="page">Certificate</li>
-    </ol>
-  </nav>
-
-  <header>
-    <span class="badge">🎓 CERTIFICATE</span>
-    <h1>Certificate of Completion</h1>
-    <p class="subtitle">Congratulations on completing Waseem's SEO & GEO Course!</p>
-  </header>
-
-  <section class="certificate-intro">
-    <h2>🏆 Your Achievement</h2>
-    <p>Enter your name below to generate your personalized certificate of completion for the SEO & GEO Mastery Course.</p>
-  </section>
-
-  <div class="certificate-generator">
-    <div class="input-section">
-      <label for="studentName" class="name-label">Enter Your Full Name:</label>
-      <div class="input-group">
-        <input
-          type="text"
-          id="studentName"
-          name="studentName"
-          placeholder="John Doe"
-          maxlength="50"
-          aria-label="Enter your full name for the certificate"
-        />
-        <button class="generate-btn" id="generateBtn">Generate Certificate</button>
-      </div>
-      <p class="input-hint">Your name will appear on the certificate exactly as you type it.</p>
-    </div>
-
-    <div class="certificate-preview" id="certificatePreview">
-      <div class="certificate-border">
-        <div class="certificate-inner">
-          <!-- Certificate Header -->
-          <div class="cert-header">
-            <div class="cert-logo">🎓</div>
-            <h1 class="cert-title">Certificate of Completion</h1>
-            <p class="cert-subtitle">SEO & GEO Mastery Course</p>
-          </div>
-
-          <!-- Certificate Body -->
-          <div class="cert-body">
-            <p class="cert-presentation">This is to proudly certify that</p>
-            <p class="cert-name" id="certName">[Your Name]</p>
-            <p class="cert-description">
-              has successfully completed the comprehensive SEO & GEO Mastery Course,
-              demonstrating proficiency in:
-            </p>
-            <ul class="cert-skills">
-              <li>Search Engine Optimization (SEO) Fundamentals</li>
-              <li>Technical SEO & Performance Optimization</li>
-              <li>Generative Engine Optimization (GEO)</li>
-              <li>Local SEO & Authority Building</li>
-            </ul>
-          </div>
-
-          <!-- Certificate Footer -->
-          <div class="cert-footer">
-            <div class="cert-date">
-              <span class="date-label">Date of Completion</span>
-              <span class="date-value" id="certDate">{formattedDate}</span>
-            </div>
-            <div class="cert-instructor">
-              <span class="instructor-label">Course Instructor</span>
-              <span class="instructor-value">Waseem</span>
-            </div>
-            <div class="cert-seal">
-              <div class="seal-inner">✓</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="action-buttons">
-      <button class="print-btn" id="printBtn">🖨️ Print Certificate</button>
-      <button class="download-btn" id="downloadBtn">⬇️ Download as Image</button>
-      <a href={`${base}/`} class="home-btn">← Back to Home</a>
-    </div>
-  </div>
-
-  <section class="certificate-note">
-    <p>💡 <strong>Tip:</strong> For best results when printing, use landscape orientation and high-quality paper.</p>
-  </section>
+  <div id="certificateContent"></div>
 </Layout>
 
 <style>
@@ -440,6 +352,88 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
     color: #b0b0b0;
   }
 
+  /* Certificate Locked Styles */
+  .certificate-locked {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    margin: 40px 0;
+    border: 2px solid #ffc107;
+  }
+
+  .locked-content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .lock-icon {
+    font-size: 4em;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .certificate-locked h2 {
+    color: #856404;
+    margin-bottom: 15px;
+  }
+
+  .certificate-locked p {
+    color: #856404;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .level-status {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .level-status p {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .level-status ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  :global(body.dark-mode) .certificate-locked {
+    background: linear-gradient(135deg, #3a3a2a 0%, #4a4a3a 100%);
+    border-color: #6a6a4a;
+  }
+
+  :global(body.dark-mode) .certificate-locked h2,
+  :global(body.dark-mode) .certificate-locked p {
+    color: #d4c77a;
+  }
+
+  :global(body.dark-mode) .level-status {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
   /* Print styles */
   @media print {
     body * {
@@ -517,50 +511,164 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 </style>
 
-<script>
-  const generateBtn = document.getElementById('generateBtn');
-  const printBtn = document.getElementById('printBtn');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const studentNameInput = document.getElementById('studentName') as HTMLInputElement;
-  const certName = document.getElementById('certName');
+<script is:inline>
+  (function() {
+    const base = '/seo-guide-astro/';
+    const storageKey = 'seoCourseProgress';
+    const stored = localStorage.getItem(storageKey);
+    const progress = stored ? JSON.parse(stored) : {
+      levels: {
+        level1: { completed: false },
+        level2: { completed: false },
+        level3: { completed: false },
+        level4: { completed: false }
+      }
+    };
 
-  // Generate certificate with user's name
-  generateBtn?.addEventListener('click', () => {
-    if (!studentNameInput || !certName) return;
+    const allCompleted = progress.levels.level1.completed &&
+                        progress.levels.level2.completed &&
+                        progress.levels.level3.completed &&
+                        progress.levels.level4.completed;
 
-    const name = studentNameInput.value.trim();
-    if (name) {
-      certName.textContent = name;
-      certName.style.color = '#667eea';
+    const container = document.getElementById('certificateContent');
 
-      // Scroll to certificate
-      certName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (allCompleted) {
+      // Show certificate
+      const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      container.innerHTML = `
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${base}/">Home</a></li>
+            <li aria-current="page">Certificate</li>
+          </ol>
+        </nav>
+        <header>
+          <span class="badge">🎓 CERTIFICATE</span>
+          <h1>Certificate of Completion</h1>
+          <p class="subtitle">Congratulations on completing Waseem's SEO & GEO Course!</p>
+        </header>
+        <section class="certificate-intro">
+          <h2>🏆 Your Achievement</h2>
+          <p>Enter your name below to generate your personalized certificate of completion for the SEO & GEO Mastery Course.</p>
+        </section>
+        <div class="certificate-generator">
+          <div class="input-section">
+            <label for="studentName" class="name-label">Enter Your Full Name:</label>
+            <div class="input-group">
+              <input type="text" id="studentName" name="studentName" placeholder="John Doe" maxlength="50" aria-label="Enter your full name for the certificate" />
+              <button class="generate-btn" id="generateBtn">Generate Certificate</button>
+            </div>
+            <p class="input-hint">Your name will appear on the certificate exactly as you type it.</p>
+          </div>
+        </div>
+        <div class="certificate-preview" id="certificatePreview">
+          <div class="certificate-border">
+            <div class="certificate-inner">
+              <div class="cert-header">
+                <div class="cert-logo">🎓</div>
+                <h1 class="cert-title">Certificate of Completion</h1>
+                <p class="cert-subtitle">SEO & GEO Mastery Course</p>
+              </div>
+              <div class="cert-body">
+                <p class="cert-presentation">This is to proudly certify that</p>
+                <p class="cert-name" id="certName">[Your Name]</p>
+                <p class="cert-description">has successfully completed the comprehensive SEO & GEO Mastery Course, demonstrating proficiency in:</p>
+                <ul class="cert-skills">
+                  <li>Search Engine Optimization (SEO) Fundamentals</li>
+                  <li>Technical SEO & Performance Optimization</li>
+                  <li>Generative Engine Optimization (GEO)</li>
+                  <li>Local SEO & Authority Building</li>
+                </ul>
+              </div>
+              <div class="cert-footer">
+                <div class="cert-date">
+                  <span class="date-label">Date of Completion</span>
+                  <span class="date-value" id="certDate">${currentDate}</span>
+                </div>
+                <div class="cert-instructor">
+                  <span class="instructor-label">Course Instructor</span>
+                  <span class="instructor-value">Waseem</span>
+                </div>
+                <div class="cert-seal">
+                  <div class="seal-inner">✓</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="print-btn" id="printBtn">🖨️ Print Certificate</button>
+          <button class="download-btn" id="downloadBtn">⬇️ Download as Image</button>
+          <a href="${base}/" class="home-btn">← Back to Home</a>
+        </div>
+        <section class="certificate-note">
+          <p>💡 <strong>Tip:</strong> For best results when printing, use landscape orientation and high-quality paper.</p>
+        </section>
+      `;
+
+      // Attach event listeners
+      document.getElementById('generateBtn').addEventListener('click', function() {
+        const studentNameInput = document.getElementById('studentName');
+        const certName = document.getElementById('certName');
+        if (!studentNameInput || !certName) return;
+        const name = studentNameInput.value.trim();
+        if (name) {
+          certName.textContent = name;
+          certName.style.color = '#667eea';
+          certName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          studentNameInput.style.borderColor = '#dc3545';
+          setTimeout(function() { studentNameInput.style.borderColor = '#e0e0e0'; }, 1000);
+          studentNameInput.focus();
+        }
+      });
+
+      document.getElementById('studentName').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') document.getElementById('generateBtn').click();
+      });
+
+      document.getElementById('printBtn').addEventListener('click', function() { window.print(); });
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        alert("To save as PDF:\n\n1. Click Print\n2. Select \"Save as PDF\" as the destination\n3. Click Save\n\nAlternatively, use your browser's screenshot tool to capture the certificate.");
+        window.print();
+      });
     } else {
-      // Flash the input to indicate it's required
-      studentNameInput.style.borderColor = '#dc3545';
-      setTimeout(() => {
-        studentNameInput.style.borderColor = '#e0e0e0';
-      }, 1000);
-      studentNameInput.focus();
+      // Show locked message
+      const levels = [
+        { name: 'Level 1: SEO Basics', completed: progress.levels.level1.completed },
+        { name: 'Level 2: Technical SEO', completed: progress.levels.level2.completed },
+        { name: 'Level 3: Advanced GEO', completed: progress.levels.level3.completed },
+        { name: 'Level 4: Authority & Channels', completed: progress.levels.level4.completed }
+      ];
+
+      let levelListHtml = '';
+      for (var i = 0; i < levels.length; i++) {
+        var level = levels[i];
+        var color = level.completed ? '#28a745' : '#dc3545';
+        var icon = level.completed ? '✅' : '❌';
+        levelListHtml += '<li style="color: ' + color + '; margin-bottom: 8px;">' + icon + ' ' + level.name + '</li>';
+      }
+
+      container.innerHTML = `
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="${base}/">Home</a></li>
+            <li aria-current="page">Certificate</li>
+          </ol>
+        </nav>
+        <div class="certificate-locked">
+          <div class="locked-content">
+            <span class="lock-icon">🔒</span>
+            <h2>Certificate Locked</h2>
+            <p>You need to complete all 4 levels before you can access your certificate.</p>
+            <div class="level-status">
+              <p>Your progress:</p>
+              <ul id="levelProgressList">${levelListHtml}</ul>
+            </div>
+            <a href="${base}/" class="back-btn">← Back to Course</a>
+          </div>
+        </div>
+      `;
     }
-  });
-
-  // Allow Enter key to generate
-  studentNameInput?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      generateBtn?.click();
-    }
-  });
-
-  // Print certificate
-  printBtn?.addEventListener('click', () => {
-    window.print();
-  });
-
-  // Download as image (using html2canvas would be ideal, but simple print works for now)
-  downloadBtn?.addEventListener('click', () => {
-    // For now, redirect to print dialog with instructions
-    alert('To save as PDF:\n\n1. Click Print\n2. Select "Save as PDF" as the destination\n3. Click Save\n\nAlternatively, use your browser\'s screenshot tool to capture the certificate.');
-    window.print();
-  });
+  })();
 </script>

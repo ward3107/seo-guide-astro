@@ -217,8 +217,8 @@ const levels = [
         <span class="quiz-btn">Start Final Test →</span>
       </a>
     </div>
-    <div class="certificate-cta">
-      <p>🎓 Completed the course? <a href={`${base}/certificate`}>Get your Certificate</a></p>
+    <div class="certificate-cta" id="certificateCta">
+      <p>🎓 Completed the course? <a href={`${base}/certificate`} id="certificateLink">Get your Certificate</a></p>
     </div>
     <div class="progress-cta">
       <p>📊 Track your learning progress: <a href={`${base}/progress`}>View Progress Dashboard</a></p>
@@ -889,3 +889,55 @@ const levels = [
     }
   }
 </style>
+
+<script>
+  // Check if all levels are completed before showing certificate link
+  function checkCertificateAccess() {
+    const storageKey = 'seoCourseProgress';
+    const stored = localStorage.getItem(storageKey);
+    const progress = stored ? JSON.parse(stored) : {
+      levels: {
+        level1: { completed: false, progress: 0 },
+        level2: { completed: false, progress: 0 },
+        level3: { completed: false, progress: 0 },
+        level4: { completed: false, progress: 0 }
+      }
+    };
+
+    const certificateCta = document.getElementById('certificateCta');
+    const certificateLink = document.getElementById('certificateLink');
+
+    if (!certificateCta || !certificateLink) return;
+
+    // Check if all 4 levels are completed
+    const allCompleted = progress.levels.level1.completed &&
+                        progress.levels.level2.completed &&
+                        progress.levels.level3.completed &&
+                        progress.levels.level4.completed;
+
+    if (allCompleted) {
+      // Show certificate link
+      certificateLink.style.display = 'inline';
+    } else {
+      // Show locked message
+      certificateLink.style.display = 'none';
+      const lockedMsg = document.createElement('span');
+      lockedMsg.id = 'certificateLocked';
+      lockedMsg.style.color = '#999';
+      lockedMsg.style.fontStyle = 'italic';
+      lockedMsg.textContent = ' Complete all 4 levels to unlock your certificate';
+
+      // Don't duplicate message
+      const existingMsg = document.getElementById('certificateLocked');
+      if (!existingMsg) {
+        certificateCta.querySelector('p')?.appendChild(lockedMsg);
+      }
+    }
+  }
+
+  // Run check on page load
+  checkCertificateAccess();
+
+  // Also check when storage changes (user might complete a level in another tab)
+  window.addEventListener('storage', checkCertificateAccess);
+</script>
