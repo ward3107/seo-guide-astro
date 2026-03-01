@@ -81,13 +81,13 @@ const base = import.meta.env.BASE_URL;
   }
 
   .overall-progress-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     border-radius: 25px;
     padding: 50px;
     text-align: center;
     color: white;
     margin-bottom: 40px;
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-lg);
   }
 
   .progress-circle {
@@ -151,17 +151,17 @@ const base = import.meta.env.BASE_URL;
   .level-progress-section,
   .quiz-progress-section,
   .achievements-section {
-    background: white;
+    background: var(--color-surface);
     border-radius: 20px;
     padding: 35px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
   }
 
   .level-progress-section h2,
   .quiz-progress-section h2,
   .achievements-section h2 {
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 25px 0;
     font-size: 1.6em;
   }
@@ -175,23 +175,23 @@ const base = import.meta.env.BASE_URL;
   .level-card {
     padding: 25px;
     border-radius: 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     transition: all 0.3s ease;
   }
 
   .level-card.completed {
     background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-    border-color: #28a745;
+    border-color: var(--color-success);
   }
 
   .level-card.in-progress {
     background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
-    border-color: #ffc107;
+    border-color: var(--color-warning);
   }
 
   .level-card.not-started {
-    background: #f8f9fa;
-    border-color: #e0e0e0;
+    background: var(--color-surface-elevated);
+    border-color: var(--color-border);
   }
 
   .level-card-header {
@@ -202,7 +202,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .level-number {
-    background: #667eea;
+    background: var(--color-brand-primary);
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -211,7 +211,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .level-card.completed .level-number {
-    background: #28a745;
+    background: var(--color-success);
   }
 
   .level-status {
@@ -220,7 +220,7 @@ const base = import.meta.env.BASE_URL;
 
   .level-title {
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 10px 0;
     font-size: 1.1em;
   }
@@ -235,13 +235,13 @@ const base = import.meta.env.BASE_URL;
 
   .level-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     width: 0%;
     transition: width 0.5s ease;
   }
 
   .level-card.completed .level-progress-fill {
-    background: #28a745;
+    background: var(--color-success);
   }
 
   .quiz-stats-grid {
@@ -253,7 +253,7 @@ const base = import.meta.env.BASE_URL;
   .quiz-stat-card {
     padding: 25px;
     border-radius: 15px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     text-align: center;
   }
 
@@ -264,19 +264,19 @@ const base = import.meta.env.BASE_URL;
 
   .quiz-stat-title {
     font-size: 0.9em;
-    color: #666;
+    color: var(--color-text-muted);
     margin: 0 0 5px 0;
   }
 
   .quiz-stat-value {
     font-size: 2em;
     font-weight: bold;
-    color: #333;
+    color: var(--color-text);
   }
 
   .quiz-stat-score {
     font-size: 0.9em;
-    color: #666;
+    color: var(--color-text-muted);
     margin-top: 5px;
   }
 
@@ -290,7 +290,7 @@ const base = import.meta.env.BASE_URL;
     padding: 20px;
     border-radius: 15px;
     text-align: center;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     opacity: 0.5;
     filter: grayscale(1);
     transition: all 0.3s ease;
@@ -299,7 +299,7 @@ const base = import.meta.env.BASE_URL;
   .achievement.unlocked {
     opacity: 1;
     filter: grayscale(0);
-    border-color: #ffc107;
+    border-color: var(--color-warning);
     background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
   }
 
@@ -310,14 +310,14 @@ const base = import.meta.env.BASE_URL;
 
   .achievement-name {
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 5px 0;
     font-size: 0.95em;
   }
 
   .achievement-desc {
     font-size: 0.8em;
-    color: #666;
+    color: var(--color-text-muted);
     margin: 0;
   }
 
@@ -340,13 +340,13 @@ const base = import.meta.env.BASE_URL;
   }
 
   .reset-btn {
-    background: #f8f9fa;
-    color: #dc3545;
-    border: 2px solid #dc3545;
+    background: var(--color-surface-elevated);
+    color: var(--color-error);
+    border: 2px solid var(--color-error);
   }
 
   .continue-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     border: none;
   }
@@ -354,7 +354,7 @@ const base = import.meta.env.BASE_URL;
   .reset-btn:hover,
   .continue-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-sm);
   }
 
   .back-home {
@@ -365,48 +365,58 @@ const base = import.meta.env.BASE_URL;
   .back-home a {
     display: inline-block;
     padding: 15px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-md);
   }
 
   .back-home a:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-lg);
   }
 
   /* Dark mode */
   :global(body.dark-mode) .level-progress-section,
   :global(body.dark-mode) .quiz-progress-section,
-  :global(body.dark-mode) .achievements-section {
-    background: #252540;
+  :global(body.dark-mode) .achievements-section,
+  :global([data-theme="dark"]) .level-progress-section,
+  :global([data-theme="dark"]) .quiz-progress-section,
+  :global([data-theme="dark"]) .achievements-section {
+    background: var(--color-surface-elevated);
   }
 
   :global(body.dark-mode) .level-progress-section h2,
   :global(body.dark-mode) .quiz-progress-section h2,
-  :global(body.dark-mode) .achievements-section h2 {
-    color: #e0e0e0;
+  :global(body.dark-mode) .achievements-section h2,
+  :global([data-theme="dark"]) .level-progress-section h2,
+  :global([data-theme="dark"]) .quiz-progress-section h2,
+  :global([data-theme="dark"]) .achievements-section h2 {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .level-card.not-started {
+  :global(body.dark-mode) .level-card.not-started,
+  :global([data-theme="dark"]) .level-card.not-started {
     background: #2a2a4a;
-    border-color: #3a3a5a;
+    border-color: var(--color-border);
   }
 
-  :global(body.dark-mode) .level-title {
-    color: #e0e0e0;
+  :global(body.dark-mode) .level-title,
+  :global([data-theme="dark"]) .level-title {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .quiz-stat-card {
+  :global(body.dark-mode) .quiz-stat-card,
+  :global([data-theme="dark"]) .quiz-stat-card {
     background: #2a2a4a;
   }
 
-  :global(body.dark-mode) .quiz-stat-value {
-    color: #e0e0e0;
+  :global(body.dark-mode) .quiz-stat-value,
+  :global([data-theme="dark"]) .quiz-stat-value {
+    color: var(--color-text);
   }
 
   :global(body.dark-mode) .achievement-name {
