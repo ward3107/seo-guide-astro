@@ -274,6 +274,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
       let score = 0;
       let total = questions.length;
       const passingScore = Astro.props.passingScore;
+      const quizId = Astro.props.id;
 
       questions.forEach((question) => {
         const selected = question.querySelector('input[type="radio"]:checked') as HTMLInputElement;
@@ -315,8 +316,50 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
       resultDiv.className = `quiz-result show ${passed ? 'pass' : 'fail'}`;
 
+      // Save progress to localStorage
+      saveQuizProgress(quizId, percentage, total);
+
       // Scroll to result
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
+
+  // Save quiz progress to localStorage
+  function saveQuizProgress(quizId: string, score: number, total: number) {
+    const storageKey = 'seoCourseProgress';
+    const stored = localStorage.getItem(storageKey);
+    const progress = stored ? JSON.parse(stored) : {
+      levels: {
+        level1: { completed: false, progress: 0 },
+        level2: { completed: false, progress: 0 },
+        level3: { completed: false, progress: 0 },
+        level4: { completed: false, progress: 0 }
+      },
+      quizzes: {
+        quickQuiz: { taken: 0, bestScore: 0 },
+        timedChallenge: { taken: 0, bestScore: 0 },
+        practiceMode: { taken: 0, bestScore: 0 },
+        finalTest: { taken: 0, bestScore: 0 }
+      },
+      achievements: []
+    };
+
+    // Map quiz IDs to progress keys
+    const quizKeyMap: Record<string, 'quickQuiz' | 'timedChallenge' | 'practiceMode' | 'finalTest'> = {
+      'final-test': 'finalTest',
+      'quick-quiz': 'quickQuiz',
+      'timed-challenge': 'timedChallenge',
+      'practice-mode': 'practiceMode'
+    };
+
+    const progressKey = quizKeyMap[quizId];
+    if (progressKey && progress.quizzes[progressKey]) {
+      progress.quizzes[progressKey].taken++;
+      if (score > progress.quizzes[progressKey].bestScore) {
+        progress.quizzes[progressKey].bestScore = score;
+      }
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(progress));
+  }
 </script>

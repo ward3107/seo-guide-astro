@@ -1,0 +1,675 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Progress Tracker | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Progress</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">📊 PROGRESS TRACKER</span>
+    <h1>Your Learning Journey</h1>
+    <p class="subtitle">Track your progress through the SEO & GEO Mastery Course</p>
+  </header>
+
+  <div class="progress-dashboard" id="progressDashboard">
+    <!-- Overall Progress Card -->
+    <div class="overall-progress-card">
+      <div class="progress-circle">
+        <svg viewBox="0 0 100 100" class="progress-ring">
+          <circle cx="50" cy="50" r="45" class="progress-ring-bg"/>
+          <circle cx="50" cy="50" r="45" class="progress-ring-fill" id="overallRing"/>
+        </svg>
+        <div class="progress-text">
+          <span class="progress-percentage" id="overallPercentage">0%</span>
+          <span class="progress-label">Complete</span>
+        </div>
+      </div>
+      <h2>Overall Progress</h2>
+      <p class="overall-stats">
+        <span id="levelsCompleted">0</span> of 4 levels completed •
+        <span id="quizzesTaken">0</span> quizzes taken
+      </p>
+    </div>
+
+    <!-- Level Progress -->
+    <div class="level-progress-section">
+      <h2>📚 Level Progress</h2>
+      <div class="level-cards" id="levelCards">
+        <!-- Level cards will be injected by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Quiz Progress -->
+    <div class="quiz-progress-section">
+      <h2>📝 Quiz Performance</h2>
+      <div class="quiz-stats-grid" id="quizStats">
+        <!-- Quiz stats will be injected by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="achievements-section">
+      <h2>🏆 Achievements</h2>
+      <div class="achievements-grid" id="achievements">
+        <!-- Achievements will be injected by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="reset-btn" id="resetBtn">🔄 Reset Progress</button>
+      <a href={`${base}/`} class="continue-btn">Continue Learning →</a>
+    </div>
+  </div>
+
+  <div class="back-home">
+    <a href={`${base}/`}>← Back to Home</a>
+  </div>
+</Layout>
+
+<style>
+  .progress-dashboard {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+  }
+
+  .overall-progress-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 25px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+  }
+
+  .progress-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+  }
+
+  .progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .progress-ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 8;
+  }
+
+  .progress-ring-fill {
+    fill: none;
+    stroke: white;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 1s ease;
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .progress-percentage {
+    display: block;
+    font-size: 3em;
+    font-weight: bold;
+  }
+
+  .progress-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+
+  .overall-progress-card h2 {
+    margin: 0 0 15px 0;
+    font-size: 2em;
+  }
+
+  .overall-stats {
+    font-size: 1.2em;
+    opacity: 0.9;
+  }
+
+  .level-progress-section,
+  .quiz-progress-section,
+  .achievements-section {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .level-progress-section h2,
+  .quiz-progress-section h2,
+  .achievements-section h2 {
+    color: #333;
+    margin: 0 0 25px 0;
+    font-size: 1.6em;
+  }
+
+  .level-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .level-card {
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+  }
+
+  .level-card.completed {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #28a745;
+  }
+
+  .level-card.in-progress {
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+    border-color: #ffc107;
+  }
+
+  .level-card.not-started {
+    background: #f8f9fa;
+    border-color: #e0e0e0;
+  }
+
+  .level-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .level-number {
+    background: #667eea;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  .level-card.completed .level-number {
+    background: #28a745;
+  }
+
+  .level-status {
+    font-size: 1.5em;
+  }
+
+  .level-title {
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+  }
+
+  .level-progress-bar {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .level-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .level-card.completed .level-progress-fill {
+    background: #28a745;
+  }
+
+  .quiz-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .quiz-stat-card {
+    padding: 25px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    text-align: center;
+  }
+
+  .quiz-stat-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  .quiz-stat-title {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0 0 5px 0;
+  }
+
+  .quiz-stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .quiz-stat-score {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+
+  .achievement {
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+    opacity: 0.5;
+    filter: grayscale(1);
+    transition: all 0.3s ease;
+  }
+
+  .achievement.unlocked {
+    opacity: 1;
+    filter: grayscale(0);
+    border-color: #ffc107;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+  }
+
+  .achievement-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  .achievement-name {
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 5px 0;
+    font-size: 0.95em;
+  }
+
+  .achievement-desc {
+    font-size: 0.8em;
+    color: #666;
+    margin: 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .reset-btn,
+  .continue-btn {
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .reset-btn {
+    background: #f8f9fa;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+  }
+
+  .continue-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+  }
+
+  .reset-btn:hover,
+  .continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .back-home {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .back-home a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .level-progress-section,
+  :global(body.dark-mode) .quiz-progress-section,
+  :global(body.dark-mode) .achievements-section {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .level-progress-section h2,
+  :global(body.dark-mode) .quiz-progress-section h2,
+  :global(body.dark-mode) .achievements-section h2 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .level-card.not-started {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .level-title {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .quiz-stat-card {
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .quiz-stat-value {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .achievement-name {
+    color: #e0e0e0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .overall-progress-card {
+      padding: 30px 20px;
+    }
+
+    .progress-circle {
+      width: 150px;
+      height: 150px;
+    }
+
+    .progress-percentage {
+      font-size: 2.5em;
+    }
+
+    .overall-progress-card h2 {
+      font-size: 1.5em;
+    }
+
+    .overall-stats {
+      font-size: 1em;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .reset-btn,
+    .continue-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  interface ProgressData {
+    levels: {
+      level1: { completed: boolean; progress: number };
+      level2: { completed: boolean; progress: number };
+      level3: { completed: boolean; progress: number };
+      level4: { completed: boolean; progress: number };
+    };
+    quizzes: {
+      quickQuiz: { taken: number; bestScore: number };
+      timedChallenge: { taken: number; bestScore: number };
+      practiceMode: { taken: number; bestScore: number };
+      finalTest: { taken: number; bestScore: number };
+    };
+    achievements: string[];
+  }
+
+  const levels = [
+    { id: 'level1', name: 'SEO Basics', icon: '📘', href: '/level1' },
+    { id: 'level2', name: 'Technical SEO', icon: '🛠️', href: '/level2' },
+    { id: 'level3', name: 'Advanced GEO', icon: '🤖', href: '/level3' },
+    { id: 'level4', name: 'Authority & Channels', icon: '🌐', href: '/level4' }
+  ];
+
+  const achievements = [
+    { id: 'first-quiz', icon: '📝', name: 'Quiz Novice', desc: 'Take your first quiz' },
+    { id: 'perfect-score', icon: '⭐', name: 'Perfect Score', desc: 'Get 100% on any quiz' },
+    { id: 'level-complete', icon: '📚', name: 'Level Master', desc: 'Complete a level' },
+    { id: 'all-levels', icon: '🎓', name: 'Course Graduate', desc: 'Complete all levels' },
+    { id: 'quiz-master', icon: '🏆', name: 'Quiz Master', desc: 'Take all 4 quiz types' },
+    { id: 'speed-demon', icon: '⏱️', name: 'Speed Demon', desc: 'Complete timed challenge' }
+  ];
+
+  // Load progress from localStorage
+  function loadProgress(): ProgressData {
+    const stored = localStorage.getItem('seoCourseProgress');
+    if (stored) {
+      return JSON.parse(stored);
+    }
+
+    // Default progress
+    return {
+      levels: {
+        level1: { completed: false, progress: 0 },
+        level2: { completed: false, progress: 0 },
+        level3: { completed: false, progress: 0 },
+        level4: { completed: false, progress: 0 }
+      },
+      quizzes: {
+        quickQuiz: { taken: 0, bestScore: 0 },
+        timedChallenge: { taken: 0, bestScore: 0 },
+        practiceMode: { taken: 0, bestScore: 0 },
+        finalTest: { taken: 0, bestScore: 0 }
+      },
+      achievements: []
+    };
+  }
+
+  // Save progress to localStorage
+  function saveProgress(progress: ProgressData) {
+    localStorage.setItem('seoCourseProgress', JSON.stringify(progress));
+  }
+
+  // Update overall progress ring
+  function updateOverallProgress(progress: ProgressData) {
+    const levelsCompleted = Object.values(progress.levels).filter(l => l.completed).length;
+    const totalLevels = Object.keys(progress.levels).length;
+    const percentage = Math.round((levelsCompleted / totalLevels) * 100);
+
+    const ring = document.getElementById('overallRing');
+    const percentageText = document.getElementById('overallPercentage');
+    const levelsCompletedEl = document.getElementById('levelsCompleted');
+    const quizzesTakenEl = document.getElementById('quizzesTaken');
+
+    if (ring) {
+      const circumference = 2 * Math.PI * 45;
+      const offset = circumference - (percentage / 100) * circumference;
+      ring.style.strokeDashoffset = offset.toString();
+    }
+
+    if (percentageText) percentageText.textContent = `${percentage}%`;
+    if (levelsCompletedEl) levelsCompletedEl.textContent = levelsCompleted.toString();
+
+    const totalQuizzes = Object.values(progress.quizzes).reduce((sum, q) => sum + q.taken, 0);
+    if (quizzesTakenEl) quizzesTakenEl.textContent = totalQuizzes.toString();
+
+    // Check achievements
+    checkAchievements(progress, levelsCompleted, totalQuizzes);
+  }
+
+  // Render level cards
+  function renderLevelCards(progress: ProgressData) {
+    const container = document.getElementById('levelCards');
+    if (!container) return;
+
+    const base = import.meta.env.BASE_URL;
+
+    container.innerHTML = levels.map(level => {
+      const levelProgress = progress.levels[level.id as keyof typeof progress.levels];
+      let statusClass = 'not-started';
+      let statusIcon = '○';
+
+      if (levelProgress.completed) {
+        statusClass = 'completed';
+        statusIcon = '✓';
+      } else if (levelProgress.progress > 0) {
+        statusClass = 'in-progress';
+        statusIcon = '◐';
+      }
+
+      return `
+        <div class="level-card ${statusClass}">
+          <div class="level-card-header">
+            <span class="level-number">${level.icon} Level ${level.id.replace('level', '')}</span>
+            <span class="level-status">${statusIcon}</span>
+          </div>
+          <h3 class="level-title">${level.name}</h3>
+          <div class="level-progress-bar">
+            <div class="level-progress-fill" style="width: ${levelProgress.progress}%"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Render quiz stats
+  function renderQuizStats(progress: ProgressData) {
+    const container = document.getElementById('quizStats');
+    if (!container) return;
+
+    const quizInfo = [
+      { key: 'quickQuiz', icon: '⚡', title: 'Quick Quiz' },
+      { key: 'timedChallenge', icon: '⏱️', title: 'Timed Challenge' },
+      { key: 'practiceMode', icon: '💡', title: 'Practice Mode' },
+      { key: 'finalTest', icon: '🏆', title: 'Final Test' }
+    ];
+
+    container.innerHTML = quizInfo.map(quiz => {
+      const stats = progress.quizzes[quiz.key as keyof typeof progress.quizzes];
+      return `
+        <div class="quiz-stat-card">
+          <div class="quiz-stat-icon">${quiz.icon}</div>
+          <h3 class="quiz-stat-title">${quiz.title}</h3>
+          <p class="quiz-stat-value">${stats.taken}</p>
+          <p class="quiz-stat-score">${stats.bestScore > 0 ? `Best: ${stats.bestScore}%` : 'Not taken'}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Check and unlock achievements
+  function checkAchievements(progress: ProgressData, levelsCompleted: number, totalQuizzes: number) {
+    const newAchievements: string[] = [];
+
+    // First quiz
+    if (totalQuizzes >= 1 && !progress.achievements.includes('first-quiz')) {
+      newAchievements.push('first-quiz');
+    }
+
+    // Perfect score (any quiz with 100%)
+    if (Object.values(progress.quizzes).some(q => q.bestScore === 100) && !progress.achievements.includes('perfect-score')) {
+      newAchievements.push('perfect-score');
+    }
+
+    // Level complete
+    if (levelsCompleted >= 1 && !progress.achievements.includes('level-complete')) {
+      newAchievements.push('level-complete');
+    }
+
+    // All levels
+    if (levelsCompleted === 4 && !progress.achievements.includes('all-levels')) {
+      newAchievements.push('all-levels');
+    }
+
+    // Quiz master (all 4 quiz types taken)
+    const allQuizTypesTaken = Object.values(progress.quizzes).every(q => q.taken > 0);
+    if (allQuizTypesTaken && !progress.achievements.includes('quiz-master')) {
+      newAchievements.push('quiz-master');
+    }
+
+    // Speed demon
+    if (progress.quizzes.timedChallenge.taken > 0 && !progress.achievements.includes('speed-demon')) {
+      newAchievements.push('speed-demon');
+    }
+
+    // Add new achievements
+    if (newAchievements.length > 0) {
+      progress.achievements = [...progress.achievements, ...newAchievements];
+      saveProgress(progress);
+    }
+
+    renderAchievements(progress.achievements);
+  }
+
+  // Render achievements
+  function renderAchievements(unlocked: string[]) {
+    const container = document.getElementById('achievements');
+    if (!container) return;
+
+    container.innerHTML = achievements.map(achievement => {
+      const isUnlocked = unlocked.includes(achievement.id);
+      return `
+        <div class="achievement ${isUnlocked ? 'unlocked' : ''}">
+          <div class="achievement-icon">${achievement.icon}</div>
+          <h3 class="achievement-name">${achievement.name}</h3>
+          <p class="achievement-desc">${achievement.desc}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Reset progress
+  const resetBtn = document.getElementById('resetBtn');
+  resetBtn?.addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset all your progress? This cannot be undone.')) {
+      localStorage.removeItem('seoCourseProgress');
+      location.reload();
+    }
+  });
+
+  // Initialize dashboard
+  const progress = loadProgress();
+  updateOverallProgress(progress);
+  renderLevelCards(progress);
+  renderQuizStats(progress);
+</script>

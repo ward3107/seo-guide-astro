@@ -619,6 +619,27 @@ const base = import.meta.env.BASE_URL;
     scoreDiv.className = `result-score ${scoreClass}`;
     messageDiv.textContent = message;
 
+    // Save progress to localStorage
+    saveQuizProgress('quick-quiz', percentage);
+
     resultDiv.scrollIntoView({ behavior: 'smooth' });
   });
+
+  // Save quiz progress to localStorage
+  function saveQuizProgress(quizId: string, score: number) {
+    const storageKey = 'seoCourseProgress';
+    const stored = localStorage.getItem(storageKey);
+    const progress = stored ? JSON.parse(stored) : {
+      levels: { level1: { completed: false, progress: 0 }, level2: { completed: false, progress: 0 }, level3: { completed: false, progress: 0 }, level4: { completed: false, progress: 0 } },
+      quizzes: { quickQuiz: { taken: 0, bestScore: 0 }, timedChallenge: { taken: 0, bestScore: 0 }, practiceMode: { taken: 0, bestScore: 0 }, finalTest: { taken: 0, bestScore: 0 } },
+      achievements: []
+    };
+
+    progress.quizzes.quickQuiz.taken++;
+    if (score > progress.quizzes.quickQuiz.bestScore) {
+      progress.quizzes.quickQuiz.bestScore = score;
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(progress));
+  }
 </script>
