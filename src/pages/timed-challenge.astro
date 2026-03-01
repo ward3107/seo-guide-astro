@@ -1116,6 +1116,12 @@ const base = import.meta.env.BASE_URL;
     }
     if (messageDiv) messageDiv.textContent = message;
 
+    // Move focus to result for accessibility
+    if (resultsScreen) {
+      resultsScreen.setAttribute('tabindex', '-1');
+      resultsScreen.focus();
+    }
+
     // Save progress to localStorage
     saveQuizProgress('timed-challenge', accuracy);
   }

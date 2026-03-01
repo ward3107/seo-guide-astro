@@ -855,6 +855,10 @@ const questions: Question[] = [
       }
       breakdownDiv.innerHTML = breakdownHTML;
 
+      // Move focus to result for accessibility
+      resultDiv.setAttribute('tabindex', '-1');
+      resultDiv.focus();
+
       // Retake button
       const retakeBtn = resultDiv.querySelector('.retake-btn') as HTMLElement;
       retakeBtn.onclick = () => location.reload();

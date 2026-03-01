@@ -319,6 +319,10 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
       // Save progress to localStorage
       saveQuizProgress(quizId, percentage, total);
 
+      // Move focus to result for accessibility
+      (resultDiv as HTMLElement).setAttribute('tabindex', '-1');
+      (resultDiv as HTMLElement).focus();
+
       // Scroll to result
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });

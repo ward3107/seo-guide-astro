@@ -314,20 +314,121 @@ const { sections } = Astro.props;
   // Only run sidebar logic if sidebar exists on this page
   if (sidebarToc) {
     const sidebar = sidebarToc as HTMLElement;
+    const sidebarContent = sidebar.querySelector('.sidebar-content') as HTMLElement;
+    let focusableElements: HTMLElement[] = [];
+    let lastFocusedElement: HTMLElement | null = null;
 
-    // Toggle sidebar and add body classes for push layout
+    // Get all focusable elements within sidebar
+    function getFocusableElements(): HTMLElement[] {
+      if (!sidebarContent) return [];
+      const selector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      return Array.from(sidebarContent.querySelectorAll(selector)) as HTMLElement[];
+    }
+
+    // Trap focus within sidebar (mobile overlay mode)
+    function trapFocus(event: KeyboardEvent) {
+      if (event.key !== 'Tab') return;
+
+      focusableElements = getFocusableElements();
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
+
+    // Open sidebar with focus management
+    function openSidebar() {
+      const isMobile = window.innerWidth < 1025;
+
+      if (isMobile) {
+        // Save current focused element to restore later
+        lastFocusedElement = document.activeElement as HTMLElement;
+        sidebar.classList.add('open');
+
+        // Add focus trap
+        document.addEventListener('keydown', trapFocus);
+
+        // Focus first focusable element after a short delay
+        setTimeout(() => {
+          focusableElements = getFocusableElements();
+          if (focusableElements.length > 0) {
+            focusableElements[0].focus();
+          }
+        }, 100);
+      } else {
+        // Desktop - sidebar is always visible, just toggle closed state
+        sidebar.classList.remove('closed');
+        document.body.classList.add('sidebar-open');
+        document.body.classList.remove('sidebar-closed');
+      }
+    }
+
+    // Close sidebar with focus management
+    function closeSidebar() {
+      const isMobile = window.innerWidth < 1025;
+
+      if (isMobile) {
+        sidebar.classList.remove('open');
+
+        // Remove focus trap
+        document.removeEventListener('keydown', trapFocus);
+
+        // Restore focus to element that opened the sidebar
+        if (lastFocusedElement) {
+          lastFocusedElement.focus();
+          lastFocusedElement = null;
+        }
+      } else {
+        // Desktop - just mark as closed
+        sidebar.classList.add('closed');
+        document.body.classList.remove('sidebar-open');
+        document.body.classList.add('sidebar-closed');
+      }
+    }
+
+    // Toggle sidebar based on current state
     function toggleSidebar() {
-      sidebar.classList.toggle('open');
-      const isClosed = sidebar.classList.toggle('closed');
+      const isOpen = sidebar.classList.contains('open');
+      const isClosed = sidebar.classList.contains('closed');
 
-      // Add body classes for desktop push behavior
-      if (window.innerWidth >= 1025) {
-        if (!isClosed) {
-          document.body.classList.add('sidebar-open');
-          document.body.classList.remove('sidebar-closed');
+      if (window.innerWidth < 1025) {
+        // Mobile mode: use open class
+        if (isOpen) {
+          closeSidebar();
         } else {
-          document.body.classList.remove('sidebar-open');
-          document.body.classList.add('sidebar-closed');
+          openSidebar();
+        }
+      } else {
+        // Desktop mode: use closed class
+        if (isClosed) {
+          openSidebar();
+        } else {
+          closeSidebar();
+        }
+      }
+    }
+
+    // Handle Escape key to close sidebar
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        const isOpen = sidebar.classList.contains('open');
+        const isClosed = sidebar.classList.contains('closed');
+        if ((window.innerWidth < 1025 && isOpen) || (window.innerWidth >= 1025 && !isClosed)) {
+          closeSidebar();
         }
       }
     }
@@ -338,8 +439,19 @@ const { sections } = Astro.props;
       sidebar.classList.remove('closed');
     }
 
+    // Event listeners
     sidebarToggle?.addEventListener('click', toggleSidebar);
-    sidebarClose?.addEventListener('click', toggleSidebar);
+    sidebarClose?.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', handleEscape);
+
+    // Clean up focus trap on window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1025) {
+        // Switched to desktop - remove focus trap
+        document.removeEventListener('keydown', trapFocus);
+        sidebar.classList.remove('open');
+      }
+    });
   }
 
   // Click on link - scroll to section

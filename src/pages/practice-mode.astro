@@ -863,6 +863,10 @@ const base = import.meta.env.BASE_URL;
     }
     if (messageDiv) messageDiv.textContent = message;
 
+    // Move focus to result for accessibility
+    practiceResult.setAttribute('tabindex', '-1');
+    practiceResult.focus();
+
     // Save progress to localStorage
     saveQuizProgress('practice-mode', percentage);
   }
