@@ -157,14 +157,14 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
 
 <style>
   .glossary-intro {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
   }
 
   .glossary-intro h2 {
-    color: #667eea;
+    color: var(--color-brand-primary);
     margin-bottom: 20px;
   }
 
@@ -179,10 +179,10 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
 
   .glossary-intro li {
     padding: 12px 18px;
-    background: white;
+    background: var(--color-surface);
     border-radius: 10px;
     font-size: 1.05em;
-    color: #555;
+    color: var(--color-text-secondary);
   }
 
   .glossary-container {
@@ -191,11 +191,11 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   }
 
   .search-section {
-    background: white;
+    background: var(--color-surface);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
   }
 
   .search-box {
@@ -206,14 +206,14 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   .search-box input {
     width: 100%;
     padding: 15px 50px 15px 20px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     border-radius: 10px;
     font-size: 1.1em;
   }
 
   .search-box input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--color-brand-primary);
   }
 
   .search-icon {
@@ -232,21 +232,21 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
 
   .category-filter label {
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
   }
 
   .category-filter select {
     flex: 1;
     padding: 12px 18px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     border-radius: 10px;
     font-size: 1em;
-    background: white;
+    background: var(--color-surface);
     cursor: pointer;
   }
 
   .alphabet-nav {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 30px;
@@ -273,7 +273,7 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   .letter-link:hover,
   .letter-link.active {
     background: white;
-    color: #667eea;
+    color: var(--color-brand-primary);
     transform: scale(1.1);
   }
 
@@ -283,7 +283,7 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   }
 
   .letter-title {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     padding: 15px 25px;
     border-radius: 10px;
@@ -298,16 +298,16 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   }
 
   .term-card {
-    background: white;
+    background: var(--color-surface);
     border-radius: 15px;
     padding: 20px 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
   }
 
   .term-card:hover {
     transform: translateX(5px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+    box-shadow: var(--shadow-md);
   }
 
   .term-card.hidden {
@@ -325,22 +325,22 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
 
   .term-name {
     margin: 0;
-    color: #333;
+    color: var(--color-text);
     font-size: 1.3em;
   }
 
   .term-category {
     padding: 5px 15px;
-    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    background: var(--color-surface-elevated);
     border-radius: 20px;
     font-size: 0.85em;
     font-weight: 600;
-    color: #555;
+    color: var(--color-text-secondary);
   }
 
   .term-definition {
     margin: 0;
-    color: #555;
+    color: var(--color-text-secondary);
     line-height: 1.7;
     font-size: 1.05em;
   }
@@ -348,7 +348,7 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   .no-results {
     text-align: center;
     padding: 60px 20px;
-    color: #888;
+    color: var(--color-text-muted);
     font-size: 1.2em;
   }
 
@@ -360,43 +360,50 @@ const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
   .back-home a {
     display: inline-block;
     padding: 15px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-md);
   }
 
   .back-home a:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-lg);
   }
 
   /* Dark mode */
-  :global(body.dark-mode) .glossary-intro {
+  :global(body.dark-mode) .glossary-intro,
+  :global([data-theme="dark"]) .glossary-intro {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   }
 
   :global(body.dark-mode) .search-section,
-  :global(body.dark-mode) .term-card {
-    background: #252540;
+  :global(body.dark-mode) .term-card,
+  :global([data-theme="dark"]) .search-section,
+  :global([data-theme="dark"]) .term-card {
+    background: var(--color-surface-elevated);
   }
 
-  :global(body.dark-mode) .term-name {
-    color: #e0e0e0;
+  :global(body.dark-mode) .term-name,
+  :global([data-theme="dark"]) .term-name {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .term-definition {
-    color: #b0b0b0;
+  :global(body.dark-mode) .term-definition,
+  :global([data-theme="dark"]) .term-definition {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .category-filter label {
-    color: #e0e0e0;
+  :global(body.dark-mode) .category-filter label,
+  :global([data-theme="dark"]) .category-filter label {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .category-filter select {
+  :global(body.dark-mode) .category-filter select,
+  :global([data-theme="dark"]) .category-filter select {
     background: #2a2a4a;
     border-color: #3a3a5a;
     color: #e0e0e0;
