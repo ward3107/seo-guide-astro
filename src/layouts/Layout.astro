@@ -103,15 +103,6 @@ const levels = [
       ))}
     </nav>
 
-    <!-- Search Section -->
-    <div class="search-container" role="search">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 Search all guides..." aria-label="Search content" autocomplete="off" />
-        <button onclick="performSearch()">Search</button>
-      </div>
-      <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
-    </div>
-
     <!-- Main Content -->
     <slot />
 
@@ -236,22 +227,6 @@ const levels = [
       color: #c0c0c0;
     }
 
-    body.dark-mode .search-box {
-      background: #2a2a4a;
-    }
-
-    body.dark-mode .search-box input {
-      color: #c0c0c0;
-    }
-
-    body.dark-mode .search-results {
-      background: #1e1e30;
-    }
-
-    body.dark-mode .search-result-item:hover {
-      background: #2a2a4a;
-    }
-
     body.dark-mode footer {
       background: #0d0d1a;
     }
@@ -298,86 +273,6 @@ const levels = [
     .nav-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Search */
-    .search-container {
-      position: relative;
-      max-width: 600px;
-      margin: 20px auto;
-    }
-
-    .search-box {
-      display: flex;
-      gap: 10px;
-      background: #f5f5f5;
-      border-radius: 12px;
-      padding: 8px;
-    }
-
-    .search-box input {
-      flex: 1;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      background: white;
-    }
-
-    .search-box button {
-      padding: 12px 24px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .search-results {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      margin-top: 8px;
-      max-height: 400px;
-      overflow-y: auto;
-      display: none;
-      z-index: 1000;
-    }
-
-    .search-results.active {
-      display: block;
-    }
-
-    .search-result-item {
-      padding: 16px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-    }
-
-    .search-result-item:hover {
-      background: #f5f5f5;
-    }
-
-    .search-result-title {
-      font-weight: 600;
-      color: #667eea;
-    }
-
-    .search-result-snippet {
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .search-result-page {
-      font-size: 0.8em;
-      color: #999;
-      margin-top: 4px;
     }
 
     /* Dark Mode Toggle */
@@ -622,82 +517,6 @@ const levels = [
       }
     }
 
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    const baseURL = document.querySelector('[data-base]')?.getAttribute('data-base') || '';
-
-    const searchData = [
-      { title: 'SEO Basics', page: 'Level 1: SEO Basics', url: `${baseURL}/level1`, content: 'Learn SEO basics including title tags, h1 headings, alt attributes, meta descriptions, and schema markup.', keywords: ['seo', 'basics', 'html', 'title', 'h1', 'alt', 'schema'] },
-      { title: 'Technical SEO', page: 'Level 2: Technical SEO', url: `${baseURL}/level2`, content: 'Technical SEO covers robots.txt, HTTP status codes, site speed, mobile optimization, and technical infrastructure.', keywords: ['technical', 'robots', 'status codes', 'speed', 'http'] },
-      { title: 'Advanced GEO', page: 'Level 3: Advanced GEO', url: `${baseURL}/level3`, content: 'GEO (Generative Engine Optimization) optimizes for AI-driven search. Focus on facts over fluff and E-E-A-T framework.', keywords: ['geo', 'ai', 'optimization', 'eeat', 'facts', 'chatgpt'] },
-      { title: 'Authority & Channels', page: 'Level 4: Authority & Channels', url: `${baseURL}/level4`, content: 'Level 4 covers Off-Page SEO, Local SEO, Google Business Profile, Reviews, Video SEO, and Social Search optimization.', keywords: ['authority', 'off-page', 'local seo', 'reviews', 'video seo', 'social search'] }
-    ];
-
-    function performSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      if (query.length < 2) {
-        searchResults.classList.remove('active');
-        return;
-      }
-
-      const results = searchData.filter(item => {
-        const titleMatch = item.title.toLowerCase().includes(query);
-        const contentMatch = item.content.toLowerCase().includes(query);
-        const keywordsMatch = item.keywords.some(keyword => keyword.toLowerCase().includes(query));
-        return titleMatch || contentMatch || keywordsMatch;
-      });
-
-      displaySearchResults(results, query);
-    }
-
-    function displaySearchResults(results, query) {
-      if (results.length === 0) {
-        searchResults.innerHTML = '<div class="search-no-results">🔍 No results found. Try different keywords like "SEO", "Schema", "Speed", or "GEO".</div>';
-        searchResults.classList.add('active');
-        return;
-      }
-
-      let html = '';
-      results.forEach(result => {
-        const highlightedSnippet = highlightText(result.content, query);
-        html += `
-          <div class="search-result-item" onclick="window.location.href='${result.url}'">
-            <div class="search-result-title">${highlightText(result.title, query)}</div>
-            <div class="search-result-snippet">${highlightedSnippet}</div>
-            <div class="search-result-page">📄 ${result.page}</div>
-          </div>
-        `;
-      });
-
-      searchResults.innerHTML = html;
-      searchResults.classList.add('active');
-    }
-
-    function highlightText(text, query) {
-      const regex = new RegExp(`(${query})`, 'gi');
-      return text.replace(regex, '<span class="search-highlight">$1</span>');
-    }
-
-    if (searchInput) {
-      searchInput.addEventListener('input', performSearch);
-      searchInput.addEventListener('focus', performSearch);
-    }
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.search-container')) {
-        searchResults.classList.remove('active');
-      }
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          searchResults.classList.remove('active');
-          searchInput.blur();
-        }
-      });
-    }
   </script>
 </body>
 </html>
