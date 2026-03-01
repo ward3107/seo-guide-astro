@@ -50,13 +50,12 @@ const { sections } = Astro.props;
         ))}
       </ul>
     </nav>
-
-    <div class="sidebar-footer">
-      <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        ↑ Top
-      </button>
-    </div>
   </div>
+
+  <!-- Back to Top Button (separate, on right side) -->
+  <button class="back-to-top-btn" id="backToTop" aria-label="Back to top">
+    ↑
+  </button>
 </aside>
 
 <style>
@@ -222,26 +221,37 @@ const { sections } = Astro.props;
     opacity: 0.9;
   }
 
-  .sidebar-footer {
-    padding: 15px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    flex-shrink: 0;
-  }
-
-  .back-to-top {
-    width: 100%;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Back to Top Button (circular, on right side of screen) */
+  .back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border-radius: 8px;
+    border: none;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
   }
 
-  .back-to-top:hover {
-    background: rgba(255, 255, 255, 0.25);
+  .back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-to-top-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
   }
 
   /* Desktop: Sidebar visible by default, but collapsible */
@@ -350,6 +360,21 @@ const { sections } = Astro.props;
   backToTopBtn?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // Show/hide back to top button based on scroll position
+  function toggleBackToTopButton() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (backToTopBtn) {
+      if (scrollTop > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', toggleBackToTopButton, { passive: true });
+  toggleBackToTopButton(); // Initial check
 
   // Scroll spy - highlight active section
   const tocItems = document.querySelectorAll('.toc-item');
