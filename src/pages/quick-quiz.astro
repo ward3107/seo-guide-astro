@@ -21,12 +21,28 @@ const base = import.meta.env.BASE_URL;
 
   <section class="quiz-intro">
     <h2>🎯 About This Quiz</h2>
-    <ul>
-      <li>⚡ <strong>5 Questions Only</strong> - Complete in under 5 minutes</li>
-      <li>🎲 <strong>Random Selection</strong> - Different questions each time</li>
-      <li>📊 <strong>Instant Results</strong> - Get your score immediately</li>
-      <li>🔄 <strong>Unlimited Attempts</strong> - Practice as much as you want</li>
-    </ul>
+    <div class="intro-grid">
+      <div class="intro-card">
+        <span class="intro-icon">⚡</span>
+        <h3>5 Questions Only</h3>
+        <p>Complete in under 5 minutes</p>
+      </div>
+      <div class="intro-card">
+        <span class="intro-icon">🎲</span>
+        <h3>Random Selection</h3>
+        <p>Different questions each time</p>
+      </div>
+      <div class="intro-card">
+        <span class="intro-icon">📊</span>
+        <h3>Instant Results</h3>
+        <p>Get your score immediately</p>
+      </div>
+      <div class="intro-card">
+        <span class="intro-icon">🔄</span>
+        <h3>Unlimited Attempts</h3>
+        <p>Practice as much as you want</p>
+      </div>
+    </div>
   </section>
 
   <div class="quick-quiz-container" id="quickQuiz">
@@ -60,28 +76,53 @@ const base = import.meta.env.BASE_URL;
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
   .quiz-intro h2 {
     color: #667eea;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8em;
   }
 
-  .quiz-intro ul {
-    list-style: none;
-    padding: 0;
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .intro-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .intro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+  }
+
+  .intro-icon {
+    display: block;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+
+  .intro-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.1em;
+  }
+
+  .intro-card p {
     margin: 0;
-  }
-
-  .quiz-intro li {
-    padding: 12px 0;
-    font-size: 1.05em;
-    color: #555;
-    border-bottom: 1px dashed #ddd;
-  }
-
-  .quiz-intro li:last-child {
-    border-bottom: none;
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
   }
 
   .quick-quiz-container {
@@ -342,9 +383,16 @@ const base = import.meta.env.BASE_URL;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   }
 
-  :global(body.dark-mode) .quiz-intro li {
+  :global(body.dark-mode) .intro-card {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .intro-card h3 {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .intro-card p {
     color: #b0b0b0;
-    border-bottom-color: #3a3a5a;
   }
 
   :global(body.dark-mode) .question-card {
