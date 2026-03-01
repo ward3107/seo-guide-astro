@@ -93,7 +93,7 @@ const base = import.meta.env.BASE_URL;
   </div>
 
   <div class="back-home">
-    <a href={`${base}/`}>← Back to Home</a>
+    <button id="backToStartBtn" class="back-start-btn">← Back to Start</button>
   </div>
 </Layout>
 
@@ -161,24 +161,40 @@ const base = import.meta.env.BASE_URL;
     background: white;
     border-radius: 20px;
     padding: 35px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e8e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   }
 
   .question-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   .question-number {
     display: inline-block;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 8px 20px;
+    padding: 8px 22px;
     border-radius: 25px;
-    font-size: 0.9em;
-    font-weight: 600;
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
 
   .hint-btn {
@@ -257,31 +273,33 @@ const base = import.meta.env.BASE_URL;
   .options {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 14px;
     margin-bottom: 25px;
   }
 
   .option-label {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
     padding: 18px 22px;
-    border: 3px solid #e0e0e0;
-    border-radius: 15px;
+    border: 2px solid #e0e5f0;
+    border-radius: 14px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    background: white;
+    transition: all 0.25s ease;
+    background: #fafbfc;
   }
 
   .option-label:hover:not(.disabled) {
     border-color: #667eea;
-    background: #f8f9ff;
+    background: #f0f4ff;
     transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
   }
 
   .option-label.correct {
     border-color: #28a745;
     background: #d4edda;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
   }
 
   .option-label.incorrect {
@@ -291,26 +309,28 @@ const base = import.meta.env.BASE_URL;
 
   .option-label.disabled {
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.85;
   }
 
   .option-letter {
-    background: #f0f0f0;
-    color: #666;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
+    background: #e8edf5;
+    color: #555;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.9em;
-    font-weight: bold;
+    font-weight: 700;
     flex-shrink: 0;
+    transition: all 0.25s ease;
   }
 
   .option-label.correct .option-letter {
-    background: #28a745;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
+    transform: scale(1.05);
   }
 
   .option-label.incorrect .option-letter {
@@ -488,19 +508,24 @@ const base = import.meta.env.BASE_URL;
     margin: 40px 0;
   }
 
-  .back-home a {
+  .back-home a,
+  .back-start-btn {
     display: inline-block;
     padding: 15px 30px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-decoration: none;
+    border: none;
     border-radius: 50px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    font-size: 1em;
   }
 
-  .back-home a:hover {
+  .back-home a:hover,
+  .back-start-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
   }
@@ -518,6 +543,7 @@ const base = import.meta.env.BASE_URL;
   :global(body.dark-mode) .question-card,
   :global(body.dark-mode) .practice-result {
     background: #252540;
+    border-color: #3a3a5a;
   }
 
   :global(body.dark-mode) .question-text,
@@ -533,6 +559,11 @@ const base = import.meta.env.BASE_URL;
   :global(body.dark-mode) .option-label:hover:not(.disabled) {
     border-color: #667eea;
     background: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .option-letter {
+    background: #3a3a5a;
+    color: #a0a0c0;
   }
 
   :global(body.dark-mode) .option-text {
@@ -584,8 +615,44 @@ const base = import.meta.env.BASE_URL;
     hint: string;
   }
 
+  // Fisher-Yates shuffle algorithm for arrays
+  function shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  // Shuffle options for each question and update correct answer
+  function shuffleQuestionOptions(questions: Question[]): Question[] {
+    return questions.map(q => {
+      // Create array of option objects with their original letters
+      const originalOptions = q.options.map((opt, idx) => ({
+        text: opt,
+        originalLetter: String.fromCharCode(97 + idx) // a, b, c, d...
+      }));
+
+      // Shuffle the options
+      const shuffledOptions = shuffleArray(originalOptions);
+
+      // Find where the correct answer ended up
+      const originalCorrectIndex = q.correct.charCodeAt(0) - 97; // 0 for 'a', 1 for 'b', etc.
+      const correctText = q.options[originalCorrectIndex];
+      const newCorrectIndex = shuffledOptions.findIndex(opt => opt.text === correctText);
+      const newCorrectLetter = String.fromCharCode(97 + newCorrectIndex); // new position letter
+
+      return {
+        ...q,
+        options: shuffledOptions.map(opt => opt.text),
+        correct: newCorrectLetter
+      };
+    });
+  }
+
   // Practice questions with hints
-  const practiceQuestions: Question[] = [
+  const rawPracticeQuestions: Question[] = [
     {
       q: "What does SEO stand for?",
       options: ["Search Engine Optimization", "Site Enhancement Organization", "Social Email Outreach", "System Entry Operation"],
@@ -677,6 +744,9 @@ const base = import.meta.env.BASE_URL;
       hint: "Use this when you have similar or duplicate content - it tells Google which version is the 'main' one."
     }
   ];
+
+  // Create shuffled version with random option order
+  const practiceQuestions: Question[] = shuffleQuestionOptions(rawPracticeQuestions);
 
   // Game state
   let currentQuestion = 0;
@@ -891,6 +961,12 @@ const base = import.meta.env.BASE_URL;
 
   // Retry
   retryBtn?.addEventListener('click', () => {
+    location.reload();
+  });
+
+  // Back to Start button - reset quiz without leaving page
+  const backToStartBtn = document.getElementById('backToStartBtn');
+  backToStartBtn?.addEventListener('click', () => {
     location.reload();
   });
 

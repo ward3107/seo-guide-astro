@@ -38,6 +38,40 @@ const base = import.meta.env.BASE_URL;
       </p>
     </div>
 
+    <!-- Streak & Stats -->
+    <div class="streak-section">
+      <h2>🔥 Learning Streak</h2>
+      <div class="streak-card">
+        <div class="streak-icon">🔥</div>
+        <div class="streak-info">
+          <span class="streak-count" id="streakCount">0</span>
+          <span class="streak-label">Day Streak</span>
+        </div>
+        <div class="streak-milestones">
+          <div class="milestone" data-days="3">
+            <span class="milestone-icon">🌟</span>
+            <span class="milestone-label">3 days</span>
+          </div>
+          <div class="milestone" data-days="7">
+            <span class="milestone-icon">💪</span>
+            <span class="milestone-label">7 days</span>
+          </div>
+          <div class="milestone" data-days="30">
+            <span class="milestone-icon">👑</span>
+            <span class="milestone-label">30 days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Quiz History -->
+    <div class="quiz-history-section">
+      <h2>📊 Recent Quiz History</h2>
+      <div class="history-list" id="quizHistory">
+        <!-- Quiz history will be injected by JavaScript -->
+      </div>
+    </div>
+
     <!-- Level Progress -->
     <div class="level-progress-section">
       <h2>📚 Level Progress</h2>
@@ -150,7 +184,9 @@ const base = import.meta.env.BASE_URL;
 
   .level-progress-section,
   .quiz-progress-section,
-  .achievements-section {
+  .achievements-section,
+  .streak-section,
+  .quiz-history-section {
     background: var(--color-surface);
     border-radius: 20px;
     padding: 35px;
@@ -160,10 +196,120 @@ const base = import.meta.env.BASE_URL;
 
   .level-progress-section h2,
   .quiz-progress-section h2,
-  .achievements-section h2 {
+  .achievements-section h2,
+  .streak-section h2,
+  .quiz-history-section h2 {
     color: var(--color-text);
     margin: 0 0 25px 0;
     font-size: 1.6em;
+  }
+
+  .streak-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .streak-icon {
+    font-size: 3em;
+  }
+
+  .streak-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .streak-count {
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+
+  .streak-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+
+  .streak-milestones {
+    display: flex;
+    gap: 20px;
+  }
+
+  .milestone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.4;
+    transition: all 0.3s;
+  }
+
+  .milestone.unlocked {
+    opacity: 1;
+  }
+
+  .milestone-icon {
+    font-size: 1.8em;
+  }
+
+  .milestone-label {
+    font-size: 0.8em;
+  }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .history-item {
+    background: var(--color-surface-elevated);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+  }
+
+  .history-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .history-quiz {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .history-date {
+    font-size: 0.85em;
+    color: var(--color-text-muted);
+  }
+
+  .history-score {
+    text-align: right;
+  }
+
+  .history-percentage {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-brand-primary);
+  }
+
+  .history-details {
+    font-size: 0.9em;
+    color: var(--color-text-muted);
   }
 
   .level-cards {
@@ -383,19 +529,37 @@ const base = import.meta.env.BASE_URL;
   :global(body.dark-mode) .level-progress-section,
   :global(body.dark-mode) .quiz-progress-section,
   :global(body.dark-mode) .achievements-section,
+  :global(body.dark-mode) .streak-section,
+  :global(body.dark-mode) .quiz-history-section,
   :global([data-theme="dark"]) .level-progress-section,
   :global([data-theme="dark"]) .quiz-progress-section,
-  :global([data-theme="dark"]) .achievements-section {
+  :global([data-theme="dark"]) .achievements-section,
+  :global([data-theme="dark"]) .streak-section,
+  :global([data-theme="dark"]) .quiz-history-section {
     background: var(--color-surface-elevated);
   }
 
   :global(body.dark-mode) .level-progress-section h2,
   :global(body.dark-mode) .quiz-progress-section h2,
   :global(body.dark-mode) .achievements-section h2,
+  :global(body.dark-mode) .streak-section h2,
+  :global(body.dark-mode) .quiz-history-section h2,
   :global([data-theme="dark"]) .level-progress-section h2,
   :global([data-theme="dark"]) .quiz-progress-section h2,
-  :global([data-theme="dark"]) .achievements-section h2 {
+  :global([data-theme="dark"]) .achievements-section h2,
+  :global([data-theme="dark"]) .streak-section h2,
+  :global([data-theme="dark"]) .quiz-history-section h2 {
     color: var(--color-text);
+  }
+
+  :global(body.dark-mode) .history-item,
+  :global([data-theme="dark"]) .history-item {
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .history-quiz,
+  :global([data-theme="dark"]) .history-quiz {
+    color: #e0e0e0;
   }
 
   :global(body.dark-mode) .level-card.not-started,
@@ -458,6 +622,23 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
+  interface QuizAttempt {
+    date: string;
+    score: number;
+    total: number;
+    correct: number;
+    incorrect: number;
+    missedQuestions?: number[];
+  }
+
+  interface QuizData {
+    taken: number;
+    bestScore: number;
+    history: QuizAttempt[];
+    lastAttempt: string;
+    missedTopics: string[];
+  }
+
   interface ProgressData {
     levels: {
       level1: { completed: boolean; progress: number };
@@ -466,12 +647,15 @@ const base = import.meta.env.BASE_URL;
       level4: { completed: boolean; progress: number };
     };
     quizzes: {
-      quickQuiz: { taken: number; bestScore: number };
-      timedChallenge: { taken: number; bestScore: number };
-      practiceMode: { taken: number; bestScore: number };
-      finalTest: { taken: number; bestScore: number };
+      quickQuiz: QuizData;
+      timedChallenge: QuizData;
+      practiceMode: QuizData;
+      finalTest: QuizData;
     };
     achievements: string[];
+    streak: number;
+    lastPracticeDate: string;
+    totalStudyTime: number;
   }
 
   const levels = [
@@ -487,14 +671,22 @@ const base = import.meta.env.BASE_URL;
     { id: 'level-complete', icon: '📚', name: 'Level Master', desc: 'Complete a level' },
     { id: 'all-levels', icon: '🎓', name: 'Course Graduate', desc: 'Complete all levels' },
     { id: 'quiz-master', icon: '🏆', name: 'Quiz Master', desc: 'Take all 4 quiz types' },
-    { id: 'speed-demon', icon: '⏱️', name: 'Speed Demon', desc: 'Complete timed challenge' }
+    { id: 'speed-demon', icon: '⏱️', name: 'Speed Demon', desc: 'Complete timed challenge' },
+    { id: 'streak-3', icon: '🔥', name: 'On Fire', desc: '3-day practice streak' },
+    { id: 'streak-7', icon: '💪', name: 'Dedicated', desc: '7-day practice streak' },
+    { id: 'streak-30', icon: '👑', name: 'SEO Master', desc: '30-day practice streak' }
   ];
 
   // Load progress from localStorage
   function loadProgress(): ProgressData {
     const stored = localStorage.getItem('seoCourseProgress');
     if (stored) {
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      // Migrate old format to new format if needed
+      if (!parsed.quizzes.quickQuiz.history) {
+        return migrateProgress(parsed);
+      }
+      return parsed;
     }
 
     // Default progress
@@ -506,18 +698,139 @@ const base = import.meta.env.BASE_URL;
         level4: { completed: false, progress: 0 }
       },
       quizzes: {
-        quickQuiz: { taken: 0, bestScore: 0 },
-        timedChallenge: { taken: 0, bestScore: 0 },
-        practiceMode: { taken: 0, bestScore: 0 },
-        finalTest: { taken: 0, bestScore: 0 }
+        quickQuiz: { taken: 0, bestScore: 0, history: [], lastAttempt: '', missedTopics: [] },
+        timedChallenge: { taken: 0, bestScore: 0, history: [], lastAttempt: '', missedTopics: [] },
+        practiceMode: { taken: 0, bestScore: 0, history: [], lastAttempt: '', missedTopics: [] },
+        finalTest: { taken: 0, bestScore: 0, history: [], lastAttempt: '', missedTopics: [] }
       },
-      achievements: []
+      achievements: [],
+      streak: 0,
+      lastPracticeDate: '',
+      totalStudyTime: 0
+    };
+  }
+
+  // Migrate old progress format to new format
+  function migrateProgress(oldData: any): ProgressData {
+    return {
+      levels: oldData.levels,
+      quizzes: {
+        quickQuiz: {
+          taken: oldData.quizzes.quickQuiz.taken,
+          bestScore: oldData.quizzes.quickQuiz.bestScore,
+          history: [],
+          lastAttempt: '',
+          missedTopics: []
+        },
+        timedChallenge: {
+          taken: oldData.quizzes.timedChallenge.taken,
+          bestScore: oldData.quizzes.timedChallenge.bestScore,
+          history: [],
+          lastAttempt: '',
+          missedTopics: []
+        },
+        practiceMode: {
+          taken: oldData.quizzes.practiceMode.taken,
+          bestScore: oldData.quizzes.practiceMode.bestScore,
+          history: [],
+          lastAttempt: '',
+          missedTopics: []
+        },
+        finalTest: {
+          taken: oldData.quizzes.finalTest.taken,
+          bestScore: oldData.quizzes.finalTest.bestScore,
+          history: [],
+          lastAttempt: '',
+          missedTopics: []
+        }
+      },
+      achievements: oldData.achievements || [],
+      streak: 0,
+      lastPracticeDate: '',
+      totalStudyTime: 0
     };
   }
 
   // Save progress to localStorage
   function saveProgress(progress: ProgressData) {
     localStorage.setItem('seoCourseProgress', JSON.stringify(progress));
+  }
+
+  // Update and check learning streak
+  function updateStreak(progress: ProgressData): ProgressData {
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+    if (progress.lastPracticeDate === today) {
+      // Already practiced today, no change
+      return progress;
+    } else if (progress.lastPracticeDate === yesterday) {
+      // Consecutive day, increment streak
+      progress.streak++;
+    } else if (progress.lastPracticeDate !== today) {
+      // Streak broken or first time
+      progress.streak = 1;
+    }
+
+    progress.lastPracticeDate = today;
+    return progress;
+  }
+
+  // Save quiz attempt with details (helper function - not called directly)
+  function _saveQuizAttempt(quizId: keyof ProgressData['quizzes'], score: number, total: number, correct: number, incorrect: number, missedQuestions?: number[]): void {
+    const progress = loadProgress();
+    const quiz = progress.quizzes[quizId];
+
+    // Update basic stats
+    quiz.taken++;
+    if (score > quiz.bestScore) {
+      quiz.bestScore = score;
+    }
+
+    // Save attempt details
+    const attempt: QuizAttempt = {
+      date: new Date().toISOString(),
+      score,
+      total,
+      correct,
+      incorrect,
+      missedQuestions
+    };
+
+    // Keep only last 10 attempts
+    quiz.history.push(attempt);
+    if (quiz.history.length > 10) {
+      quiz.history = quiz.history.slice(-10);
+    }
+
+    quiz.lastAttempt = attempt.date;
+
+    // Update streak
+    updateStreak(progress);
+
+    // Check streak achievements
+    checkStreakAchievements(progress);
+
+    saveProgress(progress);
+  }
+
+  // Check and award streak achievements
+  function checkStreakAchievements(progress: ProgressData): void {
+    const newAchievements: string[] = [];
+
+    if (progress.streak >= 3 && !progress.achievements.includes('streak-3')) {
+      newAchievements.push('streak-3');
+    }
+    if (progress.streak >= 7 && !progress.achievements.includes('streak-7')) {
+      newAchievements.push('streak-7');
+    }
+    if (progress.streak >= 30 && !progress.achievements.includes('streak-30')) {
+      newAchievements.push('streak-30');
+    }
+
+    if (newAchievements.length > 0) {
+      progress.achievements = [...progress.achievements, ...newAchievements];
+    }
   }
 
   // Update overall progress ring
@@ -668,6 +981,77 @@ const base = import.meta.env.BASE_URL;
     }).join('');
   }
 
+  // Render streak information
+  function renderStreak(progress: ProgressData) {
+    const streakCount = document.getElementById('streakCount');
+    if (streakCount) streakCount.textContent = progress.streak.toString();
+
+    // Update milestone highlights
+    document.querySelectorAll('.milestone').forEach(milestone => {
+      const days = parseInt(milestone.getAttribute('data-days') || '0');
+      if (progress.streak >= days) {
+        milestone.classList.add('unlocked');
+      } else {
+        milestone.classList.remove('unlocked');
+      }
+    });
+  }
+
+  // Render quiz history
+  function renderQuizHistory(progress: ProgressData) {
+    const container = document.getElementById('quizHistory');
+    if (!container) return;
+
+    // Get all quiz attempts and sort by date
+    const allAttempts: Array<{ quiz: string; attempt: QuizAttempt }> = [];
+    const quizNames: Record<string, string> = {
+      quickQuiz: '⚡ Quick Quiz',
+      timedChallenge: '⏱️ Timed Challenge',
+      practiceMode: '💡 Practice Mode',
+      finalTest: '🏆 Final Test'
+    };
+
+    Object.entries(progress.quizzes).forEach(([quizId, data]) => {
+      data.history.forEach(attempt => {
+        allAttempts.push({ quiz: quizId, attempt });
+      });
+    });
+
+    // Sort by date descending
+    allAttempts.sort((a, b) => new Date(b.attempt.date).getTime() - new Date(a.attempt.date).getTime());
+
+    // Show only last 10 attempts
+    const recentAttempts = allAttempts.slice(0, 10);
+
+    if (recentAttempts.length === 0) {
+      container.innerHTML = `
+        <div class="no-history" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
+          <p>No quiz attempts yet. Take a quiz to see your history!</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = recentAttempts.map(({ quiz, attempt }) => {
+      const date = new Date(attempt.date);
+      const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const percentage = Math.round((attempt.correct / attempt.total) * 100);
+
+      return `
+        <div class="history-item">
+          <div class="history-info">
+            <span class="history-quiz">${quizNames[quiz]}</span>
+            <span class="history-date">${formattedDate}</span>
+          </div>
+          <div class="history-score">
+            <div class="history-percentage">${percentage}%</div>
+            <div class="history-details">${attempt.correct}/${attempt.total} correct</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
   // Reset progress
   const resetBtn = document.getElementById('resetBtn');
   resetBtn?.addEventListener('click', () => {
@@ -682,4 +1066,6 @@ const base = import.meta.env.BASE_URL;
   updateOverallProgress(progress);
   renderLevelCards(progress);
   renderQuizStats(progress);
+  renderStreak(progress);
+  renderQuizHistory(progress);
 </script>

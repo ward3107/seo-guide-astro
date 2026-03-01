@@ -486,44 +486,44 @@ const sections = [
     <form id="quiz" class="quiz-form">
       <div class="question" data-question="1">
         <p><strong>1. What is off-page SEO?</strong></p>
-        <label><input type="radio" name="q1" value="a"> a) Optimization on your website</label>
-        <label><input type="radio" name="q1" value="b"> b) Building authority from external sources</label>
-        <label><input type="radio" name="q1" value="c"> c) Technical website improvements</label>
+        <label data-letter="A"><input type="radio" name="q1" value="a"> Optimization on your website</label>
+        <label data-letter="B"><input type="radio" name="q1" value="b"> Building authority from external sources</label>
+        <label data-letter="C"><input type="radio" name="q1" value="c"> Technical website improvements</label>
       </div>
 
       <div class="question" data-question="2">
         <p><strong>2. What are the three main local search signals?</strong></p>
-        <label><input type="radio" name="q2" value="a"> a) Speed, mobile, content</label>
-        <label><input type="radio" name="q2" value="b"> b) Proximity, relevance, prominence</label>
-        <label><input type="radio" name="q2" value="c"> c) Title, meta, headings</label>
+        <label data-letter="A"><input type="radio" name="q2" value="a"> Speed, mobile, content</label>
+        <label data-letter="B"><input type="radio" name="q2" value="b"> Proximity, relevance, prominence</label>
+        <label data-letter="C"><input type="radio" name="q2" value="c"> Title, meta, headings</label>
       </div>
 
       <div class="question" data-question="3">
         <p><strong>3. What is Google Business Profile?</strong></p>
-        <label><input type="radio" name="q3" value="a"> a) A social media platform</label>
-        <label><input type="radio" name="q3" value="b"> b) A business listing on Google Maps and Search</label>
-        <label><input type="radio" name="q3" value="c"> c) An analytics tool</label>
+        <label data-letter="A"><input type="radio" name="q3" value="a"> A social media platform</label>
+        <label data-letter="B"><input type="radio" name="q3" value="b"> A business listing on Google Maps and Search</label>
+        <label data-letter="C"><input type="radio" name="q3" value="c"> An analytics tool</label>
       </div>
 
       <div class="question" data-question="4">
         <p><strong>4. Why are reviews important for local SEO?</strong></p>
-        <label><input type="radio" name="q4" value="a"> a) They look nice</label>
-        <label><input type="radio" name="q4" value="b"> b) They're a trust signal for humans and algorithms</label>
-        <label><input type="radio" name="q4" value="c"> c) They're required by law</label>
+        <label data-letter="A"><input type="radio" name="q4" value="a"> They look nice</label>
+        <label data-letter="B"><input type="radio" name="q4" value="b"> They're a trust signal for humans and algorithms</label>
+        <label data-letter="C"><input type="radio" name="q4" value="c"> They're required by law</label>
       </div>
 
       <div class="question" data-question="5">
         <p><strong>5. What is the most important factor for video SEO?</strong></p>
-        <label><input type="radio" name="q5" value="a"> a) Video length</label>
-        <label><input type="radio" name="q5" value="b"> b) Title, description, and transcript optimization</label>
-        <label><input type="radio" name="q5" value="c"> c) Number of subscribers</label>
+        <label data-letter="A"><input type="radio" name="q5" value="a"> Video length</label>
+        <label data-letter="B"><input type="radio" name="q5" value="b"> Title, description, and transcript optimization</label>
+        <label data-letter="C"><input type="radio" name="q5" value="c"> Number of subscribers</label>
       </div>
 
       <div class="question" data-question="6">
         <p><strong>6. How does social media impact SEO?</strong></p>
-        <label><input type="radio" name="q6" value="a"> a) Direct ranking factor</label>
-        <label><input type="radio" name="q6" value="b"> b) Indirectly through traffic, engagement, and backlinks</label>
-        <label><input type="radio" name="q6" value="c"> c) No impact at all</label>
+        <label data-letter="A"><input type="radio" name="q6" value="a"> Direct ranking factor</label>
+        <label data-letter="B"><input type="radio" name="q6" value="b"> Indirectly through traffic, engagement, and backlinks</label>
+        <label data-letter="C"><input type="radio" name="q6" value="c"> No impact at all</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Quiz</button>
@@ -845,15 +845,18 @@ const sections = [
   }
 
   .quiz-form {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
   .question {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
 
   .question:last-child {
@@ -861,21 +864,50 @@ const sections = [
   }
 
   .question p {
-    font-weight: 600;
-    margin-bottom: 12px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    font-size: 1.1em;
+    color: #333;
   }
 
   .question label {
-    display: block;
-    padding: 10px;
-    margin-bottom: 8px;
-    background: white;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 12px;
     cursor: pointer;
+    border: 2px solid #e9ecef;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .question label:hover {
+    background: #e9ecef;
+    border-color: #4facfe;
+  }
+
+  .question label::before {
+    content: attr(data-letter);
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    flex-shrink: 0;
   }
 
   .question input[type="radio"] {
-    margin-right: 10px;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .quiz-submit {
@@ -897,23 +929,27 @@ const sections = [
 
   .quiz-result {
     margin-top: 20px;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 25px;
+    border-radius: 15px;
     text-align: center;
     font-weight: 600;
     display: none;
+    font-size: 1.15em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
   .quiz-result.pass {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
     display: block;
+    border: 2px solid #28a745;
   }
 
   .quiz-result.fail {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
     display: block;
+    border: 2px solid #dc3545;
   }
 
   .level-nav {
@@ -961,10 +997,52 @@ const sections = [
 </style>
 
 <script>
-  const quizForm = document.getElementById('quiz');
-  const quizResult = document.getElementById('quizResult');
+  // Fisher-Yates shuffle algorithm
+  function shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
 
-  const answers = {
+  // Shuffle quiz options on page load
+  function shuffleQuizOptions() {
+    const questions = document.querySelectorAll('.question');
+
+    questions.forEach((questionEl, questionIndex) => {
+      const options = questionEl.querySelectorAll('.question label');
+      const optionData: Array<{ element: HTMLElement; text: string; value: string }> = [];
+
+      options.forEach((opt, idx) => {
+        const input = opt.querySelector('input') as HTMLInputElement;
+        optionData.push({
+          element: opt as HTMLElement,
+          text: opt.textContent?.trim() || '',
+          value: input?.value || String.fromCharCode(97 + idx)
+        });
+      });
+
+      const shuffled = shuffleArray(optionData);
+
+      const optionsContainer = questionEl.querySelector(':scope > .question-text')?.nextElementSibling;
+      if (optionsContainer) {
+        shuffled.forEach((opt, idx) => {
+          const newValue = String.fromCharCode(97 + idx);
+          const input = opt.element.querySelector('input') as HTMLInputElement;
+          if (input) {
+            input.name = `q${questionIndex + 1}`;
+            input.value = newValue;
+          }
+          opt.element.setAttribute('data-letter', String.fromCharCode(65 + idx));
+          optionsContainer.appendChild(opt.element);
+        });
+      }
+    });
+  }
+
+  const originalAnswers = {
     q1: 'b',
     q2: 'b',
     q3: 'b',
@@ -973,19 +1051,46 @@ const sections = [
     q6: 'b'
   };
 
+  function markCorrectAnswers() {
+    const correctMap: Record<string, string> = originalAnswers;
+
+    document.querySelectorAll('.question').forEach((questionEl, questionIndex) => {
+      const questionNum = questionIndex + 1;
+      const correctLetter = correctMap[`q${questionNum}`];
+
+      const labels = questionEl.querySelectorAll('.question label');
+      labels.forEach(label => {
+        const input = label.querySelector('input') as HTMLInputElement;
+        if (input && input.value === correctLetter) {
+          input.dataset.correct = correctLetter;
+        }
+      });
+    });
+  }
+
+  shuffleQuizOptions();
+  markCorrectAnswers();
+
+  const quizForm = document.getElementById('quiz');
+  const quizResult = document.getElementById('quizResult');
+
   if (quizForm && quizResult) {
     quizForm.addEventListener('submit', (e: Event) => {
       e.preventDefault();
 
       let score = 0;
-      let total = Object.keys(answers).length;
+      const questionCards = quizForm.querySelectorAll('.question');
 
-      for (const [question, correctAnswer] of Object.entries(answers)) {
-        const selected = document.querySelector(`input[name="${question}"]:checked`) as HTMLInputElement;
-        if (selected && selected.value === correctAnswer) {
+      questionCards.forEach((card) => {
+        const selected = card.querySelector('input[type="radio"]:checked') as HTMLInputElement;
+        const correctInput = card.querySelector('input[data-correct]') as HTMLInputElement;
+
+        if (selected && correctInput && selected.value === correctInput.dataset.correct) {
           score++;
         }
-      }
+      });
+
+      const total = questionCards.length;
 
       const percentage = (score / total) * 100;
 

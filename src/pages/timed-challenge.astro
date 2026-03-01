@@ -30,10 +30,10 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- Start Screen -->
-  <section class="start-screen" id="startScreen">
+  <section class="start-screen" id="startScreen" aria-labelledby="start-title">
     <div class="start-content">
-      <h2>🎯 Ready to Race Against Time?</h2>
-      <div class="rules">
+      <h2 id="start-title">🎯 Ready to Race Against Time?</h2>
+      <div class="rules" role="group" aria-label="Game rules">
         <h3>Rules:</h3>
         <ul>
           <li>⏱️ You have <strong>2 minutes</strong> (120 seconds)</li>
@@ -43,39 +43,39 @@ const base = import.meta.env.BASE_URL;
           <li>🚫 No skipping - you must answer each question</li>
         </ul>
       </div>
-      <div class="time-options">
+      <div class="time-options" role="group" aria-label="Choose difficulty level">
         <h3>Choose Difficulty:</h3>
         <div class="time-buttons">
-          <button class="time-btn easy" data-time="180">
+          <button class="time-btn easy" data-time="180" aria-label="Easy mode: 3 minutes to answer questions">
             <span class="time-label">Easy Mode</span>
             <span class="time-value">3 minutes</span>
           </button>
-          <button class="time-btn normal" data-time="120">
+          <button class="time-btn normal" data-time="120" aria-label="Normal mode: 2 minutes to answer questions">
             <span class="time-label">Normal Mode</span>
             <span class="time-value">2 minutes</span>
           </button>
-          <button class="time-btn hard" data-time="60">
+          <button class="time-btn hard" data-time="60" aria-label="Hard mode: 1 minute to answer questions">
             <span class="time-label">Hard Mode</span>
             <span class="time-value">1 minute</span>
           </button>
         </div>
       </div>
-      <button class="start-btn" id="startBtn">Start Challenge →</button>
+      <button class="start-btn" id="startBtn" aria-label="Start the timed challenge">Start Challenge →</button>
     </div>
   </section>
 
   <!-- Quiz Screen (hidden initially) -->
-  <section class="quiz-screen" id="quizScreen" style="display: none;">
+  <section class="quiz-screen" id="quizScreen" style="display: none;" aria-labelledby="quiz-title">
     <div class="quiz-header">
       <div class="timer-display">
-        <span class="timer-icon">⏱️</span>
-        <span class="timer-value" id="timerValue">02:00</span>
+        <span class="timer-icon" aria-hidden="true">⏱️</span>
+        <span class="timer-value" id="timerValue" aria-live="polite" aria-atomic="true">02:00</span>
       </div>
       <div class="score-display">
-        <span class="score-icon">🏆</span>
-        <span class="score-value">Score: <span id="currentScore">0</span></span>
+        <span class="score-icon" aria-hidden="true">🏆</span>
+        <span class="score-value">Score: <span id="currentScore" aria-live="polite">0</span></span>
       </div>
-      <div class="progress-bar">
+      <div class="progress-bar" role="progressbar" aria-label="Question progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="progress-fill" id="progressFill"></div>
       </div>
     </div>
@@ -117,11 +117,11 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <div class="back-home">
-    <a href={`${base}/`}>← Back to Home</a>
+    <button id="backToStartBtn" class="back-start-btn">← Back to Start</button>
   </div>
 </Layout>
 
-<style>
+<style is:inline>
   .challenge-intro {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 20px;
@@ -357,52 +357,113 @@ const base = import.meta.env.BASE_URL;
 
   .question-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    border-left: 5px solid #667eea;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e8e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .question-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.85em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
 
   .question-text {
     font-size: 1.3em;
-    color: #333;
+    color: #2d2d3a;
     margin: 0 0 25px 0;
     line-height: 1.5;
+    font-weight: 600;
   }
 
   .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .option-btn {
-    padding: 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    background: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border: 2px solid #e0e5f0;
+    border-radius: 14px;
+    background: #fafbfc;
     cursor: pointer;
-    font-size: 1em;
-    color: #555;
-    transition: all 0.2s ease;
+    font-size: 1.05em;
+    color: #444;
+    transition: all 0.25s ease;
     text-align: left;
+    position: relative;
+  }
+
+  .option-btn::before {
+    content: attr(data-letter);
+    background: #e8edf5;
+    color: #555;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
   }
 
   .option-btn:hover {
     border-color: #667eea;
-    background: #f8f9ff;
+    background: #f0f4ff;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
   }
 
   .option-btn.correct {
-    border-color: #28a745;
-    background: #d4edda;
+    border-color: #28a745 !important;
+    background: #d4edda !important;
     color: #155724;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+  }
+
+  .option-btn.correct::before {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    transform: scale(1.1);
   }
 
   .option-btn.incorrect {
-    border-color: #dc3545;
-    background: #f8d7da;
+    border-color: #dc3545 !important;
+    background: #f8d7da !important;
     color: #721c24;
+  }
+
+  .option-btn.incorrect::before {
+    background: #dc3545;
+    color: white;
   }
 
   /* Results Screen */
@@ -513,19 +574,24 @@ const base = import.meta.env.BASE_URL;
     margin: 40px 0;
   }
 
-  .back-home a {
+  .back-home a,
+  .back-start-btn {
     display: inline-block;
     padding: 15px 30px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-decoration: none;
+    border: none;
     border-radius: 50px;
     font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    font-size: 1em;
   }
 
-  .back-home a:hover {
+  .back-home a:hover,
+  .back-start-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
   }
@@ -578,6 +644,26 @@ const base = import.meta.env.BASE_URL;
 
   :global(body.dark-mode) .question-card {
     background: #252540;
+    border-color: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .question-text {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .option-btn {
+    border-color: #3a3a5a;
+    background: #2a2a4a;
+  }
+
+  :global(body.dark-mode) .option-btn:hover {
+    border-color: #667eea;
+    background: #3a3a5a;
+  }
+
+  :global(body.dark-mode) .option-btn::before {
+    background: #3a3a5a;
+    color: #a0a0c0;
   }
 
   :global(body.dark-mode) .question-text {
@@ -636,6 +722,7 @@ const base = import.meta.env.BASE_URL;
 
     .options {
       grid-template-columns: 1fr;
+      flex-direction: column;
     }
 
     .stats-grid {
@@ -957,6 +1044,30 @@ const base = import.meta.env.BASE_URL;
 
   // Start game
   function startGame(timeLimit: number) {
+    // Shuffle questions and their options
+    const shuffledQuestions = shuffleArray(allQuestions).map(q => {
+      // Create array of option objects with their original letters
+      const originalOptions = q.options.map((opt, idx) => ({
+        text: opt,
+        originalLetter: String.fromCharCode(97 + idx) // a, b, c, d...
+      }));
+
+      // Shuffle the options
+      const shuffledOptions = shuffleArray(originalOptions);
+
+      // Find where the correct answer ended up
+      const originalCorrectIndex = q.correct.charCodeAt(0) - 97; // 0 for 'a', 1 for 'b', etc.
+      const correctText = q.options[originalCorrectIndex];
+      const newCorrectIndex = shuffledOptions.findIndex(opt => opt.text === correctText);
+      const newCorrectLetter = String.fromCharCode(97 + newCorrectIndex); // new position letter
+
+      return {
+        ...q,
+        options: shuffledOptions.map(opt => opt.text),
+        correct: newCorrectLetter
+      };
+    });
+
     gameState = {
       timeLeft: timeLimit,
       totalTime: timeLimit,
@@ -964,7 +1075,7 @@ const base = import.meta.env.BASE_URL;
       correct: 0,
       wrong: 0,
       currentQuestion: 0,
-      questions: shuffleArray(allQuestions),
+      questions: shuffledQuestions,
       timerInterval: null,
       isActive: true
     };
@@ -999,16 +1110,18 @@ const base = import.meta.env.BASE_URL;
   function showQuestion() {
     if (!questionContainer) return;
     const q = gameState.questions[gameState.currentQuestion];
+    const questionNum = gameState.currentQuestion + 1;
 
     questionContainer.innerHTML = `
-      <div class="question-card">
-        <p class="question-text">${q.q}</p>
-        <div class="options">
+      <div class="question-card" role="group" aria-labelledby="question-title-${questionNum}">
+        <span class="question-number">Question ${questionNum}/${gameState.questions.length}</span>
+        <p class="question-text" id="question-title-${questionNum}">${q.q}</p>
+        <div class="options" role="radiogroup" aria-label="Answer options for question ${questionNum}">
           ${q.options.map((opt: string, index: number) => {
             const letter = String.fromCharCode(97 + index);
             return `
-              <button class="option-btn" data-answer="${letter}">
-                ${letter.toUpperCase()}) ${opt}
+              <button class="option-btn" data-answer="${letter}" data-letter="${letter.toUpperCase()}" aria-label="Option ${letter.toUpperCase()}: ${opt}">
+                ${opt}
               </button>
             `;
           }).join('')}
@@ -1016,11 +1129,42 @@ const base = import.meta.env.BASE_URL;
       </div>
     `;
 
+    // Focus first option for keyboard users
+    setTimeout(() => {
+      const firstOption = questionContainer.querySelector('.option-btn') as HTMLButtonElement;
+      firstOption?.focus();
+    }, 100);
+
     // Add click handlers
     const buttons = questionContainer.querySelectorAll('.option-btn');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => handleAnswer((btn as HTMLElement).dataset.answer || ''));
     });
+
+    // Add keyboard navigation for options
+    const handleKeyNav = (e: KeyboardEvent) => {
+      const currentButton = document.activeElement as HTMLButtonElement;
+      if (!currentButton || !currentButton.classList.contains('option-btn')) return;
+
+      const allButtons = Array.from(questionContainer.querySelectorAll('.option-btn'));
+      const currentIndex = allButtons.indexOf(currentButton);
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % allButtons.length;
+        (allButtons[nextIndex] as HTMLElement).focus();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + allButtons.length) % allButtons.length;
+        (allButtons[prevIndex] as HTMLElement).focus();
+      } else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleAnswer((currentButton as HTMLElement).dataset.answer || '');
+      }
+    };
+
+    // Add keyboard listener to question container
+    questionContainer.addEventListener('keydown', handleKeyNav);
   }
 
   // Handle answer
@@ -1127,7 +1271,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   // Save quiz progress to localStorage
-  function saveQuizProgress(quizId: string, score: number) {
+  function saveQuizProgress(_quizId: string, score: number) {
     const storageKey = 'seoCourseProgress';
     const stored = localStorage.getItem(storageKey);
     const progress = stored ? JSON.parse(stored) : {
@@ -1158,5 +1302,18 @@ const base = import.meta.env.BASE_URL;
 
   retryBtn?.addEventListener('click', () => {
     location.reload();
+  });
+
+  // Back to Start button - reset quiz without leaving page
+  const backToStartBtn = document.getElementById('backToStartBtn');
+  backToStartBtn?.addEventListener('click', () => {
+    if (gameState.timerInterval !== null) {
+      clearInterval(gameState.timerInterval);
+    }
+    // Reset and show start screen
+    if (startScreen) startScreen.style.display = 'block';
+    if (quizScreen) quizScreen.style.display = 'none';
+    if (resultsScreen) resultsScreen.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>

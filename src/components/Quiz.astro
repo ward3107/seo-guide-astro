@@ -15,20 +15,61 @@ interface Question {
   explanation?: string;
 }
 
+interface ShuffledQuestion {
+  q: string;
+  options: string[];
+  correct: string;
+  explanation?: string;
+}
+
 interface Props {
   id: string;
   title: string;
   questions: Question[];
-  passingScore?: number;
 }
 
-const { id, title, questions, passingScore = 75 } = Astro.props;
+const { id, title, questions } = Astro.props;
+
+// Fisher-Yates shuffle algorithm for arrays
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Shuffle options for each question while tracking the correct answer
+const shuffledQuestions: ShuffledQuestion[] = questions.map(question => {
+  // Create array of option objects with their original letters
+  const originalOptions = question.options.map((opt, idx) => ({
+    text: opt,
+    originalLetter: String.fromCharCode(97 + idx) // a, b, c, d...
+  }));
+
+  // Shuffle the options
+  const shuffledOptions = shuffleArray(originalOptions);
+
+  // Find where the correct answer ended up
+  const originalCorrectIndex = question.correct.charCodeAt(0) - 97; // 0 for 'a', 1 for 'b', etc.
+  const correctText = question.options[originalCorrectIndex];
+  const newCorrectIndex = shuffledOptions.findIndex(opt => opt.text === correctText);
+  const newCorrectLetter = String.fromCharCode(97 + newCorrectIndex); // new position letter
+
+  return {
+    q: question.q,
+    options: shuffledOptions.map(opt => opt.text),
+    correct: newCorrectLetter,
+    explanation: question.explanation
+  };
+});
 ---
 
 <div class="quiz-container" id={`quiz-${id}`}>
   <h3>{title}</h3>
   <form class="quiz-form" data-quiz-id={id}>
-    {questions.map((question, index) => (
+    {shuffledQuestions.map((question, index) => (
       <div class="question" data-question={index + 1}>
         <p class="question-text">
           <strong>{index + 1}. {question.q}</strong>
@@ -36,8 +77,9 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
         <div class="options">
           {question.options.map((option, optIndex) => {
             const letter = String.fromCharCode(97 + optIndex); // a, b, c, d...
+            const letterDisplay = String.fromCharCode(65 + optIndex); // A, B, C, D...
             return (
-              <label class="option-label">
+              <label class="option-label" data-letter={letterDisplay}>
                 <input
                   type="radio"
                   name={`${id}-q${index + 1}`}
@@ -65,67 +107,137 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   .quiz-container {
     background: var(--gradient-card);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     margin: 30px 0;
   }
 
   .quiz-container h3 {
     color: var(--color-brand-primary);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-size: 1.5em;
   }
 
   .question {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 30px;
+    padding: 25px;
+    background: var(--color-surface);
+    border-radius: 20px;
+    border: 2px solid var(--color-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   }
 
   .question:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
 
   .question-text {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: var(--color-text);
+  }
+
+  .question-text strong {
+    display: inline-block;
+    font-size: 1.2em;
+    color: var(--color-text);
+    margin-bottom: 5px;
   }
 
   .options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .option-label {
     display: flex;
-    align-items: flex-start;
-    padding: 12px 15px;
-    background: var(--color-surface);
-    border-radius: 8px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #fafbfc;
+    border-radius: 14px;
     cursor: pointer;
-    transition: all 0.2s;
-    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    border: 2px solid var(--color-border);
+    position: relative;
+  }
+
+  .option-label::before {
+    content: attr(data-letter);
+    background: #e8edf5;
+    color: #555;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
   }
 
   .option-label:hover {
-    background: var(--color-surface-elevated);
+    background: #f0f4ff;
     border-color: var(--color-brand-primary);
+    transform: translateX(4px);
+    box-shadow: 0 3px 12px rgba(102, 126, 234, 0.12);
   }
 
   .option-label.selected {
     border-color: var(--color-brand-primary);
-    background: #e3f2fd;
+    background: #f0f4ff;
+  }
+
+  .option-label.selected::before {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .option-label.correct::before {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .option-label.incorrect::before {
+    background: #dc3545;
+    color: white;
+  }
+
+  .option-label.correct {
+    border-color: #28a745;
+    background: #d4edda;
+    box-shadow: 0 3px 12px rgba(40, 167, 69, 0.15);
+  }
+
+  .option-label.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
   }
 
   .option-label input[type="radio"] {
-    margin-right: 12px;
-    margin-top: 3px;
-    flex-shrink: 0;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .option-text {
     flex: 1;
     color: var(--color-text-secondary);
+    font-size: 1.05em;
   }
 
   .explanation {
@@ -323,7 +435,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
       resultDiv.className = `quiz-result show ${passed ? 'pass' : 'fail'}`;
 
       // Save progress to localStorage
-      saveQuizProgress(quizId, percentage, total);
+      saveQuizProgress(quizId, percentage);
 
       // Move focus to result for accessibility
       (resultDiv as HTMLElement).setAttribute('tabindex', '-1');
@@ -335,7 +447,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   });
 
   // Save quiz progress to localStorage
-  function saveQuizProgress(quizId: string, score: number, total: number) {
+  function saveQuizProgress(quizId: string, score: number) {
     const storageKey = 'seoCourseProgress';
     const stored = localStorage.getItem(storageKey);
     const progress = stored ? JSON.parse(stored) : {

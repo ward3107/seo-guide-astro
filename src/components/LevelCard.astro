@@ -286,11 +286,13 @@ const cardId = `level-card-${level}`;
   }
 </style>
 
-<script define:vars={{ cardId }}>
+<script define:vars={{ cardId }} is:inline>
   // Only target this specific card
   const card = document.getElementById(cardId);
-  const toggle = card?.querySelector('.card-toggle');
-  const topicsList = card?.querySelector('.topics-list');
+  if (!card) return;
+
+  const toggle = card.querySelector('.card-toggle');
+  const topicsList = card.querySelector('.topics-list');
 
   if (toggle && topicsList) {
     toggle.addEventListener('click', () => {

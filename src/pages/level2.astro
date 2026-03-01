@@ -562,58 +562,58 @@ Allow: /</code></pre>
     <form id="quiz" class="quiz-form">
       <div class="question" data-question="1">
         <p><strong>1. What is robots.txt?</strong></p>
-        <label><input type="radio" name="q1" value="a"> a) A sitemap for search engines</label>
-        <label><input type="radio" name="q1" value="b"> b) A file that tells bots which pages to crawl</label>
-        <label><input type="radio" name="q1" value="c"> c) A redirect rule</label>
+        <label data-letter="A"><input type="radio" name="q1" value="a"> A sitemap for search engines</label>
+        <label data-letter="B"><input type="radio" name="q1" value="b"> A file that tells bots which pages to crawl</label>
+        <label data-letter="C"><input type="radio" name="q1" value="c"> A redirect rule</label>
       </div>
 
       <div class="question" data-question="2">
         <p><strong>2. What does a 200 status code mean?</strong></p>
-        <label><input type="radio" name="q2" value="a"> a) Page not found</label>
-        <label><input type="radio" name="q2" value="b"> b) Page moved permanently</label>
-        <label><input type="radio" name="q2" value="c"> c) Page loaded successfully</label>
+        <label data-letter="A"><input type="radio" name="q2" value="a"> Page not found</label>
+        <label data-letter="B"><input type="radio" name="q2" value="b"> Page moved permanently</label>
+        <label data-letter="C"><input type="radio" name="q2" value="c"> Page loaded successfully</label>
       </div>
 
       <div class="question" data-question="3">
         <p><strong>3. What is an XML sitemap?</strong></p>
-        <label><input type="radio" name="q3" value="a"> a) A list of all pages on your site</label>
-        <label><input type="radio" name="q3" value="b"> b) A site design template</label>
-        <label><input type="radio" name="q3" value="c"> c) A database file</label>
+        <label data-letter="A"><input type="radio" name="q3" value="a"> A list of all pages on your site</label>
+        <label data-letter="B"><input type="radio" name="q3" value="b"> A site design template</label>
+        <label data-letter="C"><input type="radio" name="q3" value="c"> A database file</label>
       </div>
 
       <div class="question" data-question="4">
         <p><strong>4. What does LCP measure?</strong></p>
-        <label><input type="radio" name="q4" value="a"> a) How fast the page responds to clicks</label>
-        <label><input type="radio" name="q4" value="b"> b) How fast the main content loads</label>
-        <label><input type="radio" name="q4" value="c"> c) How much the page shifts</label>
+        <label data-letter="A"><input type="radio" name="q4" value="a"> How fast the page responds to clicks</label>
+        <label data-letter="B"><input type="radio" name="q4" value="b"> How fast the main content loads</label>
+        <label data-letter="C"><input type="radio" name="q4" value="c"> How much the page shifts</label>
       </div>
 
       <div class="question" data-question="5">
         <p><strong>5. What is a 301 redirect?</strong></p>
-        <label><input type="radio" name="q5" value="a"> a) Temporary redirect</label>
-        <label><input type="radio" name="q5" value="b"> b) Permanent redirect</label>
-        <label><input type="radio" name="q5" value="c"> c) Error page</label>
+        <label data-letter="A"><input type="radio" name="q5" value="a"> Temporary redirect</label>
+        <label data-letter="B"><input type="radio" name="q5" value="b"> Permanent redirect</label>
+        <label data-letter="C"><input type="radio" name="q5" value="c"> Error page</label>
       </div>
 
       <div class="question" data-question="6">
         <p><strong>6. What does CLS measure?</strong></p>
-        <label><input type="radio" name="q6" value="a"> a) Layout stability</label>
-        <label><input type="radio" name="q6" value="b"> b) Loading speed</label>
-        <label><input type="radio" name="q6" value="c"> c) Interactivity</label>
+        <label data-letter="A"><input type="radio" name="q6" value="a"> Layout stability</label>
+        <label data-letter="B"><input type="radio" name="q6" value="b"> Loading speed</label>
+        <label data-letter="C"><input type="radio" name="q6" value="c"> Interactivity</label>
       </div>
 
       <div class="question" data-question="7">
         <p><strong>7. Where should robots.txt be located?</strong></p>
-        <label><input type="radio" name="q7" value="a"> a) In the root directory</label>
-        <label><input type="radio" name="q7" value="b"> b) In the /admin folder</label>
-        <label><input type="radio" name="q7" value="c"> c) Anywhere on the site</label>
+        <label data-letter="A"><input type="radio" name="q7" value="a"> In the root directory</label>
+        <label data-letter="B"><input type="radio" name="q7" value="b"> In the /admin folder</label>
+        <label data-letter="C"><input type="radio" name="q7" value="c"> Anywhere on the site</label>
       </div>
 
       <div class="question" data-question="8">
         <p><strong>8. What is a "soft 404"?</strong></p>
-        <label><input type="radio" name="q8" value="a"> a) A page that returns 404 but has content</label>
-        <label><input type="radio" name="q8" value="b"> b) A page that returns 200 but says "not found"</label>
-        <label><input type="radio" name="q8" value="c"> c) A slow-loading 404 page</label>
+        <label data-letter="A"><input type="radio" name="q8" value="a"> A page that returns 404 but has content</label>
+        <label data-letter="B"><input type="radio" name="q8" value="b"> A page that returns 200 but says "not found"</label>
+        <label data-letter="C"><input type="radio" name="q8" value="c"> A slow-loading 404 page</label>
       </div>
 
       <button type="submit" class="quiz-submit">Submit Quiz</button>
@@ -889,15 +889,18 @@ Allow: /</code></pre>
   }
 
   .quiz-form {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
   .question {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
 
   .question:last-child {
@@ -905,21 +908,50 @@ Allow: /</code></pre>
   }
 
   .question p {
-    font-weight: 600;
-    margin-bottom: 12px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    font-size: 1.1em;
+    color: #333;
   }
 
   .question label {
-    display: block;
-    padding: 10px;
-    margin-bottom: 8px;
-    background: white;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 12px;
     cursor: pointer;
+    border: 2px solid #e9ecef;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .question label:hover {
+    background: #e9ecef;
+    border-color: #764ba2;
+  }
+
+  .question label::before {
+    content: attr(data-letter);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    flex-shrink: 0;
   }
 
   .question input[type="radio"] {
-    margin-right: 10px;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .quiz-submit {
@@ -941,23 +973,27 @@ Allow: /</code></pre>
 
   .quiz-result {
     margin-top: 20px;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 25px;
+    border-radius: 15px;
     text-align: center;
     font-weight: 600;
     display: none;
+    font-size: 1.15em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
   .quiz-result.pass {
-    background: #d4edda;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
     display: block;
+    border: 2px solid #28a745;
   }
 
   .quiz-result.fail {
-    background: #f8d7da;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
     display: block;
+    border: 2px solid #dc3545;
   }
 
   .level-nav {
@@ -1005,10 +1041,56 @@ Allow: /</code></pre>
 </style>
 
 <script>
-  const quizForm = document.getElementById('quiz');
-  const quizResult = document.getElementById('quizResult');
+  // Fisher-Yates shuffle algorithm
+  function shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
 
-  const answers = {
+  // Shuffle quiz options on page load
+  function shuffleQuizOptions() {
+    const questions = document.querySelectorAll('.question');
+
+    questions.forEach((questionEl, questionIndex) => {
+      const options = questionEl.querySelectorAll('.question label');
+      const optionData: Array<{ element: HTMLElement; text: string; value: string }> = [];
+
+      // Collect option data
+      options.forEach((opt, idx) => {
+        const input = opt.querySelector('input') as HTMLInputElement;
+        optionData.push({
+          element: opt as HTMLElement,
+          text: opt.textContent?.trim() || '',
+          value: input?.value || String.fromCharCode(97 + idx)
+        });
+      });
+
+      // Shuffle options
+      const shuffled = shuffleArray(optionData);
+
+      // Reorder options and update values
+      const optionsContainer = questionEl.querySelector(':scope > .question-text')?.nextElementSibling;
+      if (optionsContainer) {
+        shuffled.forEach((opt, idx) => {
+          const newValue = String.fromCharCode(97 + idx);
+          const input = opt.element.querySelector('input') as HTMLInputElement;
+          if (input) {
+            input.name = `q${questionIndex + 1}`;
+            input.value = newValue;
+          }
+          opt.element.setAttribute('data-letter', String.fromCharCode(65 + idx));
+          optionsContainer.appendChild(opt.element);
+        });
+      }
+    });
+  }
+
+  // Store original correct answers
+  const originalAnswers = {
     q1: 'b',
     q2: 'c',
     q3: 'a',
@@ -1019,19 +1101,48 @@ Allow: /</code></pre>
     q8: 'b'
   };
 
+  // Mark correct answers with data attribute
+  function markCorrectAnswers() {
+    const correctMap: Record<string, string> = originalAnswers;
+
+    document.querySelectorAll('.question').forEach((questionEl, questionIndex) => {
+      const questionNum = questionIndex + 1;
+      const correctLetter = correctMap[`q${questionNum}`];
+
+      const labels = questionEl.querySelectorAll('.question label');
+      labels.forEach(label => {
+        const input = label.querySelector('input') as HTMLInputElement;
+        if (input && input.value === correctLetter) {
+          input.dataset.correct = correctLetter;
+        }
+      });
+    });
+  }
+
+  // Run shuffle on page load
+  shuffleQuizOptions();
+  markCorrectAnswers();
+
+  const quizForm = document.getElementById('quiz');
+  const quizResult = document.getElementById('quizResult');
+
   if (quizForm && quizResult) {
     quizForm.addEventListener('submit', (e: Event) => {
       e.preventDefault();
 
       let score = 0;
-      let total = Object.keys(answers).length;
+      const questionCards = quizForm.querySelectorAll('.question');
 
-      for (const [question, correctAnswer] of Object.entries(answers)) {
-        const selected = document.querySelector(`input[name="${question}"]:checked`) as HTMLInputElement;
-        if (selected && selected.value === correctAnswer) {
+      questionCards.forEach((card) => {
+        const selected = card.querySelector('input[type="radio"]:checked') as HTMLInputElement;
+        const correctInput = card.querySelector('input[data-correct]') as HTMLInputElement;
+
+        if (selected && correctInput && selected.value === correctInput.dataset.correct) {
           score++;
         }
-      }
+      });
+
+      const total = questionCards.length;
 
       const percentage = (score / total) * 100;
 
