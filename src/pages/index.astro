@@ -226,6 +226,9 @@ const levels = [
     <div class="flashcards-cta">
       <p>📇 Want to study key terms? <a href={`${base}/flashcards`}>Use Flashcards</a></p>
     </div>
+    <div class="glossary-cta">
+      <p>📖 Need to look up a term? <a href={`${base}/glossary`}>Browse the Glossary</a></p>
+    </div>
   </section>
 
   <!-- CTA Section -->
@@ -605,6 +608,30 @@ const levels = [
   }
 
   .flashcards-cta a:hover {
+    color: #764ba2;
+  }
+
+  .glossary-cta {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-radius: 15px;
+  }
+
+  .glossary-cta p {
+    font-size: 1.1em;
+    color: #1b5e20;
+    margin: 0;
+  }
+
+  .glossary-cta a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .glossary-cta a:hover {
     color: #764ba2;
   }
 

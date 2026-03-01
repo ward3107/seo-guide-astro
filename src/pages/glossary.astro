@@ -1,0 +1,497 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// Glossary terms data
+const glossaryTerms = [
+  { term: 'Alt Text', definition: 'Alternative text that describes images for search engines and screen readers. Essential for image SEO and accessibility.', category: 'Basics' },
+  { term: 'Anchor Text', definition: 'The clickable text in a hyperlink. Provides context about the destination page and is an important ranking factor.', category: 'Basics' },
+  { term: 'Backlink', definition: 'A link from another website pointing to your site. Quality backlinks are a major factor in search rankings.', category: 'Off-Page' },
+  { term: 'Bounce Rate', definition: 'The percentage of visitors who leave after viewing only one page. High bounce rates may indicate poor user experience.', category: 'Analytics' },
+  { term: 'Canonical Tag', definition: 'An HTML element that tells search engines which version of a page is the "preferred" one when duplicate content exists.', category: 'Technical' },
+  { term: 'CTR (Click-Through Rate)', definition: 'The percentage of people who click on your link after seeing it in search results. Important for measuring SEO effectiveness.', category: 'Analytics' },
+  { term: 'Domain Authority', definition: 'A search engine ranking score (developed by Moz) that predicts how likely a website is to rank in search results.', category: 'Off-Page' },
+  { term: 'E-E-A-T', definition: 'Experience, Expertise, Authoritativeness, and Trustworthiness - Google\'s framework for evaluating content quality.', category: 'GEO' },
+  { term: 'Entity', definition: 'A distinct, well-defined concept, person, place, or thing that search engines can identify and understand using Knowledge Graph.', category: 'GEO' },
+  { term: 'Featured Snippet', definition: 'A highlighted answer at the top of Google search results that directly answers a user\'s query without requiring a click.', category: 'SERP' },
+  { term: 'GEO', definition: 'Generative Engine Optimization - optimizing content for AI-powered search engines like ChatGPT and Google\'s SGE.', category: 'GEO' },
+  { term: 'Google Business Profile', definition: 'A free business listing that helps local businesses appear in Google Maps and local search results.', category: 'Local' },
+  { term: 'H1 Tag', definition: 'The main heading tag on a webpage. Each page should have exactly one H1 that describes the primary topic.', category: 'On-Page' },
+  { term: 'Heading Tags (H1-H6)', definition: 'HTML tags used to structure content hierarchically. Help search engines understand page organization and content importance.', category: 'On-Page' },
+  { term: 'HTTPS', definition: 'A secure protocol that encrypts data between user and server. Google uses it as a ranking signal.', category: 'Technical' },
+  { term: 'Index', definition: 'The database of webpages that a search engine has crawled and stored to show in search results.', category: 'Technical' },
+  { term: 'Internal Link', definition: 'A link that points to another page on the same website. Helps with site navigation and distributes page authority.', category: 'On-Page' },
+  { term: 'Keyword', definition: 'A word or phrase that users enter into search engines. SEO targets specific keywords to rank for relevant queries.', category: 'Basics' },
+  { term: 'Keyword Density', definition: 'The percentage of times a keyword appears on a page compared to total words. Natural usage is recommended over stuffing.', category: 'On-Page' },
+  { term: 'Keyword Stuffing', definition: 'The practice of overusing keywords unnaturally to manipulate rankings. Considered spam and can lead to penalties.', category: 'Basics' },
+  { term: 'Knowledge Graph', definition: 'Google\'s database of billions of facts about people, places, and things, used to understand entities and their relationships.', category: 'GEO' },
+  { term: 'LCP (Largest Contentful Paint)', definition: 'A Core Web Vitals metric measuring how long the largest content element takes to load. Should be under 2.5 seconds.', category: 'Technical' },
+  { term: 'Link Equity', definition: 'Also called "link juice" - the SEO value passed from one page to another through hyperlinks.', category: 'Off-Page' },
+  { term: 'Local Pack', definition: 'The top 3 local business listings shown in Google search results for location-based queries.', category: 'Local' },
+  { term: 'Meta Description', definition: 'A brief summary (150-160 characters) of webpage content that appears in search results below the title.', category: 'On-Page' },
+  { term: 'Meta Keywords', definition: 'A deprecated meta tag that used to list target keywords. No longer used by major search engines.', category: 'On-Page' },
+  { term: 'Meta Title', definition: 'See "Title Tag" - the most important on-page SEO element that appears in search results.', category: 'On-Page' },
+  { term: 'NAP', definition: 'Name, Address, Phone number. Consistency of NAP across all online directories is crucial for local SEO.', category: 'Local' },
+  { term: 'Natural Language Processing (NLP)', definition: 'AI technology that helps search engines understand human language and search intent.', category: 'GEO' },
+  { term: 'Nofollow Link', definition: 'A link with rel="nofollow" attribute that tells search engines not to pass SEO value to the destination page.', category: 'Technical' },
+  { term: 'Organic Search', definition: 'Non-paid search results that appear naturally based on relevance to the search query.', category: 'Basics' },
+  { term: 'Page Authority', definition: 'A score (by Moz) predicting how well a specific page will rank in search results.', category: 'Off-Page' },
+  { term: 'Paid Search', definition: 'Advertisements that appear at the top of search results, marked as "Sponsored" or "Ad".', category: 'Basics' },
+  { term: 'Ranking Factor', definition: 'A criterion that search engines use to determine where to rank a webpage in search results.', category: 'Basics' },
+  { term: 'Redirect', definition: 'A way to send users and search engines from one URL to another. Types include 301 (permanent) and 302 (temporary).', category: 'Technical' },
+  { term: ' robots.txt', definition: 'A file that tells search engine crawlers which pages they can and cannot access on your website.', category: 'Technical' },
+  { term: 'Schema Markup', definition: 'Structured data code that helps search engines understand content meaning, enabling rich results in search.', category: 'Technical' },
+  { term: 'Search Intent', definition: 'The reason behind a user\'s search - whether they want to learn, buy, navigate, or find specific information.', category: 'Basics' },
+  { term: 'Search Volume', definition: 'The number of times a keyword is searched for in a given period. Important for keyword research.', category: 'Research' },
+  { term: 'SERP', definition: 'Search Engine Results Page - the page you see after entering a query into a search engine.', category: 'SERP' },
+  { term: 'Sitemap', definition: 'A file listing all important pages on a website. XML sitemaps help search engines discover and index content.', category: 'Technical' },
+  { term: 'Slug', definition: 'The part of a URL that identifies a specific page. Should be descriptive and keyword-rich.', category: 'Technical' },
+  { term: 'Structured Data', definition: 'Formatted code that provides context about webpage content to search engines.', category: 'Technical' },
+  { term: 'Title Tag', definition: 'The HTML element that specifies the title of a webpage. Most important on-page SEO factor.', category: 'On-Page' },
+  { term: 'URL', definition: 'Uniform Resource Locator - the address of a webpage. Clean, descriptive URLs are better for SEO.', category: 'Technical' },
+  { term: 'User Experience (UX)', definition: 'How a user interacts with and experiences a website. Good UX improves search rankings.', category: 'Technical' },
+  { term: 'VEO', definition: 'Video Engine Optimization - optimizing videos to rank in search results, particularly on YouTube.', category: 'Video' },
+  { term: 'White Hat SEO', definition: 'SEO techniques that follow search engine guidelines and provide value to users.', category: 'Basics' },
+  { term: 'XML Sitemap', definition: 'A machine-readable sitemap format that helps search engines discover and index website content.', category: 'Technical' }
+];
+
+// Get unique first letters for navigation
+const firstLetters = [...new Set(glossaryTerms.map(t => t.term[0]))].sort();
+
+// Group terms by first letter
+const termsByLetter = firstLetters.reduce((acc, letter) => {
+  acc[letter] = glossaryTerms.filter(t => t.term[0] === letter).sort((a, b) => a.term.localeCompare(b.term));
+  return acc;
+}, {} as Record<string, typeof glossaryTerms>);
+
+// Categories for filtering
+const categories = [...new Set(glossaryTerms.map(t => t.category))].sort();
+---
+
+<Layout title="Glossary | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Glossary</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">📖 GLOSSARY</span>
+    <h1>SEO & GEO Glossary</h1>
+    <p class="subtitle">Your comprehensive dictionary of search engine optimization terms</p>
+  </header>
+
+  <section class="glossary-intro">
+    <h2>🔍 How to Use This Glossary</h2>
+    <ul>
+      <li>📝 Click a letter to jump to terms starting with that letter</li>
+      <li>🔎 Use the search box to find specific terms</li>
+      <li>🏷️ Filter by category to focus on specific topics</li>
+      <li>📱 Works on all devices - study anywhere!</li>
+    </ul>
+  </section>
+
+  <div class="glossary-container">
+    <!-- Search and Filter -->
+    <div class="search-section">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for a term..."
+          aria-label="Search glossary terms"
+        />
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="category-filter">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          {categories.map(cat => <option value={cat}>{cat}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <!-- Alphabet Navigation -->
+    <div class="alphabet-nav" id="alphabetNav" role="navigation" aria-label="Alphabet navigation">
+      {
+        firstLetters.map(letter => (
+          <a href={`#letter-${letter}`} class="letter-link" data-letter={letter}>
+            {letter}
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Glossary Terms -->
+    <div class="terms-container" id="termsContainer">
+      {
+        Object.entries(termsByLetter).map(([letter, terms]) => (
+          <div class="letter-section" id={`letter-${letter}`}>
+            <h2 class="letter-title">{letter}</h2>
+            <div class="terms-list">
+              {
+                terms.map(term => (
+                  <div class="term-card" data-term={term.term.toLowerCase()} data-category={term.category}>
+                    <div class="term-header">
+                      <h3 class="term-name">{term.term}</h3>
+                      <span class="term-category">{term.category}</span>
+                    </div>
+                    <p class="term-definition">{term.definition}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="back-home">
+    <a href={`${base}/`}>← Back to Home</a>
+  </div>
+</Layout>
+
+<style>
+  .glossary-intro {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .glossary-intro h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+  }
+
+  .glossary-intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .glossary-intro li {
+    padding: 12px 18px;
+    background: white;
+    border-radius: 10px;
+    font-size: 1.05em;
+    color: #555;
+  }
+
+  .glossary-container {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+  }
+
+  .search-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .search-box {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1.1em;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3em;
+  }
+
+  .category-filter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .category-filter label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .category-filter select {
+    flex: 1;
+    padding: 12px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    background: white;
+    cursor: pointer;
+  }
+
+  .alphabet-nav {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .letter-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .letter-link:hover,
+  .letter-link.active {
+    background: white;
+    color: #667eea;
+    transform: scale(1.1);
+  }
+
+  .letter-section {
+    margin-bottom: 40px;
+    scroll-margin-top: 20px;
+  }
+
+  .letter-title {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
+
+  .terms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .term-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .term-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  }
+
+  .term-card.hidden {
+    display: none;
+  }
+
+  .term-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .term-name {
+    margin: 0;
+    color: #333;
+    font-size: 1.3em;
+  }
+
+  .term-category {
+    padding: 5px 15px;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .term-definition {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+    font-size: 1.05em;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+    font-size: 1.2em;
+  }
+
+  .back-home {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .back-home a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .glossary-intro {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .search-section,
+  :global(body.dark-mode) .term-card {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .term-name {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .term-definition {
+    color: #b0b0b0;
+  }
+
+  :global(body.dark-mode) .category-filter label {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .category-filter select {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+    color: #e0e0e0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .glossary-intro ul {
+      grid-template-columns: 1fr;
+    }
+
+    .category-filter {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .alphabet-nav {
+      gap: 5px;
+    }
+
+    .letter-link {
+      width: 35px;
+      height: 35px;
+      font-size: 0.9em;
+    }
+  }
+</style>
+
+<script>
+  const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+  const categoryFilter = document.getElementById('categoryFilter') as HTMLSelectElement;
+  const letterLinks = document.querySelectorAll('.letter-link');
+
+  // Search functionality
+  searchInput?.addEventListener('input', () => {
+    filterTerms();
+  });
+
+  // Category filter
+  categoryFilter?.addEventListener('change', () => {
+    filterTerms();
+  });
+
+  // Filter terms based on search and category
+  function filterTerms() {
+    const searchTerm = searchInput?.value.toLowerCase() || '';
+    const category = categoryFilter?.value || 'all';
+    const termCards = document.querySelectorAll('.term-card');
+
+    termCards.forEach(card => {
+      const term = card.getAttribute('data-term') || '';
+      const cardCategory = card.getAttribute('data-category') || '';
+      const matchesSearch = term.includes(searchTerm);
+      const matchesCategory = category === 'all' || cardCategory === category;
+
+      if (matchesSearch && matchesCategory) {
+        (card as HTMLElement).classList.remove('hidden');
+      } else {
+        (card as HTMLElement).classList.add('hidden');
+      }
+    });
+
+    // Hide empty sections
+    const letterSections = document.querySelectorAll('.letter-section');
+    letterSections.forEach(section => {
+      const visibleCards = section.querySelectorAll('.term-card:not(.hidden)');
+      (section as HTMLElement).style.display = visibleCards.length > 0 ? 'block' : 'none';
+    });
+  }
+
+  // Alphabet navigation highlighting
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        if (id) {
+          const letter = id.replace('letter-', '');
+          letterLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-letter') === letter) {
+              link.classList.add('active');
+            }
+          });
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.letter-section').forEach(section => {
+    observer.observe(section);
+  });
+</script>
