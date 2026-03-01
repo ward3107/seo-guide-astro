@@ -223,6 +223,9 @@ const levels = [
     <div class="progress-cta">
       <p>📊 Track your learning progress: <a href={`${base}/progress`}>View Progress Dashboard</a></p>
     </div>
+    <div class="flashcards-cta">
+      <p>📇 Want to study key terms? <a href={`${base}/flashcards`}>Use Flashcards</a></p>
+    </div>
   </section>
 
   <!-- CTA Section -->
@@ -578,6 +581,30 @@ const levels = [
   }
 
   .progress-cta a:hover {
+    color: #764ba2;
+  }
+
+  .flashcards-cta {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+    border-radius: 15px;
+  }
+
+  .flashcards-cta p {
+    font-size: 1.1em;
+    color: #4a148c;
+    margin: 0;
+  }
+
+  .flashcards-cta a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .flashcards-cta a:hover {
     color: #764ba2;
   }
 

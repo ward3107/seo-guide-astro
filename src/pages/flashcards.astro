@@ -1,0 +1,692 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Flashcards | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Flashcards</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">📇 FLASHCARDS</span>
+    <h1>Study with Flashcards</h1>
+    <p class="subtitle">Master key SEO & GEO concepts with interactive flashcards</p>
+  </header>
+
+  <section class="flashcards-intro">
+    <h2>🎯 How to Use</h2>
+    <ul>
+      <li>👆 Click the card or press Spacebar to flip</li>
+      <li>✅ Mark cards as "Know" or "Need Practice"</li>
+      <li>🔀 Shuffle to mix up the order</li>
+      <li>📊 Track your progress as you study</li>
+    </ul>
+  </section>
+
+  <div class="flashcards-container">
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <label for="categorySelect">Filter by Category:</label>
+      <select id="categorySelect">
+        <option value="all">All Categories</option>
+        <option value="basics">SEO Basics</option>
+        <option value="technical">Technical SEO</option>
+        <option value="geo">GEO & AI</option>
+        <option value="offpage">Off-Page & Local</option>
+      </select>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="study-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-stats">
+        <span id="currentIndex">1</span> / <span id="totalCards">0</span> cards
+        <span class="known-count">✅ <span id="knownCount">0</span> known</span>
+        <span class="practice-count">📚 <span id="practiceCount">0</span> need practice</span>
+      </div>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="flashcard-wrapper">
+      <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Flashcard, press Space or click to flip">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="card-category" id="cardCategory">SEO Basics</div>
+            <div class="card-term" id="cardTerm">Loading...</div>
+            <div class="card-hint">Click to flip</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="card-definition" id="cardDefinition">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="card-controls">
+      <button class="control-btn prev-btn" id="prevBtn" aria-label="Previous card">
+        ← Previous
+      </button>
+      <button class="control-btn know-btn" id="knowBtn" aria-label="Mark as known">
+        ✅ I Know This
+      </button>
+      <button class="control-btn practice-btn" id="practiceBtn" aria-label="Mark as need practice">
+        📚 Need Practice
+      </button>
+      <button class="control-btn next-btn" id="nextBtn" aria-label="Next card">
+        Next →
+      </button>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="shuffle-btn" id="shuffleBtn">🔀 Shuffle Cards</button>
+      <button class="reset-btn" id="resetBtn">🔄 Reset Progress</button>
+    </div>
+  </div>
+
+  <div class="back-home">
+    <a href={`${base}/`}>← Back to Home</a>
+  </div>
+</Layout>
+
+<style>
+  .flashcards-intro {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .flashcards-intro h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+  }
+
+  .flashcards-intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .flashcards-intro li {
+    padding: 12px 18px;
+    background: white;
+    border-radius: 10px;
+    font-size: 1.05em;
+    color: #555;
+  }
+
+  .flashcards-container {
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+
+  .category-filter {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .category-filter label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .category-filter select {
+    flex: 1;
+    padding: 12px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    background: white;
+    cursor: pointer;
+  }
+
+  .category-filter select:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+
+  .study-progress {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #555;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .known-count {
+    color: #28a745;
+  }
+
+  .practice-count {
+    color: #ffc107;
+  }
+
+  .flashcard-wrapper {
+    perspective: 1000px;
+    margin: 30px 0;
+  }
+
+  .flashcard {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+  }
+
+  .flashcard.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .flashcard:focus {
+    outline: none;
+  }
+
+  .flashcard:focus::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 20px;
+    border: 3px solid #667eea;
+  }
+
+  .flashcard-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .flashcard-front {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .flashcard-back {
+    background: white;
+    transform: rotateY(180deg);
+    color: #333;
+  }
+
+  .card-category {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  .card-term {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .card-hint {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+
+  .card-definition {
+    font-size: 1.4em;
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 20px;
+  }
+
+  .card-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+
+  .control-btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .prev-btn,
+  .next-btn {
+    background: #f8f9fa;
+    color: #333;
+  }
+
+  .prev-btn:hover,
+  .next-btn:hover {
+    background: #e9ecef;
+  }
+
+  .know-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+  }
+
+  .know-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+  }
+
+  .practice-btn {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    color: white;
+  }
+
+  .practice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .shuffle-btn,
+  .reset-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .shuffle-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .reset-btn {
+    background: #f8f9fa;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+  }
+
+  .shuffle-btn:hover,
+  .reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .back-home {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .back-home a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .back-home a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Dark mode */
+  :global(body.dark-mode) .flashcards-intro {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .category-filter,
+  :global(body.dark-mode) .study-progress {
+    background: #252540;
+  }
+
+  :global(body.dark-mode) .category-filter label,
+  :global(body.dark-mode) .progress-stats {
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .category-filter select {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+    color: #e0e0e0;
+  }
+
+  :global(body.dark-mode) .flashcard-back {
+    background: #252540;
+    color: #e0e0e0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .flashcards-intro ul {
+      grid-template-columns: 1fr;
+    }
+
+    .category-filter {
+      flex-direction: column;
+    }
+
+    .flashcard {
+      height: 300px;
+    }
+
+    .card-term {
+      font-size: 1.5em;
+    }
+
+    .card-definition {
+      font-size: 1.1em;
+    }
+
+    .card-controls {
+      flex-direction: column;
+    }
+
+    .control-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  interface Flashcard {
+    term: string;
+    definition: string;
+    category: 'basics' | 'technical' | 'geo' | 'offpage';
+  }
+
+  const flashcards: Flashcard[] = [
+    // Basics
+    { term: 'SEO', definition: 'Search Engine Optimization - the practice of optimizing websites to rank higher in search engine results.', category: 'basics' },
+    { term: 'GEO', definition: 'Generative Engine Optimization - optimizing content for AI-powered search engines like ChatGPT and Google SGE.', category: 'geo' },
+    { term: 'Title Tag', definition: 'An HTML element that specifies the title of a webpage. It appears in search results and browser tabs.', category: 'basics' },
+    { term: 'Meta Description', definition: 'A brief summary (150-160 characters) of a webpage content that appears in search results.', category: 'basics' },
+    { term: 'H1 Tag', definition: 'The main heading tag on a webpage. Each page should have exactly one H1 describing the main topic.', category: 'basics' },
+    { term: 'Anchor Text', definition: 'The visible, clickable text in a hyperlink. Important for SEO as it gives context about the linked page.', category: 'basics' },
+    { term: 'Alt Text', definition: 'Text attribute on images that describes them for search engines and screen readers (accessibility).', category: 'basics' },
+    { term: 'Search Intent', definition: 'The reason behind a user\'s search query - whether they want to learn, buy, navigate, or find specific information.', category: 'basics' },
+    { term: 'Keyword Stuffing', definition: 'The black-hat practice of overusing keywords unnaturally to manipulate rankings. Can result in penalties.', category: 'basics' },
+    { term: 'Backlink', definition: 'A link from another website to yours. Quality backlinks are a key ranking factor.', category: 'basics' },
+    // Technical
+    { term: 'robots.txt', definition: 'A file that tells search engine crawlers which pages they can or cannot access on your site.', category: 'technical' },
+    { term: 'XML Sitemap', definition: 'A file that lists important pages on your site, helping search engines discover and crawl your content.', category: 'technical' },
+    { term: '301 Redirect', definition: 'A permanent redirect that passes SEO value from the old URL to the new one.', category: 'technical' },
+    { term: 'Canonical Tag', definition: 'An HTML tag that tells search engines the preferred version of a page when there\'s duplicate content.', category: 'technical' },
+    { term: 'LCP', definition: 'Largest Contentful Paint - a Core Web Vitals metric measuring how long the largest content element takes to load.', category: 'technical' },
+    { term: 'FID', definition: 'First Input Delay - a Core Web Vitals metric measuring how long it takes for the page to respond to first user interaction.', category: 'technical' },
+    { term: 'CLS', definition: 'Cumulative Layout Shift - a Core Web Vitals metric measuring visual stability of a page.', category: 'technical' },
+    { term: 'HTTPS', definition: 'A secure protocol that encrypts data between user and server. A ranking factor for Google.', category: 'technical' },
+    { term: 'Mobile-First Indexing', definition: 'Google primarily uses the mobile version of a site for ranking and indexing.', category: 'technical' },
+    { term: 'Schema Markup', definition: 'Structured data that helps search engines understand content better, enabling rich results in search.', category: 'technical' },
+    // GEO & AI
+    { term: 'E-E-A-T', definition: 'Experience, Expertise, Authoritativeness, Trustworthiness - Google\'s framework for evaluating content quality.', category: 'geo' },
+    { term: 'Knowledge Graph', definition: 'Google\'s database of interconnected entities and facts used to understand relationships between concepts.', category: 'geo' },
+    { term: 'Entity', definition: 'A distinct, well-defined concept, person, place, or thing that search engines can identify and understand.', category: 'geo' },
+    { term: 'NLP', definition: 'Natural Language Processing - AI technology that helps search engines understand human language.', category: 'geo' },
+    { term: 'Structured Data', definition: 'Formatted code that helps search engines understand content context and meaning.', category: 'geo' },
+    { term: 'Featured Snippet', definition: 'A highlighted answer at the top of search results that directly answers a user\'s query.', category: 'geo' },
+    { term: 'Zero-Click Search', definition: 'Search results where the user gets the answer directly on the results page without visiting a website.', category: 'geo' },
+    // Off-Page & Local
+    { term: 'Domain Authority', definition: 'A metric (by Moz) predicting how well a website will rank in search results, based on link profile.', category: 'offpage' },
+    { term: 'Google Business Profile', definition: 'A free business listing from Google that helps with local SEO and appearing in Google Maps.', category: 'offpage' },
+    { term: 'Local Pack', definition: 'The top 3 local business listings shown in Google search results for location-based queries.', category: 'offpage' },
+    { term: 'NAP', definition: 'Name, Address, Phone number - critical consistency factor for local SEO across all online directories.', category: 'offpage' },
+    { term: 'Review Signals', definition: 'The quantity and quality of online reviews that affect local search rankings.', category: 'offpage' },
+    { term: 'Link Equity', definition: 'SEO value (also called "link juice") passed from one page to another through hyperlinks.', category: 'offpage' },
+    { term: 'Dofollow Link', definition: 'A regular link that passes SEO value from the referring site to the destination site.', category: 'offpage' },
+    { term: 'Nofollow Link', definition: 'A link with a rel="nofollow" attribute that tells search engines not to pass SEO value.', category: 'offpage' },
+    { term: 'VEO', definition: 'Video Engine Optimization - optimizing videos to rank in search results, particularly on YouTube.', category: 'offpage' },
+    { term: 'Social SEO', definition: 'Optimizing content for visibility in social media search and social signals that impact search rankings.', category: 'offpage' }
+  ];
+
+  let currentIndex = 0;
+  let filteredCards = [...flashcards];
+  let cardStatus: Record<number, 'known' | 'practice' | null> = {};
+
+  // DOM elements
+  const flashcard = document.getElementById('flashcard');
+  const cardCategory = document.getElementById('cardCategory');
+  const cardTerm = document.getElementById('cardTerm');
+  const cardDefinition = document.getElementById('cardDefinition');
+  const categorySelect = document.getElementById('categorySelect');
+  const currentIndexEl = document.getElementById('currentIndex');
+  const totalCardsEl = document.getElementById('totalCards');
+  const knownCountEl = document.getElementById('knownCount');
+  const practiceCountEl = document.getElementById('practiceCount');
+  const progressFill = document.getElementById('progressFill');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const knowBtn = document.getElementById('knowBtn');
+  const practiceBtn = document.getElementById('practiceBtn');
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const categoryNames: Record<string, string> = {
+    basics: 'SEO Basics',
+    technical: 'Technical SEO',
+    geo: 'GEO & AI',
+    offpage: 'Off-Page & Local'
+  };
+
+  // Load saved progress
+  function loadProgress() {
+    const saved = localStorage.getItem('flashcardProgress');
+    if (saved) {
+      cardStatus = JSON.parse(saved);
+      updateStats();
+    }
+  }
+
+  // Save progress
+  function saveProgress() {
+    localStorage.setItem('flashcardProgress', JSON.stringify(cardStatus));
+  }
+
+  // Update card display
+  function updateCard() {
+    if (!cardCategory || !cardTerm || !cardDefinition || !currentIndexEl || !totalCardsEl) return;
+
+    const card = filteredCards[currentIndex];
+    if (!card) return;
+
+    cardCategory.textContent = categoryNames[card.category];
+    cardTerm.textContent = card.term;
+    cardDefinition.textContent = card.definition;
+    currentIndexEl.textContent = (currentIndex + 1).toString();
+    totalCardsEl.textContent = filteredCards.length.toString();
+
+    // Update progress bar
+    const progress = ((currentIndex + 1) / filteredCards.length) * 100;
+    if (progressFill) progressFill.style.width = `${progress}%`;
+
+    // Reset flip state
+    flashcard?.classList.remove('flipped');
+
+    // Update button states
+    const status = cardStatus[flashcards.indexOf(card)];
+    if (knowBtn) {
+      knowBtn.style.opacity = status === 'known' ? '0.6' : '1';
+    }
+    if (practiceBtn) {
+      practiceBtn.style.opacity = status === 'practice' ? '0.6' : '1';
+    }
+  }
+
+  // Update stats
+  function updateStats() {
+    const known = Object.values(cardStatus).filter(s => s === 'known').length;
+    const practice = Object.values(cardStatus).filter(s => s === 'practice').length;
+
+    if (knownCountEl) knownCountEl.textContent = known.toString();
+    if (practiceCountEl) practiceCountEl.textContent = practice.toString();
+  }
+
+  // Filter cards by category
+  function filterCards(category: string) {
+    if (category === 'all') {
+      filteredCards = [...flashcards];
+    } else {
+      filteredCards = flashcards.filter(c => c.category === category);
+    }
+    currentIndex = 0;
+    updateCard();
+  }
+
+  // Flip card
+  function flipCard() {
+    flashcard?.classList.toggle('flipped');
+  }
+
+  // Navigation
+  function goNext() {
+    if (currentIndex < filteredCards.length - 1) {
+      currentIndex++;
+      updateCard();
+    }
+  }
+
+  function goPrev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCard();
+    }
+  }
+
+  // Mark card
+  function markCard(status: 'known' | 'practice') {
+    const card = filteredCards[currentIndex];
+    const index = flashcards.indexOf(card);
+    cardStatus[index] = cardStatus[index] === status ? null : status;
+    saveProgress();
+    updateStats();
+    updateCard();
+  }
+
+  // Shuffle
+  function shuffleCards() {
+    for (let i = filteredCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+    }
+    currentIndex = 0;
+    updateCard();
+  }
+
+  // Reset
+  function resetProgress() {
+    if (confirm('Reset all flashcard progress?')) {
+      cardStatus = {};
+      saveProgress();
+      updateStats();
+      updateCard();
+    }
+  }
+
+  // Event listeners
+  flashcard?.addEventListener('click', flipCard);
+  flashcard?.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      flipCard();
+    }
+  });
+
+  categorySelect?.addEventListener('change', (e) => {
+    filterCards((e.target as HTMLSelectElement).value);
+  });
+
+  prevBtn?.addEventListener('click', goPrev);
+  nextBtn?.addEventListener('click', goNext);
+  knowBtn?.addEventListener('click', () => markCard('known'));
+  practiceBtn?.addEventListener('click', () => markCard('practice'));
+  shuffleBtn?.addEventListener('click', shuffleCards);
+  resetBtn?.addEventListener('click', resetProgress);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goNext();
+    if (e.key === 'ArrowLeft') goPrev();
+    if (e.key === 'k') markCard('known');
+    if (e.key === 'p') markCard('practice');
+  });
+
+  // Initialize
+  loadProgress();
+  updateCard();
+</script>
