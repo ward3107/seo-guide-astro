@@ -220,14 +220,15 @@ const cardId = `level-card-${level}`;
     display: inline-block;
     margin: 0 30px 30px;
     padding: 12px 0;
-    color: #667eea;
+    color: #4a5699;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     transition: color 0.2s;
   }
 
   .card-link:hover {
-    color: #764ba2;
+    color: #667eea;
+    text-decoration: underline;
   }
 
   /* Dark mode */
@@ -252,6 +253,14 @@ const cardId = `level-card-${level}`;
   :global(body.dark-mode) .topic-count {
     background: linear-gradient(135deg, #2a2a4a 0%, #3a3a5a 100%);
     color: #a8dadc;
+  }
+
+  :global(body.dark-mode) .card-link {
+    color: #a8dadc;
+  }
+
+  :global(body.dark-mode) .card-link:hover {
+    color: #c8d8fc;
   }
 
   /* Responsive */

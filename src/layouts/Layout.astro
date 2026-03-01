@@ -102,7 +102,7 @@ const levels = [
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <div class="container" id="main-content" data-base={base}>
+  <main class="container" id="main-content" role="main" data-base={base}>
     <!-- Navigation -->
     <nav class="nav-links" aria-label="Level navigation">
       <a href={base} class="nav-btn">🏠 Home</a>
@@ -136,7 +136,7 @@ const levels = [
 
       <!-- Social Share Buttons -->
       <div class="social-share">
-        <span style="color: #999; font-size: 0.9em;">Share this portfolio:</span>
+        <span class="share-label">Share this portfolio:</span>
         <a href="https://twitter.com/intent/tweet?text=Check%20out%20Waseem's%20SEO%20%26%20GEO%20portfolio!%20https://ward3107.github.io" target="_blank" rel="noopener noreferrer" class="share-btn twitter">
           🐦 Tweet
         </a>
@@ -156,7 +156,7 @@ const levels = [
         English Teacher & Full-Stack Developer | SEO & GEO Specialist
       </p>
     </footer>
-  </div>
+  </main>
 
   <!-- Dark Mode Toggle Button -->
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -195,12 +195,13 @@ const levels = [
       position: absolute;
       top: -40px;
       left: 0;
-      background: #667eea;
+      background: #4a5699;
       color: white;
       padding: 8px 16px;
       text-decoration: none;
       border-radius: 0 0 4px 0;
       z-index: 100;
+      font-weight: 600;
     }
 
     .skip-link:focus {
@@ -218,12 +219,12 @@ const levels = [
     }
 
     body.dark-mode .nav-links .nav-btn {
-      background: #2a2a4a;
-      color: #c0c0c0;
+      background: linear-gradient(135deg, #3a3a5a 0%, #4a4a6a 100%);
+      color: #e0e0e0;
     }
 
     body.dark-mode .nav-links .nav-btn:hover {
-      background: #3a3a5a;
+      background: linear-gradient(135deg, #4a4a6a 0%, #5a5a7a 100%);
     }
 
     body.dark-mode h1,
@@ -249,6 +250,10 @@ const levels = [
       color: #c0c0c0;
     }
 
+    body.dark-mode .share-label {
+      color: #b0b0b0;
+    }
+
     /* Container */
     .container {
       max-width: 1200px;
@@ -271,18 +276,18 @@ const levels = [
 
     .nav-btn {
       padding: 12px 24px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #5568d3 0%, #6a4c9c 100%);
       color: white;
       text-decoration: none;
       border-radius: 12px;
-      font-weight: 500;
+      font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 15px rgba(85, 104, 211, 0.4);
     }
 
     .nav-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 6px 20px rgba(85, 104, 211, 0.5);
     }
 
     /* Dark Mode Toggle */
@@ -374,12 +379,14 @@ const levels = [
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #666;
+      color: #444;
+      font-weight: 500;
     }
 
     .contact-item a {
-      color: #667eea;
+      color: #5568d3;
       text-decoration: none;
+      font-weight: 600;
     }
 
     .social-share {
@@ -388,6 +395,13 @@ const levels = [
       justify-content: center;
       margin-bottom: 20px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .share-label {
+      color: #555;
+      font-size: 0.9em;
+      font-weight: 500;
     }
 
     .share-btn {
@@ -401,6 +415,7 @@ const levels = [
       cursor: pointer;
       border: none;
       transition: all 0.3s ease;
+      font-weight: 600;
     }
 
     .share-btn.twitter {
