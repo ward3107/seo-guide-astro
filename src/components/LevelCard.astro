@@ -71,10 +71,10 @@ const cardId = `level-card-${level}`;
 
 <style>
   .level-card {
-    background: white;
+    background: var(--color-surface, white);
     border-radius: 20px;
     padding: 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -88,14 +88,14 @@ const cardId = `level-card-${level}`;
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--level-color, #667eea);
+    background: var(--level-color, var(--color-brand-primary));
     opacity: 0;
     transition: opacity 0.3s ease;
   }
 
   .level-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-lg);
   }
 
   .level-card:hover::before {
@@ -103,7 +103,7 @@ const cardId = `level-card-${level}`;
   }
 
   .level-card.active {
-    border-color: var(--level-color, #667eea);
+    border-color: var(--level-color, var(--color-brand-primary));
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
   }
 
@@ -138,7 +138,7 @@ const cardId = `level-card-${level}`;
 
   .level-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     padding: 4px 12px;
     border-radius: 15px;
@@ -149,11 +149,11 @@ const cardId = `level-card-${level}`;
 
   .header-content h3 {
     margin: 10px 0;
-    color: #333;
+    color: var(--color-text, #333);
   }
 
   .header-content p {
-    color: #666;
+    color: var(--color-text-muted, #666);
     margin-bottom: 15px;
     line-height: 1.5;
   }
@@ -161,7 +161,7 @@ const cardId = `level-card-${level}`;
   .topic-count {
     display: inline-block;
     background: linear-gradient(135deg, #e0e0ff 0%, #f0e0ff 100%);
-    color: #667eea;
+    color: var(--color-brand-primary);
     padding: 6px 14px;
     border-radius: 15px;
     font-size: 0.85em;
@@ -170,7 +170,7 @@ const cardId = `level-card-${level}`;
 
   .expand-icon {
     font-size: 1.2em;
-    color: #667eea;
+    color: var(--color-brand-primary);
     transition: transform 0.3s ease;
     flex-shrink: 0;
   }
@@ -199,9 +199,9 @@ const cardId = `level-card-${level}`;
     padding: 8px 0;
     padding-left: 24px;
     position: relative;
-    color: #555;
+    color: var(--color-text-secondary, #555);
     font-size: 0.9em;
-    border-bottom: 1px dashed #e0e0e0;
+    border-bottom: 1px dashed var(--color-border, #e0e0e0);
   }
 
   .topics-list li:last-child {
@@ -212,7 +212,7 @@ const cardId = `level-card-${level}`;
     content: '✓';
     position: absolute;
     left: 0;
-    color: var(--level-color, #667eea);
+    color: var(--level-color, var(--color-brand-primary));
     font-weight: bold;
   }
 
@@ -227,39 +227,46 @@ const cardId = `level-card-${level}`;
   }
 
   .card-link:hover {
-    color: #667eea;
+    color: var(--color-brand-primary);
     text-decoration: underline;
   }
 
   /* Dark mode */
-  :global(body.dark-mode) .level-card {
-    background: #252540;
-    color: #e0e0e0;
+  :global(body.dark-mode) .level-card,
+  :global([data-theme="dark"]) .level-card {
+    background: var(--color-surface-elevated, #252540);
+    color: var(--color-text, #e0e0e0);
   }
 
-  :global(body.dark-mode) .header-content h3 {
-    color: #e0e0e0;
+  :global(body.dark-mode) .header-content h3,
+  :global([data-theme="dark"]) .header-content h3 {
+    color: var(--color-text, #e0e0e0);
   }
 
-  :global(body.dark-mode) .header-content p {
-    color: #b0b0b0;
+  :global(body.dark-mode) .header-content p,
+  :global([data-theme="dark"]) .header-content p {
+    color: var(--color-text-secondary, #b0b0b0);
   }
 
-  :global(body.dark-mode) .topics-list li {
-    color: #b0b0b0;
-    border-bottom-color: #3a3a5a;
+  :global(body.dark-mode) .topics-list li,
+  :global([data-theme="dark"]) .topics-list li {
+    color: var(--color-text-secondary, #b0b0b0);
+    border-bottom-color: var(--color-border, #3a3a5a);
   }
 
-  :global(body.dark-mode) .topic-count {
+  :global(body.dark-mode) .topic-count,
+  :global([data-theme="dark"]) .topic-count {
     background: linear-gradient(135deg, #2a2a4a 0%, #3a3a5a 100%);
     color: #a8dadc;
   }
 
-  :global(body.dark-mode) .card-link {
+  :global(body.dark-mode) .card-link,
+  :global([data-theme="dark"]) .card-link {
     color: #a8dadc;
   }
 
-  :global(body.dark-mode) .card-link:hover {
+  :global(body.dark-mode) .card-link:hover,
+  :global([data-theme="dark"]) .card-link:hover {
     color: #c8d8fc;
   }
 

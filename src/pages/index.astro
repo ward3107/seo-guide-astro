@@ -278,7 +278,7 @@ const levels = [
   .hero h1 {
     font-size: 3em;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -286,21 +286,21 @@ const levels = [
 
   .hero-subtitle {
     font-size: 1.3em;
-    color: #667eea;
+    color: var(--color-brand-primary);
     margin-bottom: 20px;
     font-weight: 500;
   }
 
   .hero-description {
     font-size: 1.1em;
-    color: #555;
+    color: var(--color-text-secondary);
     max-width: 600px;
     margin: 0 auto 30px;
     line-height: 1.7;
   }
 
   .hero-description strong {
-    color: #667eea;
+    color: var(--color-brand-primary);
   }
 
   .achievements {
@@ -312,11 +312,11 @@ const levels = [
   }
 
   .achievement-card {
-    background: white;
+    background: var(--color-surface);
     border-radius: 20px;
     padding: 20px 15px;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -326,7 +326,7 @@ const levels = [
 
   .achievement-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+    box-shadow: var(--shadow-lg);
   }
 
   .achievement-icon {
@@ -337,7 +337,7 @@ const levels = [
   .achievement-number {
     font-size: 2em;
     font-weight: 800;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -347,52 +347,52 @@ const levels = [
   .achievement-label {
     font-size: 0.95em;
     font-weight: 700;
-    color: #333;
+    color: var(--color-text);
   }
 
   .achievement-desc {
     font-size: 0.8em;
-    color: #888;
+    color: var(--color-text-muted);
   }
 
   /* About Section */
   .about {
-    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    background: var(--gradient-card);
     padding: 40px;
     border-radius: 20px;
     margin-bottom: 40px;
   }
 
   .about h2 {
-    color: #667eea;
+    color: var(--color-brand-primary);
     margin-bottom: 20px;
     font-size: 2em;
   }
 
   .about p {
-    color: #555;
+    color: var(--color-text-secondary);
     line-height: 1.8;
     margin-bottom: 15px;
     font-size: 1.05em;
   }
 
   .about strong {
-    color: #667eea;
+    color: var(--color-brand-primary);
     font-weight: 600;
   }
 
   /* About Course Section */
   .about-course {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: var(--gradient-card);
     padding: 50px 40px;
     border-radius: 20px;
     margin-bottom: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
   }
 
   .about-course h2 {
     text-align: center;
-    color: #667eea;
+    color: var(--color-brand-primary);
     font-size: 2em;
     margin-bottom: 40px;
   }
@@ -407,16 +407,16 @@ const levels = [
   .course-item {
     text-align: center;
     padding: 25px 20px;
-    background: white;
+    background: var(--color-surface);
     border-radius: 15px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
   }
 
   .course-item:hover {
-    border-color: #667eea;
+    border-color: var(--color-brand-primary);
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+    box-shadow: var(--shadow-md);
   }
 
   .course-icon {
@@ -426,13 +426,13 @@ const levels = [
   }
 
   .course-item h3 {
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 12px 0;
     font-size: 1.2em;
   }
 
   .course-item p {
-    color: #666;
+    color: var(--color-text-muted);
     line-height: 1.6;
     font-size: 0.95em;
     margin: 0;
@@ -444,7 +444,7 @@ const levels = [
     gap: 40px;
     flex-wrap: wrap;
     padding-top: 30px;
-    border-top: 2px solid #e9ecef;
+    border-top: 2px solid var(--color-border-light);
   }
 
   .stat {
@@ -455,7 +455,7 @@ const levels = [
     display: block;
     font-size: 2.5em;
     font-weight: bold;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -463,7 +463,7 @@ const levels = [
 
   .stat-label {
     display: block;
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 0.9em;
     margin-top: 5px;
   }
@@ -489,12 +489,12 @@ const levels = [
 
   .quiz-card {
     display: block;
-    background: white;
+    background: var(--color-surface);
     border-radius: 20px;
     padding: 35px 30px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
     border: 2px solid transparent;
     text-align: center;
@@ -502,20 +502,20 @@ const levels = [
 
   .quiz-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-lg);
   }
 
   .quiz-card.quick {
-    border-color: #667eea;
+    border-color: var(--color-brand-primary);
   }
 
   .quiz-card.quick:hover {
-    border-color: #764ba2;
+    border-color: var(--color-brand-secondary);
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
   }
 
   .quiz-card.timed {
-    border-color: #ffc107;
+    border-color: var(--color-warning);
   }
 
   .quiz-card.timed:hover {
@@ -524,11 +524,11 @@ const levels = [
   }
 
   .quiz-card.practice {
-    border-color: #20c997;
+    border-color: var(--color-success);
   }
 
   .quiz-card.practice:hover {
-    border-color: #17a2b8;
+    border-color: var(--color-info);
     background: linear-gradient(135deg, rgba(32, 201, 151, 0.05) 0%, rgba(23, 162, 184, 0.05) 100%);
   }
 
@@ -548,13 +548,13 @@ const levels = [
   }
 
   .quiz-card h3 {
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 10px 0;
     font-size: 1.5em;
   }
 
   .quiz-card p {
-    color: #666;
+    color: var(--color-text-muted);
     margin: 0 0 20px 0;
     font-size: 1em;
   }
@@ -569,17 +569,17 @@ const levels = [
   }
 
   .quiz-card.quick .quiz-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-brand);
     color: white;
   }
 
   .quiz-card.timed .quiz-btn {
-    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    background: linear-gradient(135deg, var(--color-warning) 0%, #ff9800 100%);
     color: white;
   }
 
   .quiz-card.practice .quiz-btn {
-    background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+    background: var(--gradient-success);
     color: white;
   }
 
@@ -709,7 +709,7 @@ const levels = [
 
   /* CTA Section */
   .cta-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     padding: 50px;
     border-radius: 20px;
@@ -737,19 +737,19 @@ const levels = [
     border-radius: 30px;
     font-weight: 700;
     font-size: 1.1em;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
   }
 
   .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    color: #667eea;
+    box-shadow: var(--shadow-lg);
+    color: var(--color-brand-primary);
   }
 
   /* Final Test CTA Section */
   .final-test-cta {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     padding: 50px 40px;
     border-radius: 20px;
     text-align: center;
@@ -758,13 +758,13 @@ const levels = [
   }
 
   .final-test-cta h2 {
-    color: #667eea;
+    color: var(--color-brand-primary);
     font-size: 2em;
     margin-bottom: 15px;
   }
 
   .final-test-cta p {
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 1.1em;
     line-height: 1.7;
     max-width: 700px;
@@ -780,7 +780,7 @@ const levels = [
   }
 
   .feature {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     padding: 8px 18px;
     border-radius: 20px;
@@ -791,123 +791,148 @@ const levels = [
   .final-test-btn {
     display: inline-block;
     padding: 18px 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1.15em;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
   }
 
   .final-test-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-lg);
   }
 
   /* Dark mode overrides */
-  :global(body.dark-mode) .hero h1 {
+  :global(body.dark-mode) .hero h1,
+  :global([data-theme="dark"]) .hero h1 {
     background: linear-gradient(135deg, #a8dadc 0%, #f093fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  :global(body.dark-mode) .hero-subtitle {
+  :global(body.dark-mode) .hero-subtitle,
+  :global([data-theme="dark"]) .hero-subtitle {
     color: #a8dadc;
   }
 
-  :global(body.dark-mode) .hero-description {
-    color: #c0c0c0;
+  :global(body.dark-mode) .hero-description,
+  :global([data-theme="dark"]) .hero-description {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .about {
+  :global(body.dark-mode) .about,
+  :global([data-theme="dark"]) .about {
     background: linear-gradient(180deg, #16213e 0%, #1a1a2e 100%);
   }
 
-  :global(body.dark-mode) .about h2 {
-    color: #a8dadc;
+  :global(body.dark-mode) .about h2,
+  :global([data-theme="dark"]) .about h2 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .about p {
-    color: #c0c0c0;
+  :global(body.dark-mode) .about p,
+  :global([data-theme="dark"]) .about p {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .about-course {
+  :global(body.dark-mode) .about-course,
+  :global([data-theme="dark"]) .about-course {
     background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
   }
 
-  :global(body.dark-mode) .about-course h2 {
-    color: #a8dadc;
+  :global(body.dark-mode) .about-course h2,
+  :global([data-theme="dark"]) .about-course h2 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .course-item {
-    background: #252540;
+  :global(body.dark-mode) .course-item,
+  :global([data-theme="dark"]) .course-item {
+    background: var(--color-surface-elevated);
   }
 
-  :global(body.dark-mode) .course-item h3 {
-    color: #e0e0e0;
+  :global(body.dark-mode) .course-item h3,
+  :global([data-theme="dark"]) .course-item h3 {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .course-item p {
-    color: #b0b0b0;
+  :global(body.dark-mode) .course-item p,
+  :global([data-theme="dark"]) .course-item p {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .course-stats {
-    border-top-color: #3a3a5a;
+  :global(body.dark-mode) .course-stats,
+  :global([data-theme="dark"]) .course-stats {
+    border-top-color: var(--color-border);
   }
 
-  :global(body.dark-mode) .stat-label {
-    color: #b0b0b0;
+  :global(body.dark-mode) .stat-label,
+  :global([data-theme="dark"]) .stat-label {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .levels-section h2 {
-    color: #a8dadc;
+  :global(body.dark-mode) .levels-section h2,
+  :global([data-theme="dark"]) .levels-section h2 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .cta-section {
+  :global(body.dark-mode) .cta-section,
+  :global([data-theme="dark"]) .cta-section {
     background: linear-gradient(135deg, #533483 0%, #6a4c9c 100%);
   }
 
-  :global(body.dark-mode) .final-test-cta {
+  :global(body.dark-mode) .final-test-cta,
+  :global([data-theme="dark"]) .final-test-cta {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   }
 
-  :global(body.dark-mode) .final-test-cta h2 {
-    color: #a8dadc;
+  :global(body.dark-mode) .final-test-cta h2,
+  :global([data-theme="dark"]) .final-test-cta h2 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .final-test-cta p {
-    color: #c0c0c0;
+  :global(body.dark-mode) .final-test-cta p,
+  :global([data-theme="dark"]) .final-test-cta p {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .quiz-options h2 {
-    color: #a8dadc;
+  :global(body.dark-mode) .quiz-options h2,
+  :global([data-theme="dark"]) .quiz-options h2 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .quiz-card {
-    background: #252540;
+  :global(body.dark-mode) .quiz-card,
+  :global([data-theme="dark"]) .quiz-card {
+    background: var(--color-surface-elevated);
   }
 
-  :global(body.dark-mode) .quiz-card h3 {
-    color: #e0e0e0;
+  :global(body.dark-mode) .quiz-card h3,
+  :global([data-theme="dark"]) .quiz-card h3 {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .quiz-card p {
-    color: #b0b0b0;
+  :global(body.dark-mode) .quiz-card p,
+  :global([data-theme="dark"]) .quiz-card p {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .achievement-card {
-    background: #252540;
+  :global(body.dark-mode) .achievement-card,
+  :global([data-theme="dark"]) .achievement-card {
+    background: var(--color-surface-elevated);
   }
 
-  :global(body.dark-mode) .achievement-label {
-    color: #e0e0e0;
+  :global(body.dark-mode) .achievement-label,
+  :global([data-theme="dark"]) .achievement-label {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .achievement-desc {
-    color: #999;
+  :global(body.dark-mode) .achievement-desc,
+  :global([data-theme="dark"]) .achievement-desc {
+    color: var(--color-text-muted);
   }
 
   /* Responsive */

@@ -63,14 +63,14 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
 <style>
   .quiz-container {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     padding: 30px;
     border-radius: 15px;
     margin: 30px 0;
   }
 
   .quiz-container h3 {
-    color: #667eea;
+    color: var(--color-brand-primary);
     margin-bottom: 20px;
     font-size: 1.5em;
   }
@@ -78,7 +78,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   .question {
     margin-bottom: 25px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .question:last-child {
@@ -87,7 +87,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
   .question-text {
     margin-bottom: 15px;
-    color: #333;
+    color: var(--color-text);
   }
 
   .options {
@@ -100,7 +100,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
     display: flex;
     align-items: flex-start;
     padding: 12px 15px;
-    background: white;
+    background: var(--color-surface);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
@@ -108,12 +108,12 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   }
 
   .option-label:hover {
-    background: #f0f0f0;
-    border-color: #667eea;
+    background: var(--color-surface-elevated);
+    border-color: var(--color-brand-primary);
   }
 
   .option-label.selected {
-    border-color: #667eea;
+    border-color: var(--color-brand-primary);
     background: #e3f2fd;
   }
 
@@ -125,7 +125,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
   .option-text {
     flex: 1;
-    color: #555;
+    color: var(--color-text-secondary);
   }
 
   .explanation {
@@ -143,7 +143,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   }
 
   .quiz-submit {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     border: none;
     padding: 15px 40px;
@@ -157,7 +157,7 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
   .quiz-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-md);
   }
 
   .quiz-result {
@@ -176,13 +176,13 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
   .quiz-result.pass {
     background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
-    border: 2px solid #28a745;
+    border: 2px solid var(--color-success);
   }
 
   .quiz-result.fail {
     background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
-    border: 2px solid #dc3545;
+    border: 2px solid var(--color-error);
   }
 
   .quiz-result .score-circle {
@@ -198,39 +198,45 @@ const { id, title, questions, passingScore = 75 } = Astro.props;
 
   .quiz-result.pass .score-circle {
     background: white;
-    color: #28a745;
+    color: var(--color-success);
   }
 
   .quiz-result.fail .score-circle {
     background: white;
-    color: #dc3545;
+    color: var(--color-error);
   }
 
   /* Dark mode */
-  :global(body.dark-mode) .quiz-container {
+  :global(body.dark-mode) .quiz-container,
+  :global([data-theme="dark"]) .quiz-container {
     background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
   }
 
-  :global(body.dark-mode) .quiz-container h3 {
-    color: #a8dadc;
+  :global(body.dark-mode) .quiz-container h3,
+  :global([data-theme="dark"]) .quiz-container h3 {
+    color: var(--color-heading-primary, #a8dadc);
   }
 
-  :global(body.dark-mode) .question-text {
-    color: #e0e0e0;
+  :global(body.dark-mode) .question-text,
+  :global([data-theme="dark"]) .question-text {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .option-label {
-    background: #252540;
-    color: #c0c0c0;
+  :global(body.dark-mode) .option-label,
+  :global([data-theme="dark"]) .option-label {
+    background: var(--color-surface-elevated);
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .option-label:hover {
-    background: #3a3a5a;
+  :global(body.dark-mode) .option-label:hover,
+  :global([data-theme="dark"]) .option-label:hover {
+    background: var(--color-border);
   }
 
-  :global(body.dark-mode) .explanation {
+  :global(body.dark-mode) .explanation,
+  :global([data-theme="dark"]) .explanation {
     background: #16213e;
-    border-left-color: #a8dadc;
+    border-left-color: var(--color-heading-primary, #a8dadc);
   }
 
   /* Responsive */

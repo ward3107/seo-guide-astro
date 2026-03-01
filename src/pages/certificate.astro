@@ -18,7 +18,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
 <style>
   .certificate-intro {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
@@ -26,12 +26,12 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   .certificate-intro h2 {
-    color: #667eea;
+    color: var(--color-brand-primary);
     margin-bottom: 15px;
   }
 
   .certificate-intro p {
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 1.1em;
     line-height: 1.6;
   }
@@ -42,17 +42,17 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   .input-section {
-    background: white;
+    background: var(--color-surface);
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
   }
 
   .name-label {
     display: block;
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     margin-bottom: 15px;
     font-size: 1.1em;
   }
@@ -66,7 +66,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   .input-group input {
     flex: 1;
     padding: 15px 20px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     border-radius: 10px;
     font-size: 1.1em;
     transition: border-color 0.3s ease;
@@ -74,12 +74,12 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .input-group input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--color-brand-primary);
   }
 
   .generate-btn {
     padding: 15px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     border: none;
     border-radius: 10px;
@@ -92,11 +92,11 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .generate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-md);
   }
 
   .input-hint {
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 0.95em;
     font-style: italic;
   }
@@ -110,14 +110,14 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   .certificate-border {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: var(--gradient-certificate);
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-lg);
   }
 
   .certificate-inner {
-    background: white;
+    background: var(--color-surface);
     padding: 50px;
     border-radius: 5px;
     position: relative;
@@ -136,7 +136,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .cert-title {
     font-size: 2.5em;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -146,7 +146,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .cert-subtitle {
     font-size: 1.3em;
-    color: #666;
+    color: var(--color-text-muted);
     margin: 0;
   }
 
@@ -157,25 +157,25 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .cert-presentation {
     font-size: 1.2em;
-    color: #555;
+    color: var(--color-text-secondary);
     margin-bottom: 15px;
   }
 
   .cert-name {
     font-size: 2.8em;
     font-weight: bold;
-    color: #333;
+    color: var(--color-text);
     margin: 20px 0;
     font-family: 'Georgia', serif;
     padding: 15px;
-    border-bottom: 3px solid #667eea;
+    border-bottom: 3px solid var(--color-certificate-accent);
     display: inline-block;
     min-width: 300px;
   }
 
   .cert-description {
     font-size: 1.1em;
-    color: #666;
+    color: var(--color-text-muted);
     margin: 20px 0;
     line-height: 1.6;
   }
@@ -191,10 +191,10 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   .cert-skills li {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: var(--gradient-card);
     padding: 10px 20px;
     border-radius: 25px;
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 0.95em;
   }
 
@@ -223,14 +223,14 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   .instructor-label {
     display: block;
     font-size: 0.9em;
-    color: #888;
+    color: var(--color-text-muted);
     margin-bottom: 5px;
   }
 
   .date-value,
   .instructor-value {
     font-size: 1.1em;
-    color: #333;
+    color: var(--color-text);
     font-weight: 600;
   }
 
@@ -245,14 +245,14 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.5em;
     font-weight: bold;
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-md);
   }
 
   .action-buttons {
@@ -279,33 +279,33 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   .print-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     border: none;
   }
 
   .download-btn {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    background: var(--gradient-success);
     color: white;
     border: none;
   }
 
   .home-btn {
-    background: #f8f9fa;
-    color: #667eea;
-    border: 2px solid #667eea;
+    background: var(--color-surface-elevated);
+    color: var(--color-brand-primary);
+    border: 2px solid var(--color-brand-primary);
   }
 
   .print-btn:hover,
   .download-btn:hover,
   .home-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-md);
   }
 
   .certificate-note {
     background: #fff9e6;
-    border-left: 4px solid #ffc107;
+    border-left: 4px solid var(--color-warning);
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -317,39 +317,48 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   }
 
   /* Dark mode */
-  :global(body.dark-mode) .certificate-intro {
+  :global(body.dark-mode) .certificate-intro,
+  :global([data-theme="dark"]) .certificate-intro {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   }
 
-  :global(body.dark-mode) .certificate-intro p {
-    color: #b0b0b0;
+  :global(body.dark-mode) .certificate-intro p,
+  :global([data-theme="dark"]) .certificate-intro p {
+    color: var(--color-text-secondary);
   }
 
   :global(body.dark-mode) .input-section,
-  :global(body.dark-mode) .certificate-preview {
-    background: #252540;
+  :global(body.dark-mode) .certificate-preview,
+  :global([data-theme="dark"]) .input-section,
+  :global([data-theme="dark"]) .certificate-preview {
+    background: var(--color-surface-elevated);
   }
 
-  :global(body.dark-mode) .name-label {
-    color: #e0e0e0;
+  :global(body.dark-mode) .name-label,
+  :global([data-theme="dark"]) .name-label {
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .input-group input {
+  :global(body.dark-mode) .input-group input,
+  :global([data-theme="dark"]) .input-group input {
     background: #2a2a4a;
-    border-color: #3a3a5a;
-    color: #e0e0e0;
+    border-color: var(--color-border);
+    color: var(--color-text);
   }
 
-  :global(body.dark-mode) .input-hint {
-    color: #b0b0b0;
+  :global(body.dark-mode) .input-hint,
+  :global([data-theme="dark"]) .input-hint {
+    color: var(--color-text-secondary);
   }
 
-  :global(body.dark-mode) .certificate-note {
+  :global(body.dark-mode) .certificate-note,
+  :global([data-theme="dark"]) .certificate-note {
     background: #2a2a4a;
   }
 
-  :global(body.dark-mode) .certificate-note p {
-    color: #b0b0b0;
+  :global(body.dark-mode) .certificate-note p,
+  :global([data-theme="dark"]) .certificate-note p {
+    color: var(--color-text-secondary);
   }
 
   /* Certificate Locked Styles */
@@ -359,7 +368,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
     padding: 60px 40px;
     text-align: center;
     margin: 40px 0;
-    border: 2px solid #ffc107;
+    border: 2px solid var(--color-warning);
   }
 
   .locked-content {
@@ -407,7 +416,7 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--color-brand-gradient);
     color: white;
     text-decoration: none;
     border-radius: 30px;
@@ -417,20 +426,24 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 
   .back-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-md);
   }
 
-  :global(body.dark-mode) .certificate-locked {
+  :global(body.dark-mode) .certificate-locked,
+  :global([data-theme="dark"]) .certificate-locked {
     background: linear-gradient(135deg, #3a3a2a 0%, #4a4a3a 100%);
     border-color: #6a6a4a;
   }
 
   :global(body.dark-mode) .certificate-locked h2,
-  :global(body.dark-mode) .certificate-locked p {
+  :global(body.dark-mode) .certificate-locked p,
+  :global([data-theme="dark"]) .certificate-locked h2,
+  :global([data-theme="dark"]) .certificate-locked p {
     color: #d4c77a;
   }
 
-  :global(body.dark-mode) .level-status {
+  :global(body.dark-mode) .level-status,
+  :global([data-theme="dark"]) .level-status {
     background: rgba(0, 0, 0, 0.2);
   }
 
