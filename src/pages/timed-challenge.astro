@@ -16,8 +16,18 @@ const base = import.meta.env.BASE_URL;
   <header>
     <span class="badge">⏱️ TIMED CHALLENGE</span>
     <h1>Beat the Clock!</h1>
-    <p class="subtitle">Answer as many questions as you can in 2 minutes • Test your SEO knowledge under pressure</p>
+    <p class="subtitle">Answer as many questions as you can • Test your SEO knowledge under pressure</p>
   </header>
+
+  <section class="challenge-intro">
+    <h2>🎯 About the Timed Challenge</h2>
+    <ul>
+      <li>⏱️ <strong>Race Against Time</strong> - Answer questions before time runs out</li>
+      <li>🎲 <strong>40 Questions</strong> - Fresh pool every time</li>
+      <li>🏆 <strong>Three Difficulties</strong> - Easy (3min), Normal (2min), Hard (1min)</li>
+      <li>📊 <strong>Instant Results</strong> - See your accuracy and speed score</li>
+    </ul>
+  </section>
 
   <!-- Start Screen -->
   <section class="start-screen" id="startScreen">
@@ -112,6 +122,36 @@ const base = import.meta.env.BASE_URL;
 </Layout>
 
 <style>
+  .challenge-intro {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .challenge-intro h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+  }
+
+  .challenge-intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .challenge-intro li {
+    padding: 12px 18px;
+    background: white;
+    border-radius: 10px;
+    font-size: 1.05em;
+    color: #555;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
   .start-screen {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 20px;
@@ -119,6 +159,7 @@ const base = import.meta.env.BASE_URL;
     text-align: center;
     max-width: 800px;
     margin: 0 auto 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
   .start-content h2 {
@@ -505,6 +546,15 @@ const base = import.meta.env.BASE_URL;
   }
 
   /* Dark mode */
+  :global(body.dark-mode) .challenge-intro {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  :global(body.dark-mode) .challenge-intro li {
+    background: #252540;
+    color: #b0b0b0;
+  }
+
   :global(body.dark-mode) .start-screen {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   }
@@ -526,7 +576,7 @@ const base = import.meta.env.BASE_URL;
     background: #252540;
   }
 
-  :global(body-dark-mode) .question-card {
+  :global(body.dark-mode) .question-card {
     background: #252540;
   }
 
