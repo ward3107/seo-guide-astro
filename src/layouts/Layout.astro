@@ -34,6 +34,16 @@ const levels = [
   <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
   <link rel="manifest" href={`${base}/site.webmanifest`} />
 
+  <!-- Prefetch next pages for faster navigation -->
+  <link rel="prefetch" href={`${base}/level1/`} />
+  <link rel="prefetch" href={`${base}/level2/`} />
+  <link rel="prefetch" href={`${base}/level3/`} />
+  <link rel="prefetch" href={`${base}/level4/`} />
+  <link rel="prefetch" href={`${base}/quick-quiz/`} />
+  <link rel="prefetch" href={`${base}/timed-challenge/`} />
+  <link rel="prefetch" href={`${base}/practice-mode/`} />
+  <link rel="prefetch" href={`${base}/final-test/`} />
+
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
 
