@@ -447,9 +447,9 @@ Redirect 301 /old-page.html https://mysite.com/new-page.html</code></pre>
           <td>&lt; 2.5 seconds</td>
         </tr>
         <tr>
-          <td><strong>FID</strong><br> First Input Delay</td>
-          <td>How fast the page responds to clicks</td>
-          <td>&lt; 100 milliseconds</td>
+          <td><strong>INP</strong><br> Interaction to Next Paint</td>
+          <td>How quickly the page responds to user interactions (clicks, taps, keypresses)</td>
+          <td>&lt; 200 milliseconds</td>
         </tr>
         <tr>
           <td><strong>CLS</strong><br> Cumulative Layout Shift</td>
@@ -473,15 +473,31 @@ Redirect 301 /old-page.html https://mysite.com/new-page.html</code></pre>
       </ul>
     </div>
 
-    <h3>FID: First Input Delay</h3>
-    <p><strong>Question:</strong> How long does the page freeze when a user clicks?</p>
+    <h3>INP: Interaction to Next Paint</h3>
+    <p><strong>Question:</strong> How long until the page visibly responds after a user clicks, taps, or types?</p>
+
+    <div class="highlight-box">
+      <h4>📅 Important: INP Replaced FID in 2024</h4>
+      <p>On <strong>March 12, 2024</strong>, Google replaced <strong>First Input Delay (FID)</strong> with <strong>Interaction to Next Paint (INP)</strong> as a Core Web Vital. INP is a stricter, more representative metric — it measures the latency of <em>every</em> interaction across the page's life, not just the first one. If your study materials still say "FID," they're out of date.</p>
+      <p style="margin-top:10px"><strong>Source:</strong> <a href="https://web.dev/blog/inp-cwv-march-12" target="_blank" rel="noopener">web.dev — INP becomes a Core Web Vital</a></p>
+    </div>
+
+    <h4>INP Score Thresholds (Google official)</h4>
+    <ul>
+      <li>✅ <strong>Good:</strong> ≤ 200 ms</li>
+      <li>⚠️ <strong>Needs Improvement:</strong> 200–500 ms</li>
+      <li>❌ <strong>Poor:</strong> &gt; 500 ms</li>
+    </ul>
 
     <div class="tip-box">
-      <h4>✅ How to Improve FID</h4>
+      <h4>✅ How to Improve INP</h4>
       <ul>
-        <li>Split long JavaScript tasks into smaller chunks</li>
-        <li>Remove unused JavaScript</li>
-        <li>Defer non-critical JavaScript: <code>&lt;script defer src="..."&gt;</code></li>
+        <li><strong>Break up long tasks</strong> — any JS task &gt; 50 ms blocks the main thread. Use <code>scheduler.yield()</code> or <code>setTimeout(fn, 0)</code> to yield back to the browser.</li>
+        <li><strong>Defer non-critical JavaScript</strong> — <code>&lt;script defer src="..."&gt;</code> or load on interaction.</li>
+        <li><strong>Avoid layout thrash inside event handlers</strong> — batch reads then writes; don't read <code>offsetWidth</code> inside a write loop.</li>
+        <li><strong>Use CSS transitions instead of JS animations</strong> when possible — they run on the compositor thread.</li>
+        <li><strong>Use <code>content-visibility: auto</code></strong> on off-screen sections to skip rendering work.</li>
+        <li><strong>Test with real interaction</strong> — Lighthouse simulates, but the Chrome <em>Performance</em> panel and CrUX (real user data) tell the truth.</li>
       </ul>
     </div>
 
@@ -586,6 +602,20 @@ Allow: /</code></pre>
         <label data-letter="A"><input type="radio" name="q4" value="a"> How fast the page responds to clicks</label>
         <label data-letter="B"><input type="radio" name="q4" value="b"> How fast the main content loads</label>
         <label data-letter="C"><input type="radio" name="q4" value="c"> How much the page shifts</label>
+      </div>
+
+      <div class="question" data-question="9">
+        <p><strong>9. Which metric replaced FID as a Core Web Vital in March 2024?</strong></p>
+        <label data-letter="A"><input type="radio" name="q9" value="a"> TBT (Total Blocking Time)</label>
+        <label data-letter="B"><input type="radio" name="q9" value="b"> INP (Interaction to Next Paint)</label>
+        <label data-letter="C"><input type="radio" name="q9" value="c"> TTFB (Time to First Byte)</label>
+      </div>
+
+      <div class="question" data-question="10">
+        <p><strong>10. What is a "good" INP score, per Google?</strong></p>
+        <label data-letter="A"><input type="radio" name="q10" value="a"> ≤ 100 milliseconds</label>
+        <label data-letter="B"><input type="radio" name="q10" value="b"> ≤ 200 milliseconds</label>
+        <label data-letter="C"><input type="radio" name="q10" value="c"> ≤ 500 milliseconds</label>
       </div>
 
       <div class="question" data-question="5">
@@ -1098,7 +1128,9 @@ Allow: /</code></pre>
     q5: 'b',
     q6: 'a',
     q7: 'a',
-    q8: 'b'
+    q8: 'b',
+    q9: 'b',
+    q10: 'b'
   };
 
   // Mark correct answers with data attribute
