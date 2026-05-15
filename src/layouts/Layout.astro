@@ -49,6 +49,7 @@ const levels = [
   <link rel="prefetch" href={`${base}/sources/`} />
   <link rel="prefetch" href={`${base}/case-studies/`} />
   <link rel="prefetch" href={`${base}/resources/`} />
+  <link rel="prefetch" href={`${base}/search/`} />
 
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
@@ -113,7 +114,7 @@ const levels = [
 
   <main class="container" id="main-content" role="main" data-base={base}>
     <!-- Navigation -->
-    <nav class="nav-links" aria-label="Level navigation">
+    <nav class="nav-links" aria-label="Level navigation" data-pagefind-ignore>
       <!-- Hamburger Menu Button (Mobile) -->
       <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="hamburger-line"></span>
@@ -138,6 +139,7 @@ const levels = [
             </a>
           ))}
           <div class="mobile-nav-divider"></div>
+          <a href={`${base}/search`} class="mobile-nav-item">🔎 Search</a>
           <a href={`${base}/labs`} class="mobile-nav-item">🧪 Hands-on Labs</a>
           <a href={`${base}/case-studies`} class="mobile-nav-item">📚 Case Studies</a>
           <a href={`${base}/resources`} class="mobile-nav-item">📥 Resources</a>
@@ -157,7 +159,8 @@ const levels = [
     </nav>
 
     <!-- Tools / Resources Sub-nav -->
-    <nav class="nav-tools" aria-label="Tools and resources">
+    <nav class="nav-tools" aria-label="Tools and resources" data-pagefind-ignore>
+      <a href={`${base}/search`} class="nav-tool nav-tool-search" title="Search the course (/ to focus)">🔎 Search</a>
       <a href={`${base}/labs`} class="nav-tool">🧪 Labs</a>
       <a href={`${base}/case-studies`} class="nav-tool">📚 Case Studies</a>
       <a href={`${base}/resources`} class="nav-tool">📥 Resources</a>
@@ -175,7 +178,7 @@ const levels = [
     <slot />
 
     <!-- Footer -->
-    <footer>
+    <footer data-pagefind-ignore>
       <!-- Contact Info -->
       <div class="contact-info">
         <div class="contact-item">
@@ -674,6 +677,13 @@ const levels = [
       color: white;
       border-color: var(--color-brand-primary);
       transform: translateY(-1px);
+    }
+
+    .nav-tool-search {
+      background: var(--color-surface);
+      border-color: var(--color-brand-primary);
+      color: var(--color-brand-primary);
+      font-weight: 600;
     }
 
     .mobile-nav-divider {
@@ -1897,6 +1907,17 @@ const levels = [
         if (e.key === '?') {
           e.preventDefault();
           showHelp();
+        } else if (e.key === '/') {
+          e.preventDefault();
+          // Jump to search page; if already on it, just focus the input
+          const isOnSearch = window.location.pathname.includes('/search');
+          if (isOnSearch) {
+            const input = document.querySelector('#search input');
+            if (input) { input.focus(); input.select(); }
+          } else {
+            const base = document.querySelector('main')?.dataset?.base || '';
+            window.location.href = base + '/search';
+          }
         } else if (e.key === 'j') {
           window.scrollBy({ top: 100, behavior: 'smooth' });
         } else if (e.key === 'k') {
@@ -1929,6 +1950,7 @@ const levels = [
             </div>
             <table>
               <tr><th>Key</th><th>Action</th></tr>
+              <tr><td><kbd>/</kbd></td><td>Go to search</td></tr>
               <tr><td><kbd>D</kbd></td><td>Toggle dark mode</td></tr>
               <tr><td><kbd>J</kbd></td><td>Scroll down</td></tr>
               <tr><td><kbd>K</kbd></td><td>Scroll up</td></tr>
