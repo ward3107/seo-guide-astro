@@ -1,0 +1,205 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const labs = [
+  {
+    id: 'title-tag-tester',
+    title: 'Title Tag SERP Preview',
+    icon: '🏷️',
+    color: '#667eea',
+    description: 'Type a title; see exactly how Google renders it on desktop and mobile — including pixel-width truncation.',
+    teaches: 'Level 1 — Tool #1: Title Tag',
+  },
+  {
+    id: 'schema-validator',
+    title: 'Schema (JSON-LD) Validator',
+    icon: '📊',
+    color: '#f093fb',
+    description: 'Paste JSON-LD; get syntax validation, required-field checks for common types, and a rich-result preview.',
+    teaches: 'Level 1 — Tool #5: Schema Markup, Level 3 — Schema for Trust',
+  },
+  {
+    id: 'robots-txt-simulator',
+    title: 'robots.txt Simulator',
+    icon: '🛡️',
+    color: '#4facfe',
+    description: 'Paste a robots.txt and a URL — instantly see if Googlebot would crawl, block, or partially allow it.',
+    teaches: 'Level 2 — robots.txt',
+  },
+  {
+    id: 'meta-tag-generator',
+    title: 'Meta Tag Generator',
+    icon: '🏷️',
+    color: '#11998e',
+    description: 'Generate complete Open Graph + Twitter Card + canonical meta tags. Live preview of social shares.',
+    teaches: 'Level 4 — Social Search',
+  },
+  {
+    id: 'heading-analyzer',
+    title: 'Heading Structure Analyzer',
+    icon: '📐',
+    color: '#f5576c',
+    description: 'Paste HTML; get a hierarchical view of H1–H6 with warnings (multiple H1s, skipped levels, empty headings).',
+    teaches: 'Level 1 — Tool #2: H1 Heading',
+  },
+];
+---
+
+<Layout title="Hands-On Labs | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Labs</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">🧪 HANDS-ON LABS</span>
+    <h1>The Labs</h1>
+    <p class="subtitle">Five in-browser tools to apply what you've learned. No signup, no tracking, fully client-side.</p>
+    <div class="reading-time-badge">⏱️ ~5 min per lab</div>
+  </header>
+
+  <section class="intro">
+    <p class="lead">Reading about SEO and <em>doing</em> SEO are different sports. The labs below let you build, test, and break things in your browser — the same way you'd debug code. Use them while working through the levels, or to audit your real production sites.</p>
+  </section>
+
+  <section class="labs-grid">
+    {labs.map(lab => (
+      <a href={`${base}/labs/${lab.id}`} class="lab-card" style={`--card-color: ${lab.color}`}>
+        <span class="lab-icon">{lab.icon}</span>
+        <h2>{lab.title}</h2>
+        <p class="lab-desc">{lab.description}</p>
+        <div class="lab-teaches">📚 Reinforces: {lab.teaches}</div>
+        <span class="lab-cta">Open lab →</span>
+      </a>
+    ))}
+  </section>
+
+  <section class="trust">
+    <div class="trust-box">
+      <h3>🔒 Privacy: nothing leaves your browser</h3>
+      <p>Every lab runs 100% in your browser using JavaScript. No data is sent to any server, no analytics tracks what you paste, no cookies are set. Open DevTools → Network tab to verify.</p>
+    </div>
+  </section>
+
+  <nav class="level-nav">
+    <a href={`${base}/`} class="nav-btn">🏠 Back to Home</a>
+    <a href={`${base}/sources`} class="nav-btn">📚 Sources →</a>
+  </nav>
+</Layout>
+
+<style>
+  .breadcrumbs { margin-bottom: 30px; }
+  .breadcrumbs ol { display: flex; list-style: none; padding: 0; margin: 0; gap: 8px; flex-wrap: wrap; }
+  .breadcrumbs li { color: var(--color-text-muted); }
+  .breadcrumbs li:not(:last-child)::after { content: '→'; margin-left: 8px; color: var(--color-text-muted); }
+  .breadcrumbs a { color: var(--color-link); text-decoration: none; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  header h1 { font-size: 2.8em; margin-bottom: 10px; color: var(--color-text); }
+  .subtitle { font-size: 1.25em; color: var(--color-brand-primary); margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .reading-time-badge { display: inline-block; background: var(--color-surface-elevated); padding: 6px 16px; border-radius: 15px; font-size: 0.9em; color: var(--color-text-muted); }
+
+  .intro { max-width: 800px; margin: 0 auto 40px; }
+  .lead { font-size: 1.1em; line-height: 1.7; color: var(--color-text-secondary); text-align: center; }
+
+  .labs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 50px;
+  }
+
+  .lab-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--color-surface);
+    border: 2px solid var(--color-border-light);
+    border-top: 4px solid var(--card-color);
+    border-radius: 16px;
+    padding: 30px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .lab-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--card-color);
+  }
+  .lab-icon { font-size: 2.5em; }
+  .lab-card h2 { font-size: 1.3em; color: var(--color-text); margin: 0; }
+  .lab-desc { color: var(--color-text-secondary); line-height: 1.6; margin: 0; flex: 1; }
+  .lab-teaches { font-size: 0.85em; color: var(--color-text-muted); font-style: italic; }
+  .lab-cta {
+    margin-top: auto;
+    padding: 10px 16px;
+    background: var(--card-color);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    align-self: flex-start;
+    font-size: 0.95em;
+  }
+
+  .trust { max-width: 800px; margin: 0 auto 40px; }
+  .trust-box {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-left: 5px solid var(--color-success);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .trust-box h3 { margin: 0 0 10px; color: #155724; }
+  .trust-box p { margin: 0; color: #155724; line-height: 1.6; }
+
+  :global([data-theme="dark"]) .trust-box {
+    background: linear-gradient(135deg, #1f3a2a 0%, #2a4a3a 100%);
+  }
+  :global([data-theme="dark"]) .trust-box h3,
+  :global([data-theme="dark"]) .trust-box p { color: #c8e6c9; }
+
+  :global([data-theme="dark"]) .lab-card {
+    background: var(--color-surface-elevated);
+    border-color: var(--color-border);
+  }
+
+  .level-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--color-border-light);
+  }
+  .level-nav .nav-btn {
+    padding: 12px 24px;
+    background: var(--color-brand-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .level-nav .nav-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 2em; }
+    .subtitle { font-size: 1.05em; }
+    .level-nav { flex-direction: column; }
+    .level-nav .nav-btn { width: 100%; text-align: center; }
+  }
+</style>
