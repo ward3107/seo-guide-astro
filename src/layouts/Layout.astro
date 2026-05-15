@@ -5,6 +5,7 @@ interface Props {
   image?: string;
   canonicalURL?: string;
   currentLevel?: number;
+  lastUpdated?: string;
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   description = 'Waseem - English Teacher & Full-Stack Developer specializing in SEO and GEO. Building websites that Google AND AI love. Based in Haifa, Israel.',
   image = '/favicon.svg',
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
-  currentLevel = 0
+  currentLevel = 0,
+  lastUpdated = ''
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -162,6 +164,12 @@ const levels = [
       <a href={`${base}/sources`} class="nav-tool">🔗 Sources</a>
       <a href={`${base}/glossary`} class="nav-tool">📖 Glossary</a>
     </nav>
+
+    {lastUpdated && (
+      <div class="last-updated-badge" title="Content last verified against primary sources">
+        ✓ Last updated: {lastUpdated}
+      </div>
+    )}
 
     <!-- Main Content -->
     <slot />
@@ -1526,6 +1534,130 @@ const levels = [
       border-radius: 3px;
     }
 
+    /* Resume bookmark banner */
+    .resume-banner {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-surface);
+      color: var(--color-text);
+      padding: 14px 22px;
+      border-radius: 50px;
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: calc(100% - 40px);
+      animation: slideUp 0.3s ease-out;
+      border: 2px solid var(--color-brand-primary);
+    }
+    .resume-banner span { font-size: 0.95em; }
+    .resume-banner button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 24px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9em;
+      background: var(--color-brand-gradient);
+      color: white;
+      margin-left: 6px;
+    }
+    .resume-banner button.ghost {
+      background: transparent;
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+    .resume-banner.dismissed { opacity: 0; transform: translateX(-50%) translateY(20px); transition: all 0.3s; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @media (max-width: 600px) {
+      .resume-banner { flex-direction: column; gap: 8px; border-radius: 16px; }
+    }
+
+    /* Keyboard shortcut overlay */
+    #kbHelpOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .kb-help-panel {
+      background: var(--color-surface);
+      color: var(--color-text);
+      padding: 30px;
+      border-radius: 18px;
+      max-width: 460px;
+      width: calc(100% - 40px);
+      box-shadow: var(--shadow-lg);
+    }
+    .kb-help-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .kb-help-header h3 { margin: 0; color: var(--color-text); }
+    .kb-close {
+      background: transparent;
+      border: none;
+      font-size: 1.4em;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 0 8px;
+    }
+    .kb-help-panel table { width: 100%; border-collapse: collapse; }
+    .kb-help-panel th { text-align: left; padding: 8px 12px; color: var(--color-text-muted); font-size: 0.85em; font-weight: 600; }
+    .kb-help-panel td { padding: 10px 12px; border-top: 1px solid var(--color-border-light); }
+    .kb-help-panel kbd {
+      display: inline-block;
+      padding: 3px 8px;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85em;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Last updated badge */
+    .last-updated-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+      color: #155724;
+      border-radius: 16px;
+      font-size: 0.85em;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    :global([data-theme="dark"]) .last-updated-badge {
+      background: linear-gradient(135deg, #1f3a2a 0%, #2a4a3a 100%);
+      color: #c8e6c9;
+    }
+
+    /* Heading anchor permalinks */
+    .anchor-link {
+      opacity: 0;
+      margin-left: 10px;
+      text-decoration: none;
+      font-size: 0.7em;
+      vertical-align: middle;
+      transition: opacity 0.2s ease;
+      cursor: pointer;
+    }
+    h2:hover .anchor-link,
+    h3:hover .anchor-link,
+    .anchor-link:hover,
+    .anchor-link:focus {
+      opacity: 0.8;
+    }
+
     /* Sidebar TOC - Push Layout (only when sidebar exists) */
     @media (min-width: 1025px) {
       body:has(.sidebar-toc) {
@@ -1696,6 +1828,149 @@ const levels = [
         progressBar.style.width = scrolled + '%';
       });
     }
+
+    // Resume bookmark: save scroll % per URL, restore on next visit
+    (function () {
+      const KEY = 'resumeBookmark';
+      const path = window.location.pathname;
+
+      // Restore on load
+      window.addEventListener('load', () => {
+        try {
+          const map = JSON.parse(localStorage.getItem(KEY) || '{}');
+          const saved = map[path];
+          if (saved && saved.pct > 0.05 && saved.pct < 0.95) {
+            const banner = document.createElement('div');
+            banner.className = 'resume-banner';
+            banner.innerHTML = `
+              <span>📖 Continue where you left off (${Math.round(saved.pct * 100)}% through this page)?</span>
+              <div>
+                <button id="resumeYes">Resume</button>
+                <button id="resumeNo" class="ghost">Dismiss</button>
+              </div>
+            `;
+            document.body.appendChild(banner);
+            document.getElementById('resumeYes').onclick = () => {
+              const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+              window.scrollTo({ top: saved.pct * docH, behavior: 'smooth' });
+              banner.remove();
+            };
+            document.getElementById('resumeNo').onclick = () => {
+              banner.classList.add('dismissed');
+              setTimeout(() => banner.remove(), 300);
+            };
+            // Auto-dismiss after 8s
+            setTimeout(() => banner.classList.add('dismissed'), 8000);
+            setTimeout(() => banner.remove(), 8400);
+          }
+        } catch (e) { /* ignore */ }
+      });
+
+      // Save throttled
+      let lastSave = 0;
+      window.addEventListener('scroll', () => {
+        const now = Date.now();
+        if (now - lastSave < 1000) return;
+        lastSave = now;
+        try {
+          const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const pct = docH > 0 ? window.pageYOffset / docH : 0;
+          const map = JSON.parse(localStorage.getItem(KEY) || '{}');
+          map[path] = { pct: pct, t: now };
+          // Prune entries older than 30 days
+          const cutoff = now - 30 * 24 * 60 * 60 * 1000;
+          Object.keys(map).forEach(k => { if (map[k].t < cutoff) delete map[k]; });
+          localStorage.setItem(KEY, JSON.stringify(map));
+        } catch (e) { /* ignore */ }
+      });
+    })();
+
+    // Keyboard shortcuts: ? to open help, / to focus search (if exists), J/K to scroll
+    (function () {
+      function isTyping(target) {
+        return target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable);
+      }
+      document.addEventListener('keydown', (e) => {
+        if (isTyping(e.target)) return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        if (e.key === '?') {
+          e.preventDefault();
+          showHelp();
+        } else if (e.key === 'j') {
+          window.scrollBy({ top: 100, behavior: 'smooth' });
+        } else if (e.key === 'k') {
+          window.scrollBy({ top: -100, behavior: 'smooth' });
+        } else if (e.key === 'g') {
+          // 'gg' (vim-style) → top
+          if (window._lastG && Date.now() - window._lastG < 500) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window._lastG = 0;
+          } else {
+            window._lastG = Date.now();
+          }
+        } else if (e.key === 'G') {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        } else if (e.key === 'Escape') {
+          const help = document.getElementById('kbHelpOverlay');
+          if (help) help.remove();
+        }
+      });
+
+      function showHelp() {
+        if (document.getElementById('kbHelpOverlay')) return;
+        const div = document.createElement('div');
+        div.id = 'kbHelpOverlay';
+        div.innerHTML = `
+          <div class="kb-help-panel">
+            <div class="kb-help-header">
+              <h3>⌨️ Keyboard shortcuts</h3>
+              <button class="kb-close" aria-label="Close">✕</button>
+            </div>
+            <table>
+              <tr><th>Key</th><th>Action</th></tr>
+              <tr><td><kbd>D</kbd></td><td>Toggle dark mode</td></tr>
+              <tr><td><kbd>J</kbd></td><td>Scroll down</td></tr>
+              <tr><td><kbd>K</kbd></td><td>Scroll up</td></tr>
+              <tr><td><kbd>g</kbd> <kbd>g</kbd></td><td>Top of page</td></tr>
+              <tr><td><kbd>G</kbd></td><td>Bottom of page</td></tr>
+              <tr><td><kbd>?</kbd></td><td>Show this help</td></tr>
+              <tr><td><kbd>Esc</kbd></td><td>Close overlays</td></tr>
+            </table>
+          </div>
+        `;
+        document.body.appendChild(div);
+        div.querySelector('.kb-close').onclick = () => div.remove();
+        div.addEventListener('click', (e) => { if (e.target === div) div.remove(); });
+      }
+    })();
+
+    // Heading anchor permalinks: add 🔗 button next to every H2/H3 with an id
+    (function () {
+      document.querySelectorAll('section[id] > h2, section[id] > h3, [id] > h2, [id] > h3').forEach(h => {
+        if (h.querySelector('.anchor-link')) return;
+        const parentId = h.closest('[id]')?.id;
+        if (!parentId) return;
+        const a = document.createElement('a');
+        a.href = '#' + parentId;
+        a.className = 'anchor-link';
+        a.setAttribute('aria-label', 'Permalink to this section');
+        a.textContent = '🔗';
+        a.title = 'Copy link to this section';
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = window.location.origin + window.location.pathname + '#' + parentId;
+          navigator.clipboard.writeText(url).then(() => {
+            const orig = a.textContent;
+            a.textContent = '✓';
+            setTimeout(() => { a.textContent = orig; }, 1200);
+          });
+          // Update URL hash too
+          history.replaceState(null, '', '#' + parentId);
+        });
+        h.appendChild(a);
+      });
+    })();
 
     // Share content using Web Share API
     function shareContent() {
