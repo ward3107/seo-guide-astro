@@ -1,0 +1,230 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Search | Waseem's SEO Guide">
+  <div data-pagefind-ignore="all">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Search</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">🔎 SEARCH</span>
+    <h1>Search the course</h1>
+    <p class="subtitle">Full-text search across all 4 levels, the labs, sources, case studies, glossary, and resources. Indexed at build time — runs entirely in your browser.</p>
+  </header>
+
+  <section class="search-host">
+    <div id="search"></div>
+    <p class="hint">Tip — press <kbd>/</kbd> anywhere on the site to jump here. Try queries like <a href={`${base}/search?q=INP`}><code>INP</code></a>, <a href={`${base}/search?q=schema`}><code>schema</code></a>, <a href={`${base}/search?q=robots.txt`}><code>robots.txt</code></a>, <a href={`${base}/search?q=E-E-A-T`}><code>E-E-A-T</code></a>, or <a href={`${base}/search?q=AI%20Overviews`}><code>AI Overviews</code></a>.</p>
+
+    <noscript>
+      <p class="warn">Search requires JavaScript. The course content is fully readable without it — see the <a href={`${base}/`}>home page</a> for the level index.</p>
+    </noscript>
+  </section>
+
+  <nav class="level-nav">
+    <a href={`${base}/`} class="nav-btn">🏠 Back to Home</a>
+    <a href={`${base}/glossary`} class="nav-btn">📖 Glossary →</a>
+  </nav>
+  </div>
+</Layout>
+
+<link rel="stylesheet" href={`${base}/pagefind/pagefind-ui.css`} />
+
+<style>
+  .breadcrumbs { margin-bottom: 30px; }
+  .breadcrumbs ol { display: flex; list-style: none; padding: 0; margin: 0; gap: 8px; flex-wrap: wrap; }
+  .breadcrumbs li { color: var(--color-text-muted); }
+  .breadcrumbs li:not(:last-child)::after { content: '→'; margin-left: 8px; color: var(--color-text-muted); }
+  .breadcrumbs a { color: var(--color-link); text-decoration: none; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  header h1 { font-size: 2.4em; margin-bottom: 10px; color: var(--color-text); }
+  .subtitle { font-size: 1.1em; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+  .search-host {
+    background: var(--color-surface-elevated);
+    border-radius: 16px;
+    padding: 30px;
+    margin: 30px 0;
+    min-height: 300px;
+  }
+
+  .hint {
+    margin-top: 18px;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+  }
+  .hint kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85em;
+  }
+  .hint code {
+    background: var(--color-surface);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--color-brand-primary);
+    font-size: 0.9em;
+  }
+  .hint a { color: var(--color-link); text-decoration: none; }
+  .hint a:hover { text-decoration: underline; }
+
+  .warn {
+    background: rgba(255, 193, 7, 0.15);
+    border-left: 4px solid var(--color-warning);
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    margin-top: 16px;
+  }
+
+  /* Pagefind UI theme overrides — match site brand colors */
+  :global(.pagefind-ui) {
+    --pagefind-ui-primary: #667eea;
+    --pagefind-ui-text: var(--color-text);
+    --pagefind-ui-background: var(--color-surface);
+    --pagefind-ui-border: var(--color-border);
+    --pagefind-ui-tag: var(--color-surface-elevated);
+    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-radius: 12px;
+    --pagefind-ui-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  :global(.pagefind-ui__search-input) {
+    font-size: 1.15em !important;
+    padding: 14px 18px !important;
+  }
+  :global(.pagefind-ui__result) {
+    padding: 16px !important;
+    border-radius: 10px !important;
+    margin-bottom: 10px !important;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  :global(.pagefind-ui__result:hover) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  :global(.pagefind-ui__result-link) {
+    color: var(--color-brand-primary) !important;
+    font-weight: 700 !important;
+  }
+  :global(.pagefind-ui__result-excerpt mark) {
+    background: var(--color-search-highlight) !important;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  .level-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--color-border-light);
+  }
+  .level-nav .nav-btn {
+    padding: 12px 24px;
+    background: var(--color-brand-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 1.8em; }
+    .level-nav { flex-direction: column; }
+    .level-nav .nav-btn { width: 100%; text-align: center; }
+  }
+</style>
+
+<script is:inline define:vars={{ base }}>
+  // Pagefind UI bootstrap. The bundle is emitted by the `pagefind` post-build
+  // step into /pagefind/pagefind-ui.js (relative to the site root, which
+  // includes the GitHub Pages base path).
+  (async function () {
+    const host = document.getElementById('search');
+    if (!host) return;
+
+    function showError(msg) {
+      host.innerHTML = `
+        <div style="padding: 30px; background: rgba(220,53,69,0.1); border-left: 4px solid #dc3545; border-radius: 10px; color: #721c24;">
+          <strong>Search index not found.</strong><br>
+          ${msg}<br>
+          <small style="display:block;margin-top:8px;color:inherit;opacity:0.8">During development, the index isn't built. Run <code>npm run build</code> and serve <code>dist/</code> to test search.</small>
+        </div>
+      `;
+    }
+
+    try {
+      // Dynamically import the Pagefind UI module
+      const mod = await import(/* @vite-ignore */ `${base}/pagefind/pagefind-ui.js`);
+      const PagefindUI = mod.PagefindUI || mod.default?.PagefindUI || mod.default;
+
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+        bundlePath: `${base}/pagefind/`,
+        translations: {
+          placeholder: 'Search the course… (e.g. INP, schema, robots.txt)',
+          clear_search: 'Clear',
+          load_more: 'Load more results',
+          search_label: 'Search the SEO & GEO course',
+          filters_label: 'Filters',
+          zero_results: 'No results for [SEARCH_TERM]. Try a shorter query, or browse the levels from the home page.',
+          many_results: '[COUNT] results for [SEARCH_TERM]',
+          one_result: 'One result for [SEARCH_TERM]',
+          alt_search: 'No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead.',
+          search_suggestion: 'No results for [SEARCH_TERM]. Try these searches instead:',
+          searching: 'Searching for [SEARCH_TERM]…'
+        }
+      });
+
+      // Auto-fill from ?q= query param
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('q');
+      if (q) {
+        setTimeout(() => {
+          const input = host.querySelector('input');
+          if (input) {
+            input.value = q;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.focus();
+          }
+        }, 100);
+      } else {
+        // Focus the search input on load
+        setTimeout(() => {
+          const input = host.querySelector('input');
+          if (input) input.focus();
+        }, 100);
+      }
+    } catch (err) {
+      console.error('Pagefind failed to load:', err);
+      showError(`Could not load the search index from <code>${base}/pagefind/</code>.`);
+    }
+  })();
+</script>

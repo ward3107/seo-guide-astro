@@ -174,15 +174,15 @@ const allQuestions = [
     explanation: "301 redirects are permanent (passes most SEO value), while 302 redirects are temporary (doesn't pass full SEO value)."
   },
   {
-    q: "What does FID stand for in Core Web Vitals?",
+    q: "Which Core Web Vital replaced FID on March 12, 2024?",
     options: [
-      "First Input Delay - time until user can interact",
-      "First Image Display - when images appear",
-      "Final Input Data - form submission speed",
-      "Fast Initial Download - page load time"
+      "INP - Interaction to Next Paint",
+      "TBT - Total Blocking Time",
+      "TTI - Time to Interactive",
+      "TTFB - Time to First Byte"
     ],
     correct: "a",
-    explanation: "FID (First Input Delay) measures how long it takes for the page to respond to the first user interaction (click, tap, etc.)."
+    explanation: "INP (Interaction to Next Paint) became a Core Web Vital on March 12, 2024, replacing FID. INP measures responsiveness across ALL user interactions on the page (not just the first one). Good INP: ≤200ms."
   },
   {
     q: "What is CLS in Core Web Vitals?",

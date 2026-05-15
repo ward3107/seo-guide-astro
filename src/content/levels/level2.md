@@ -10,7 +10,7 @@ topics:
   - "The Bot's Language (Status Codes)"
   - "Speed & Performance Basics"
   - "Core Web Vitals Metrics"
-  - "LCP, FID, CLS Explained"
+  - "LCP, INP, CLS Explained"
   - "Technical Audit Checklist"
 quiz:
   - question: "What is the primary purpose of robots.txt?"
@@ -29,14 +29,14 @@ quiz:
       - "d) Everything is OK"
     correct: "c"
     explanation: "301 means 'Moved Permanently' - it tells search engines the page has moved to a new URL and transfers SEO value."
-  - question: "What is LCP in Core Web Vitals?"
+  - question: "Which Core Web Vital replaced FID on March 12, 2024?"
     options:
-      - "a) Largest Contentful Paint - loading performance"
-      - "b) First Input Delay - interactivity"
-      - "c) Cumulative Layout Shift - visual stability"
-      - "d) Link Click Probability"
-    correct: "a"
-    explanation: "LCP measures how long the main content takes to load. It should be under 2.5 seconds."
+      - "a) LCP (Largest Contentful Paint)"
+      - "b) INP (Interaction to Next Paint)"
+      - "c) CLS (Cumulative Layout Shift)"
+      - "d) TBT (Total Blocking Time)"
+    correct: "b"
+    explanation: "On March 12, 2024, Google promoted INP (Interaction to Next Paint) to a Core Web Vital, replacing FID. INP measures responsiveness across ALL interactions on the page, not just the first one. Good INP: ≤200ms."
   - question: "What is an XML sitemap?"
     options:
       - "a) A list of blocked pages"
@@ -217,10 +217,12 @@ Core Web Vitals are **3 specific metrics** that Google uses to measure user expe
 **Target:** Under 2.5 seconds
 **Measures:** Loading performance
 
-#### 2. FID - First Input Delay
-**What:** How long until the page responds when clicked
-**Target:** Under 100 milliseconds
-**Measures:** Interactivity
+#### 2. INP - Interaction to Next Paint
+**What:** How quickly the page responds to every user interaction (clicks, taps, keypresses)
+**Target:** Under 200 milliseconds
+**Measures:** Interactivity / responsiveness
+**Note:** INP replaced FID (First Input Delay) on March 12, 2024. INP is stricter — it tracks responsiveness across the page's full lifecycle, not just the first interaction.
+**Source:** [web.dev — INP becomes a Core Web Vital](https://web.dev/blog/inp-cwv-march-12)
 
 #### 3. CLS - Cumulative Layout Shift
 **What:** How much content jumps around while loading
@@ -230,7 +232,7 @@ Core Web Vitals are **3 specific metrics** that Google uses to measure user expe
 ### 💡 Memory Trick
 
 - **L**CP = **L**oading
-- **F**ID = **F**ast response
+- **I**NP = **I**nteraction responsiveness
 - **C**LS = **C**ontent stability
 
 ---
@@ -252,7 +254,7 @@ Use this checklist to audit your site:
 - [ ] Browser caching enabled
 - [ ] CDN configured (if applicable)
 - [ ] LCP under 2.5 seconds
-- [ ] FID under 100ms
+- [ ] INP under 200ms (replaced FID in March 2024)
 - [ ] CLS under 0.1
 
 ### Mobile

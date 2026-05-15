@@ -447,6 +447,47 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
     background: rgba(0, 0, 0, 0.2);
   }
 
+  .cert-verify-box {
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 24px auto;
+    max-width: 800px;
+  }
+  .cert-verify-box h3 { color: #006064; margin: 0 0 8px; }
+  .cert-verify-box p { color: #006064; margin: 0 0 14px; }
+  .verify-url { display: flex; gap: 8px; }
+  .verify-url input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid #00838f;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.85em;
+    background: white;
+    color: #006064;
+  }
+  .verify-url button {
+    padding: 10px 18px;
+    background: #00838f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .verify-id-hint { font-size: 0.85em; color: #006064; margin-top: 10px; }
+  .verify-id-hint code { background: white; padding: 2px 6px; border-radius: 4px; }
+
+  :global([data-theme="dark"]) .cert-verify-box {
+    background: linear-gradient(135deg, #0e2a30 0%, #16404a 100%);
+  }
+  :global([data-theme="dark"]) .cert-verify-box h3,
+  :global([data-theme="dark"]) .cert-verify-box p,
+  :global([data-theme="dark"]) .verify-id-hint { color: #b2ebf2; }
+  :global([data-theme="dark"]) .verify-url input { background: #1e1e30; color: #b2ebf2; }
+  :global([data-theme="dark"]) .verify-id-hint code { background: #1e1e30; }
+
   /* Print styles */
   @media print {
     body * {
@@ -609,6 +650,15 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
             </div>
           </div>
         </div>
+        <section class="cert-verify-box" id="certVerifyBox" style="display:none">
+          <h3>🔗 Your shareable verification link</h3>
+          <p>Anyone who has this URL can verify your completion. Add it to your LinkedIn, CV, or portfolio.</p>
+          <div class="verify-url">
+            <input type="text" id="verifyUrl" readonly aria-label="Verification URL" />
+            <button id="copyVerifyBtn" type="button">📋 Copy</button>
+          </div>
+          <p class="verify-id-hint">Verification ID: <code id="verifyId"></code></p>
+        </section>
         <div class="action-buttons">
           <button class="print-btn" id="printBtn">🖨️ Print Certificate</button>
           <button class="download-btn" id="downloadBtn">⬇️ Download as Image</button>
@@ -619,8 +669,20 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
         </section>
       `;
 
+      // Generate a deterministic verification ID from name + date.
+      // Anyone receiving the share-URL can recompute and verify.
+      async function makeVerifyId(name, dateISO) {
+        const payload = `seo-geo-course|${name.toLowerCase().trim()}|${dateISO}|completed`;
+        const buf = new TextEncoder().encode(payload);
+        const hashBuf = await crypto.subtle.digest('SHA-256', buf);
+        const bytes = Array.from(new Uint8Array(hashBuf));
+        const hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('');
+        // Take 16 hex chars → short, unique-enough verification ID
+        return hex.slice(0, 16).toUpperCase();
+      }
+
       // Attach event listeners
-      document.getElementById('generateBtn').addEventListener('click', function() {
+      document.getElementById('generateBtn').addEventListener('click', async function() {
         const studentNameInput = document.getElementById('studentName');
         const certName = document.getElementById('certName');
         if (!studentNameInput || !certName) return;
@@ -628,11 +690,41 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
         if (name) {
           certName.textContent = name;
           certName.style.color = '#667eea';
+
+          // Build verify URL
+          const dateISO = new Date().toISOString().slice(0, 10);
+          const verifyId = await makeVerifyId(name, dateISO);
+          const verifyUrl = `${window.location.origin}${base}/verify?name=${encodeURIComponent(name)}&date=${dateISO}&id=${verifyId}`;
+
+          const box = document.getElementById('certVerifyBox');
+          const urlEl = document.getElementById('verifyUrl');
+          const idEl = document.getElementById('verifyId');
+          if (box && urlEl && idEl) {
+            urlEl.value = verifyUrl;
+            idEl.textContent = verifyId;
+            box.style.display = 'block';
+          }
+
           certName.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
           studentNameInput.style.borderColor = '#dc3545';
           setTimeout(function() { studentNameInput.style.borderColor = '#e0e0e0'; }, 1000);
           studentNameInput.focus();
+        }
+      });
+
+      // Copy verify URL
+      document.body.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'copyVerifyBtn') {
+          const urlEl = document.getElementById('verifyUrl');
+          if (!urlEl) return;
+          urlEl.select();
+          navigator.clipboard.writeText(urlEl.value).then(function() {
+            const btn = document.getElementById('copyVerifyBtn');
+            const orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 1500);
+          });
         }
       });
 

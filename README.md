@@ -1,18 +1,32 @@
-# 🌐 SEO & GEO Guide - Astro Version
+# 🌐 SEO & GEO Course
 
-> A modern, scalable SEO and GEO learning platform built with [Astro](https://astro.build).
+> A free, modern course on SEO and **GEO** (Generative Engine Optimization) — including hands-on labs, real-world case studies, and a fully-sourced reference page. Built with [Astro](https://astro.build).
 
-## ✨ What's New - The Astro Migration
+**Live site:** https://ward3107.github.io/seo-guide-astro/
 
-This project has been migrated from 5 separate HTML files to a modern Astro project with:
+## ✨ Highlights
 
-- 📦 **Component-based architecture** - Reusable components (LevelCard, Quiz, SidebarTOC)
-- 📝 **Markdown content** - Easy to edit content in Markdown format
-- 🎨 **Scoped CSS** - No style conflicts between components
-- ⚡ **Zero JS by default** - Excellent SEO and performance
-- 🔧 **TypeScript support** - Type-safe development
-- 🚀 **GitHub Actions** - Automatic deployment on push
-- 📱 **Responsive design** - Mobile-first approach
+- 📖 **4 progressive levels** (~14,000 words) covering SEO basics → technical SEO (with INP, the 2024 Core Web Vital) → advanced GEO (AI Overviews, llms.txt, operationalized E-E-A-T) → authority & channels (modern link-building, per-platform social SEO)
+- 🧪 **5 hands-on Labs** (fully client-side, zero tracking):
+  - Title Tag SERP Preview with pixel-width truncation
+  - Schema JSON-LD Validator (16 types, Google rich-result eligibility checks)
+  - robots.txt Simulator (implements Google's parser)
+  - Meta Tag Generator (OG + Twitter Card + canonical) with live previews
+  - Heading Structure Analyzer (DOMParser-based, multi-H1 detection, skipped levels)
+- 📚 **Sources page** — every factual claim cites a primary source (Google Search Central, web.dev, schema.org, peer-reviewed papers)
+- 📑 **Case Studies** — 5 teardowns of real public pages (Nike, Adidas, NYT, Healthline, this site)
+- 📥 **Resources** — 6 printable cheat sheets (on-page, technical, GEO, local, outreach templates, JSON-LD library)
+- 🎓 **Verifiable certificates** — SHA-256-based, shareable verification URL, no server required
+- ⌨️ **Power-user UX** — keyboard shortcuts (`?`/`J`/`K`/`gg`/`G`/`D`), resume bookmark, heading permalinks, "Last updated" badges, dark mode
+
+## 🔄 Recently updated (May 2026)
+
+- **Core Web Vitals updated to INP** (replaced FID on March 12, 2024) across all content, quizzes, flashcards, and the final test.
+- **Added AI Overviews / SGE module** (Level 3): six traits AI rewards, a worked citation-shaped paragraph example, an LLM retrieval-mechanism table for Google/Perplexity/ChatGPT/Claude.
+- **Added llms.txt module** with a complete working example.
+- **Operationalized E-E-A-T**: 14-step playbook split by letter with a 5-minute audit.
+- **Expanded Level 4 link-building** from generic advice to seven concrete techniques (Skyscraper, broken-link, HARO/Connectively, unlinked-mention reclamation, expert roundups, digital PR, guest posting) with Google Spam Policy references.
+- **Per-platform social SEO** for LinkedIn, Instagram, X, TikTok, YouTube (each with platform-specific algorithm notes).
 
 ## 🚀 Quick Start
 
@@ -47,34 +61,41 @@ npm run preview
 ## 📁 Project Structure
 
 ```
-astro-seo-guide/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml         # GitHub Actions for auto-deployment
-├── public/                     # Static assets (favicon, etc.)
+seo-guide-astro/
 ├── src/
 │   ├── components/             # Reusable Astro components
-│   │   ├── LevelCard.astro    # Level card component
-│   │   ├── Quiz.astro         # Quiz component with auto-grading
-│   │   └── SidebarTOC.astro   # Table of contents with scroll spy
-│   ├── content/
-│   │   └── levels/            # Markdown content for each level
-│   │       ├── level1.md
-│   │       ├── level2.md
-│   │       ├── level3.md
-│   │       └── level4.md
-│   ├── layouts/
-│   │   └── Layout.astro       # Base layout (nav, footer, styles)
-│   ├── pages/                 # Route pages
-│   │   ├── index.astro        # Home page
-│   │   ├── level1.astro       # Level 1 page
-│   │   ├── level2.astro       # Level 2 page
-│   │   ├── level3.astro       # Level 3 page
-│   │   └── level4.astro       # Level 4 page
-│   └── content.config.ts      # Content collection config
-├── astro.config.mjs           # Astro configuration
-├── package.json               # Dependencies
-└── tsconfig.json              # TypeScript config
+│   │   ├── LevelCard.astro
+│   │   ├── Quiz.astro
+│   │   ├── FinalTest.astro
+│   │   └── SidebarTOC.astro    # TOC with scroll spy
+│   ├── content/levels/         # Markdown reference content
+│   ├── layouts/Layout.astro    # Base layout (nav, footer, theme, keyboard shortcuts)
+│   ├── pages/
+│   │   ├── index.astro         # Home
+│   │   ├── level1-4.astro      # The 4 main course levels
+│   │   ├── quick-quiz.astro
+│   │   ├── practice-mode.astro
+│   │   ├── timed-challenge.astro
+│   │   ├── final-test.astro
+│   │   ├── flashcards.astro
+│   │   ├── glossary.astro
+│   │   ├── progress.astro
+│   │   ├── certificate.astro   # Cert generator (issues verifiable URLs)
+│   │   ├── verify.astro        # Verifies any cert URL client-side
+│   │   ├── sources.astro       # Primary-source bibliography
+│   │   ├── case-studies.astro  # Real-world page teardowns
+│   │   ├── resources.astro     # Printable cheat sheets
+│   │   └── labs/               # 5 hands-on tools
+│   │       ├── index.astro
+│   │       ├── title-tag-tester.astro
+│   │       ├── schema-validator.astro
+│   │       ├── robots-txt-simulator.astro
+│   │       ├── meta-tag-generator.astro
+│   │       └── heading-analyzer.astro
+│   └── content.config.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
 ## 📝 Adding Content

@@ -1,0 +1,337 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const sampleHtml = `<h1>How to Optimize INP</h1>
+<h2>What is INP?</h2>
+<p>INP measures interaction responsiveness...</p>
+<h3>The threshold</h3>
+<h2>Why it replaced FID</h2>
+<h4>The 2024 announcement</h4>
+<h2>How to measure INP</h2>
+<h3>Lab tools</h3>
+<h3>Field tools</h3>
+<h1>Conclusion</h1>`;
+---
+
+<Layout title="Heading Structure Analyzer Lab | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li><a href={`${base}/labs`}>Labs</a></li>
+      <li aria-current="page">Heading Analyzer</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">📐 LAB 5</span>
+    <h1>Heading Structure Analyzer</h1>
+    <p class="subtitle">Paste HTML; get a hierarchical view of H1–H6 with warnings for multiple H1s, skipped levels, empty headings, and headings that are too long or too short.</p>
+  </header>
+
+  <section class="lab-tool">
+    <div class="input-pane">
+      <label for="htmlInput" class="input-label">
+        Paste HTML (full page, body section, or any fragment):
+      </label>
+      <textarea
+        id="htmlInput"
+        rows="14"
+        spellcheck="false"
+        placeholder="Paste HTML..."
+        set:html={sampleHtml}
+      ></textarea>
+      <div class="actions">
+        <button id="loadUrlBtn" type="button" class="btn-secondary">🌐 Paste a URL's HTML…</button>
+        <button id="clearBtn" type="button" class="btn-ghost">🗑️ Clear</button>
+      </div>
+      <p class="url-hint" id="urlHint" style="display:none">
+        ⚠️ Browsers don't allow fetching arbitrary URLs (CORS). View any page's source (right-click → View Page Source or Ctrl+U), copy the HTML, and paste it above.
+      </p>
+    </div>
+
+    <div class="output-pane">
+      <h3>📊 Heading outline</h3>
+      <div id="outline">
+        <p class="placeholder">Paste HTML to see the outline.</p>
+      </div>
+
+      <h3 style="margin-top:24px">⚠️ Issues found</h3>
+      <div id="issues">
+        <p class="placeholder">No analysis yet.</p>
+      </div>
+
+      <h3 style="margin-top:24px">📈 Stats</h3>
+      <div id="stats" class="stats-grid"></div>
+    </div>
+  </section>
+
+  <section class="advice">
+    <h2>🎯 Heading rules (the ones that actually matter)</h2>
+
+    <h3>1. Exactly one H1 per page</h3>
+    <p>The H1 is the "page title visible to humans." Multiple H1s confuse the document outline. <strong>Exception:</strong> HTML5 sectioning elements technically allow multiple H1s — but Google still treats the first one as the strongest signal. Keep it to one for clarity.</p>
+
+    <h3>2. Don't skip heading levels</h3>
+    <p>H1 → H3 with no H2 in between breaks the logical hierarchy. Screen readers use heading levels to build a navigable outline; SEO crawlers use them to understand topic relationships.</p>
+
+    <h3>3. Headings should describe what's below them</h3>
+    <p>"Section 2" is a bad heading. "How to measure INP with Lighthouse" is a good heading — it's also a great H2 because it matches a likely search query (Level 3 GEO principle).</p>
+
+    <h3>4. Keep heading text concise</h3>
+    <p>10–70 characters is the sweet spot. Very long headings (&gt;100 chars) are often paragraph text mistakenly marked up as a heading.</p>
+
+    <h3>5. Never use headings for styling</h3>
+    <p>Don't wrap a non-heading in <code>&lt;h2&gt;</code> just to make it bigger. Use CSS. Headings carry semantic meaning that screen readers and search engines act on.</p>
+
+    <h3>Sources</h3>
+    <ul>
+      <li><a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank" rel="noopener">W3C Web Accessibility — Heading Structure</a></li>
+      <li><a href="https://developers.google.com/style/headings" target="_blank" rel="noopener">Google Developer Documentation Style Guide — Headings</a></li>
+    </ul>
+  </section>
+
+  <nav class="level-nav">
+    <a href={`${base}/labs/meta-tag-generator`} class="nav-btn">← Meta Tag Generator</a>
+    <a href={`${base}/labs`} class="nav-btn">Back to all Labs →</a>
+  </nav>
+</Layout>
+
+<style>
+  .breadcrumbs { margin-bottom: 30px; }
+  .breadcrumbs ol { display: flex; list-style: none; padding: 0; margin: 0; gap: 8px; flex-wrap: wrap; }
+  .breadcrumbs li { color: var(--color-text-muted); }
+  .breadcrumbs li:not(:last-child)::after { content: '→'; margin-left: 8px; color: var(--color-text-muted); }
+  .breadcrumbs a { color: var(--color-link); text-decoration: none; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  header h1 { font-size: 2.4em; margin-bottom: 10px; color: var(--color-text); }
+  .subtitle { font-size: 1.15em; color: var(--color-text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+  .lab-tool {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 30px 0;
+  }
+  @media (max-width: 900px) { .lab-tool { grid-template-columns: 1fr; } }
+
+  .input-pane, .output-pane {
+    background: var(--color-surface-elevated);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .input-label { display: block; font-weight: 600; color: var(--color-text); margin: 0 0 8px; }
+  textarea {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+    background: var(--color-surface);
+    color: var(--color-text);
+    resize: vertical;
+  }
+
+  .actions { display: flex; gap: 10px; margin-top: 12px; }
+  .btn-secondary, .btn-ghost {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-secondary { background: var(--color-brand-primary); color: white; }
+  .btn-ghost { background: transparent; color: var(--color-text-muted); border: 1px solid var(--color-border); }
+  .url-hint { background: rgba(255, 193, 7, 0.15); padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; color: var(--color-text-secondary); }
+
+  .output-pane h3 { margin: 0 0 12px; color: var(--color-text); }
+  .placeholder { color: var(--color-text-muted); font-style: italic; }
+
+  .outline-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 4px 0;
+    font-size: 0.95em;
+  }
+  .outline-item.level-1 { background: rgba(102, 126, 234, 0.15); font-weight: 700; }
+  .outline-item.level-2 { background: rgba(118, 75, 162, 0.10); margin-left: 14px; }
+  .outline-item.level-3 { background: rgba(240, 147, 251, 0.08); margin-left: 28px; }
+  .outline-item.level-4 { background: rgba(79, 172, 254, 0.08); margin-left: 42px; }
+  .outline-item.level-5 { background: rgba(17, 153, 142, 0.08); margin-left: 56px; }
+  .outline-item.level-6 { background: rgba(245, 87, 108, 0.08); margin-left: 70px; }
+  .outline-item.flagged { box-shadow: 0 0 0 2px var(--color-warning); }
+  .outline-tag { font-family: monospace; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--color-surface); }
+  .outline-text { color: var(--color-text); flex: 1; }
+  .outline-flags { font-size: 0.8em; color: var(--color-warning); }
+
+  .issue-row {
+    display: flex;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 6px 0;
+  }
+  .issue-row.error { background: rgba(220, 53, 69, 0.12); color: var(--color-error); border-left: 3px solid var(--color-error); }
+  .issue-row.warn { background: rgba(255, 193, 7, 0.15); color: #856404; border-left: 3px solid var(--color-warning); }
+  .issue-row.ok { background: rgba(40, 167, 69, 0.12); color: var(--color-success); border-left: 3px solid var(--color-success); }
+  :global([data-theme="dark"]) .issue-row.warn { color: #ffd54f; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 10px; }
+  .stat-cell {
+    text-align: center;
+    background: var(--color-surface);
+    padding: 14px 8px;
+    border-radius: 8px;
+  }
+  .stat-cell .num { display: block; font-size: 1.5em; font-weight: 700; color: var(--color-brand-primary); }
+  .stat-cell .lbl { display: block; font-size: 0.8em; color: var(--color-text-muted); margin-top: 2px; }
+
+  .advice { margin-top: 30px; padding: 30px; background: var(--color-surface-elevated); border-radius: 16px; }
+  .advice h2 { color: var(--color-text); margin: 0 0 16px; }
+  .advice h3 { color: var(--color-brand-primary); margin: 18px 0 6px; }
+  .advice p, .advice ul { color: var(--color-text-secondary); line-height: 1.7; }
+  .advice ul { padding-left: 24px; }
+  .advice code { background: var(--color-surface); padding: 2px 6px; border-radius: 4px; color: var(--color-brand-primary); }
+  .advice a { color: var(--color-link); }
+
+  .level-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--color-border-light);
+  }
+  .level-nav .nav-btn {
+    padding: 12px 24px;
+    background: var(--color-brand-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 1.8em; }
+    .level-nav { flex-direction: column; }
+    .level-nav .nav-btn { width: 100%; text-align: center; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const input = $('htmlInput');
+    const outline = $('outline');
+    const issues = $('issues');
+    const stats = $('stats');
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function analyze() {
+      const html = input.value;
+      if (!html.trim()) {
+        outline.innerHTML = '<p class="placeholder">Paste HTML to see the outline.</p>';
+        issues.innerHTML = '<p class="placeholder">No analysis yet.</p>';
+        stats.innerHTML = '';
+        return;
+      }
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      if (headings.length === 0) {
+        outline.innerHTML = '<div class="issue-row error">❌ No headings found. A page without H1–H6 has no semantic structure.</div>';
+        issues.innerHTML = '';
+        stats.innerHTML = '';
+        return;
+      }
+
+      // Build outline + collect issues
+      const outlineHtml = [];
+      const issueList = [];
+      const counts = { h1: 0, h2: 0, h3: 0, h4: 0, h5: 0, h6: 0 };
+      let lastLevel = 0;
+
+      headings.forEach((h, i) => {
+        const level = parseInt(h.tagName.charAt(1), 10);
+        const text = h.textContent.trim();
+        const flags = [];
+
+        counts['h' + level]++;
+
+        if (!text) flags.push('empty heading');
+        if (text.length > 100) flags.push('very long (' + text.length + ' chars)');
+        if (text.length > 0 && text.length < 4) flags.push('very short (' + text.length + ' chars)');
+
+        if (i === 0 && level !== 1) flags.push('first heading should be H1');
+        if (level > lastLevel + 1 && lastLevel > 0) {
+          flags.push(`skipped from H${lastLevel} to H${level}`);
+        }
+
+        outlineHtml.push(`
+          <div class="outline-item level-${level} ${flags.length ? 'flagged' : ''}">
+            <span class="outline-tag">H${level}</span>
+            <span class="outline-text">${escapeHtml(text || '(empty)')}</span>
+            ${flags.length ? `<span class="outline-flags">⚠ ${flags.join(', ')}</span>` : ''}
+          </div>
+        `);
+
+        if (flags.length) {
+          issueList.push({ level: 'warn', msg: `H${level} #${i + 1} "${text.slice(0, 40)}…": ${flags.join(', ')}` });
+        }
+
+        lastLevel = level;
+      });
+
+      // Global checks
+      if (counts.h1 === 0) issueList.unshift({ level: 'error', msg: 'Missing H1. Every page should have exactly one H1.' });
+      if (counts.h1 > 1) issueList.unshift({ level: 'error', msg: `${counts.h1} H1 tags found. Should be exactly 1.` });
+      if (counts.h1 === 1) issueList.unshift({ level: 'ok', msg: 'Exactly 1 H1 — perfect.' });
+
+      // Render
+      outline.innerHTML = outlineHtml.join('');
+
+      issues.innerHTML = issueList.length
+        ? issueList.map(i => `<div class="issue-row ${i.level}">${i.level === 'error' ? '❌' : i.level === 'warn' ? '⚠️' : '✅'} ${escapeHtml(i.msg)}</div>`).join('')
+        : '<div class="issue-row ok">✅ No issues — clean heading structure.</div>';
+
+      stats.innerHTML = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map(k => `
+        <div class="stat-cell">
+          <span class="num">${counts[k]}</span>
+          <span class="lbl">${k.toUpperCase()}</span>
+        </div>
+      `).join('') + `
+        <div class="stat-cell"><span class="num">${headings.length}</span><span class="lbl">Total</span></div>
+      `;
+    }
+
+    input.addEventListener('input', analyze);
+    $('clearBtn').addEventListener('click', () => { input.value = ''; analyze(); });
+    $('loadUrlBtn').addEventListener('click', () => {
+      $('urlHint').style.display = 'block';
+    });
+
+    analyze();
+  })();
+</script>

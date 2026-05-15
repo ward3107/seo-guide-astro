@@ -42,7 +42,7 @@ const levels = [
       'The Bot\'s Language (Status Codes)',
       'Speed & Performance Basics',
       'Core Web Vitals Metrics',
-      'LCP, FID, CLS Explained',
+      'LCP, INP, CLS Explained (INP replaced FID in 2024)',
       'Technical Audit Checklist',
       'Deep Dive Questions'
     ]
@@ -246,6 +246,18 @@ const levels = [
     </div>
     <div class="glossary-cta">
       <p>📖 Need to look up a term? <a href={`${base}/glossary`}>Browse the Glossary</a></p>
+    </div>
+    <div class="sources-cta">
+      <p>📚 Want to verify every claim? <a href={`${base}/sources`}>See Sources &amp; Citations</a></p>
+    </div>
+    <div class="labs-cta">
+      <p>🧪 Try the hands-on tools: <a href={`${base}/labs`}>Open the Labs</a></p>
+    </div>
+    <div class="resources-cta">
+      <p>📥 Get printable cheat sheets &amp; templates: <a href={`${base}/resources`}>Resources</a></p>
+    </div>
+    <div class="case-studies-cta">
+      <p>📑 See real-world SEO teardowns: <a href={`${base}/case-studies`}>Case Studies</a></p>
     </div>
   </section>
 
@@ -687,6 +699,61 @@ const levels = [
   .glossary-cta a:hover {
     color: #764ba2;
   }
+
+  .sources-cta,
+  .labs-cta {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .sources-cta {
+    background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%);
+  }
+
+  .sources-cta p { color: #311b92; font-size: 1.1em; margin: 0; }
+  .sources-cta a { color: #667eea; font-weight: 600; text-decoration: underline; }
+  .sources-cta a:hover { color: #764ba2; }
+
+  .labs-cta {
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  }
+
+  .labs-cta p { color: #006064; font-size: 1.1em; margin: 0; }
+  .labs-cta a { color: #00838f; font-weight: 600; text-decoration: underline; }
+  .labs-cta a:hover { color: #006064; }
+
+  :global([data-theme="dark"]) .sources-cta {
+    background: linear-gradient(135deg, #2a1a3a 0%, #3a2a4a 100%);
+  }
+  :global([data-theme="dark"]) .sources-cta p { color: #d1c4e9; }
+  :global([data-theme="dark"]) .labs-cta {
+    background: linear-gradient(135deg, #0e2a30 0%, #16404a 100%);
+  }
+  :global([data-theme="dark"]) .labs-cta p { color: #b2ebf2; }
+
+  .resources-cta,
+  .case-studies-cta {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  .resources-cta { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+  .case-studies-cta { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); }
+  .resources-cta p { color: #e65100; font-size: 1.1em; margin: 0; }
+  .case-studies-cta p { color: #ff6f00; font-size: 1.1em; margin: 0; }
+  .resources-cta a, .case-studies-cta a { color: #667eea; font-weight: 600; text-decoration: underline; }
+
+  :global([data-theme="dark"]) .resources-cta {
+    background: linear-gradient(135deg, #3a2a1a 0%, #4a3a2a 100%);
+  }
+  :global([data-theme="dark"]) .resources-cta p { color: #ffcc80; }
+  :global([data-theme="dark"]) .case-studies-cta {
+    background: linear-gradient(135deg, #3a3520 0%, #4a4530 100%);
+  }
+  :global([data-theme="dark"]) .case-studies-cta p { color: #ffe082; }
 
   /* Levels Section */
   .levels-section {

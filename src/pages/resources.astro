@@ -1,0 +1,605 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout title="Resources — Cheat Sheets & Templates | Waseem's SEO Guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={`${base}/`}>Home</a></li>
+      <li aria-current="page">Resources</li>
+    </ol>
+  </nav>
+
+  <header>
+    <span class="badge">📥 RESOURCES</span>
+    <h1>Cheat Sheets &amp; Templates</h1>
+    <p class="subtitle">Print-friendly cheat sheets, ready-to-paste templates, and audit checklists you can use on real client work.</p>
+  </header>
+
+  <section class="resource-grid">
+    <article class="resource-card">
+      <h2>📄 SEO On-Page Cheat Sheet</h2>
+      <p>One-page reference for the 5 essential HTML tools, recommended limits, and quick syntax.</p>
+      <button class="print-btn" data-print="sheet-onpage">🖨️ Print / Save as PDF</button>
+    </article>
+
+    <article class="resource-card">
+      <h2>⚙️ Technical SEO Audit Checklist</h2>
+      <p>40-item checklist for robots.txt, sitemaps, status codes, INP, LCP, CLS, mobile, security.</p>
+      <button class="print-btn" data-print="sheet-technical">🖨️ Print / Save as PDF</button>
+    </article>
+
+    <article class="resource-card">
+      <h2>🤖 GEO Optimization Cheat Sheet</h2>
+      <p>How to write paragraphs AI cites + Schema.org type map + E-E-A-T 14-step playbook.</p>
+      <button class="print-btn" data-print="sheet-geo">🖨️ Print / Save as PDF</button>
+    </article>
+
+    <article class="resource-card">
+      <h2>📍 Local SEO &amp; GBP Checklist</h2>
+      <p>Complete Google Business Profile setup + LocalBusiness Schema template + review-response scripts.</p>
+      <button class="print-btn" data-print="sheet-local">🖨️ Print / Save as PDF</button>
+    </article>
+
+    <article class="resource-card">
+      <h2>🔗 Link-Building Outreach Templates</h2>
+      <p>Skyscraper, broken-link, HARO, and guest-post pitch templates — copy-paste with placeholders.</p>
+      <button class="print-btn" data-print="sheet-outreach">🖨️ Print / Save as PDF</button>
+    </article>
+
+    <article class="resource-card">
+      <h2>🏷️ JSON-LD Schema Template Library</h2>
+      <p>10 ready-to-use JSON-LD blocks: Article, Person, LocalBusiness, FAQ, HowTo, Product, Recipe, Video, Event, Course.</p>
+      <button class="print-btn" data-print="sheet-schema">🖨️ Print / Save as PDF</button>
+    </article>
+  </section>
+
+  <!-- Cheat Sheet: On-Page SEO -->
+  <article class="cheat-sheet" id="sheet-onpage" data-title="SEO On-Page Cheat Sheet">
+    <h2>SEO On-Page Cheat Sheet</h2>
+
+    <table>
+      <thead>
+        <tr><th>Element</th><th>Where</th><th>Recommended</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>&lt;title&gt;</code></td><td><code>&lt;head&gt;</code></td><td>≤60 chars / ≤600 px</td><td>Front-load keyword. Brand last. Unique per page.</td></tr>
+        <tr><td><code>&lt;meta name="description"&gt;</code></td><td><code>&lt;head&gt;</code></td><td>155–160 chars</td><td>Compelling, includes keyword once.</td></tr>
+        <tr><td><code>&lt;h1&gt;</code></td><td><code>&lt;body&gt;</code></td><td>1 per page</td><td>Matches user intent of search query.</td></tr>
+        <tr><td><code>&lt;h2&gt;–&lt;h6&gt;</code></td><td><code>&lt;body&gt;</code></td><td>No skipped levels</td><td>Question-form headings get cited by AI.</td></tr>
+        <tr><td><code>alt=""</code></td><td><code>&lt;img&gt;</code></td><td>≤125 chars</td><td>Describe what the image conveys.</td></tr>
+        <tr><td><code>&lt;a href&gt;</code></td><td>anywhere</td><td>Descriptive anchor</td><td>Avoid "click here." Use the destination's value prop.</td></tr>
+        <tr><td><code>&lt;link rel="canonical"&gt;</code></td><td><code>&lt;head&gt;</code></td><td>Self-referencing</td><td>Prevents duplicate-content issues.</td></tr>
+        <tr><td>JSON-LD Schema</td><td><code>&lt;head&gt;</code> or <code>&lt;body&gt;</code></td><td>Per content type</td><td>Article, Person, Organization at minimum.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Title-tag templates by page type</h3>
+    <ul>
+      <li><strong>Homepage:</strong> <code>Brand — Tagline ≤ 60 chars</code></li>
+      <li><strong>Product:</strong> <code>Product Name [Variant] | Brand</code></li>
+      <li><strong>Blog post:</strong> <code>Article Headline | Brand</code></li>
+      <li><strong>Category:</strong> <code>Category + Modifier | Brand</code></li>
+      <li><strong>Local landing:</strong> <code>Service in City | Brand</code></li>
+    </ul>
+
+    <h3>Search intent → content type</h3>
+    <table>
+      <tbody>
+        <tr><td>Informational ("how to X")</td><td>Long-form guide, video, FAQ</td></tr>
+        <tr><td>Navigational ("brand login")</td><td>Branded landing page</td></tr>
+        <tr><td>Commercial ("best X 2026")</td><td>Comparison post, listicle, reviews</td></tr>
+        <tr><td>Transactional ("buy X")</td><td>Product page with price, schema, CTA</td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- Cheat Sheet: Technical -->
+  <article class="cheat-sheet" id="sheet-technical" data-title="Technical SEO Audit Checklist">
+    <h2>Technical SEO Audit Checklist</h2>
+
+    <h3>Crawlability &amp; indexing</h3>
+    <ul class="check">
+      <li>☐ robots.txt exists at <code>/robots.txt</code> and parses correctly</li>
+      <li>☐ XML sitemap exists at <code>/sitemap.xml</code> and is referenced in robots.txt</li>
+      <li>☐ Sitemap submitted in Google Search Console</li>
+      <li>☐ No accidental <code>noindex</code> on important pages (check <code>&lt;meta name="robots"&gt;</code>)</li>
+      <li>☐ No accidental <code>X-Robots-Tag: noindex</code> in HTTP headers</li>
+      <li>☐ Canonical URLs are self-referencing on canonical pages</li>
+      <li>☐ Pagination uses <code>rel="canonical"</code> to the main page (or each pagination URL self-canonicals)</li>
+      <li>☐ Important pages aren't blocked by robots.txt</li>
+      <li>☐ Crawl-stats in Search Console show no major drops</li>
+      <li>☐ Duplicate URLs handled (trailing slash, http→https, www→non-www)</li>
+    </ul>
+
+    <h3>HTTP &amp; redirects</h3>
+    <ul class="check">
+      <li>☐ HTTPS enforced everywhere (no mixed content)</li>
+      <li>☐ HSTS header present</li>
+      <li>☐ HTTP→HTTPS via 301 redirect (not 302)</li>
+      <li>☐ www↔non-www consistent and 301'd</li>
+      <li>☐ No 404s on internal links (use Screaming Frog or Ahrefs free)</li>
+      <li>☐ Soft 404s eliminated (200 status but "not found" content)</li>
+      <li>☐ Redirect chains under 2 hops</li>
+      <li>☐ 5xx errors monitored (Sentry / log monitoring)</li>
+    </ul>
+
+    <h3>Performance &amp; Core Web Vitals</h3>
+    <ul class="check">
+      <li>☐ <strong>LCP</strong> ≤ 2.5s (75th percentile, mobile)</li>
+      <li>☐ <strong>INP</strong> ≤ 200ms (replaced FID in March 2024)</li>
+      <li>☐ <strong>CLS</strong> ≤ 0.1</li>
+      <li>☐ TTFB ≤ 800ms</li>
+      <li>☐ Images compressed (WebP/AVIF), explicit width/height attrs</li>
+      <li>☐ Lazy-loading below-the-fold images (<code>loading="lazy"</code>)</li>
+      <li>☐ Critical CSS inlined; non-critical deferred</li>
+      <li>☐ Render-blocking JS deferred or async</li>
+      <li>☐ Third-party scripts audited (analytics, chat widgets, ads)</li>
+      <li>☐ Fonts subset / <code>font-display: swap</code></li>
+    </ul>
+
+    <h3>Mobile</h3>
+    <ul class="check">
+      <li>☐ Mobile-friendly test passes (Google's <a href="https://search.google.com/test/mobile-friendly" target="_blank" rel="noopener">tool</a>)</li>
+      <li>☐ Viewport meta tag present</li>
+      <li>☐ Touch targets ≥ 48 × 48 px</li>
+      <li>☐ Font size ≥ 16px on mobile</li>
+      <li>☐ No horizontal scroll</li>
+    </ul>
+
+    <h3>Structured data</h3>
+    <ul class="check">
+      <li>☐ Organization Schema on homepage</li>
+      <li>☐ Article/BlogPosting Schema on blog posts (with author + publisher)</li>
+      <li>☐ LocalBusiness Schema for local businesses</li>
+      <li>☐ Breadcrumb Schema on nested pages</li>
+      <li>☐ FAQ Schema where applicable</li>
+      <li>☐ Validated against the <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Rich Results Test</a></li>
+    </ul>
+
+    <h3>Security &amp; trust</h3>
+    <ul class="check">
+      <li>☐ SSL Labs grade A or A+</li>
+      <li>☐ Content-Security-Policy header</li>
+      <li>☐ X-Frame-Options or frame-ancestors</li>
+      <li>☐ X-Content-Type-Options: nosniff</li>
+      <li>☐ Contact info visible (E-E-A-T)</li>
+      <li>☐ Privacy policy + Terms linked from footer</li>
+    </ul>
+  </article>
+
+  <!-- Cheat Sheet: GEO -->
+  <article class="cheat-sheet" id="sheet-geo" data-title="GEO (AI Optimization) Cheat Sheet">
+    <h2>GEO (AI Optimization) Cheat Sheet</h2>
+
+    <h3>The 6 traits AI Overviews reward</h3>
+    <ol>
+      <li><strong>Citations &amp; statistics</strong> — verifiable, sourced claims</li>
+      <li><strong>Quotation-shaped facts</strong> — easy to lift verbatim</li>
+      <li><strong>Authority signals</strong> — author byline, Person Schema, recent date</li>
+      <li><strong>Question-form headings</strong> — H2 matches user query phrasing</li>
+      <li><strong>Fact-dense paragraphs (3–5 sentences)</strong> — optimal retrieval chunk size</li>
+      <li><strong>FAQ Schema</strong> — explicit Q&amp;A pairs</li>
+    </ol>
+
+    <h3>Citation-shaped paragraph template</h3>
+    <pre><code>[Term] is [definition with concrete attributes].
+[Origin / when established, with specific date].
+[Specific metric, threshold, or quantitative fact].
+[Source citation if applicable].</code></pre>
+
+    <h3>Schema.org types that matter most</h3>
+    <table>
+      <thead><tr><th>Type</th><th>Use when</th><th>Required fields</th></tr></thead>
+      <tbody>
+        <tr><td>Article</td><td>Blog posts, guides</td><td>headline, author, datePublished</td></tr>
+        <tr><td>Person</td><td>Author / about pages</td><td>name (+ url, sameAs)</td></tr>
+        <tr><td>Organization</td><td>Homepage / about</td><td>name, url, logo</td></tr>
+        <tr><td>LocalBusiness</td><td>Physical location</td><td>name, address</td></tr>
+        <tr><td>FAQPage</td><td>Q&amp;A pages</td><td>mainEntity (array of Question)</td></tr>
+        <tr><td>HowTo</td><td>Step-by-step guides</td><td>name, step</td></tr>
+        <tr><td>Product</td><td>E-commerce</td><td>name (+ image, offers, brand)</td></tr>
+        <tr><td>Recipe</td><td>Cooking</td><td>name, image</td></tr>
+        <tr><td>VideoObject</td><td>Videos</td><td>name, description, thumbnailUrl, uploadDate</td></tr>
+        <tr><td>BreadcrumbList</td><td>Nested pages</td><td>itemListElement</td></tr>
+      </tbody>
+    </table>
+
+    <h3>E-E-A-T 14-step playbook (compressed)</h3>
+    <p><strong>Experience:</strong> About-the-author box · screenshots of real work · first-person language</p>
+    <p><strong>Expertise:</strong> Author page + credentials · Person Schema · topic-cluster depth · internal links</p>
+    <p><strong>Authoritativeness:</strong> Public profiles (LinkedIn/ORCID) · backlinks · Wikipedia presence · press mentions</p>
+    <p><strong>Trustworthiness:</strong> HTTPS A+ · contact info · publication + updated dates · sources cited</p>
+
+    <h3>llms.txt minimum template</h3>
+    <pre><code># Site Name
+
+&gt; 1–2 sentence summary of what this site is.
+
+## Core sections
+
+- [Section title](https://example.com/section/) : one-sentence description
+
+## Optional
+
+- [Glossary](https://example.com/glossary)</code></pre>
+  </article>
+
+  <!-- Cheat Sheet: Local SEO -->
+  <article class="cheat-sheet" id="sheet-local" data-title="Local SEO & GBP Checklist">
+    <h2>Local SEO &amp; Google Business Profile Checklist</h2>
+
+    <h3>Google Business Profile setup (90% of local SEO)</h3>
+    <ul class="check">
+      <li>☐ Business name matches website + signage (exact NAP)</li>
+      <li>☐ Primary category is precise (e.g., "English Language School," not "Education")</li>
+      <li>☐ All applicable secondary categories filled</li>
+      <li>☐ Address pinned correctly on map (drag pin to actual front door)</li>
+      <li>☐ Service area set (for service-area businesses)</li>
+      <li>☐ Hours filled including holiday hours</li>
+      <li>☐ Phone number is local landline (toll-free is OK but adds a separate line)</li>
+      <li>☐ Website link points to a location-specific page (not homepage if multi-location)</li>
+      <li>☐ Short description (750 chars) includes primary keyword naturally</li>
+      <li>☐ At least 10 photos: storefront, interior, team, products, customers</li>
+      <li>☐ Logo and cover image uploaded</li>
+      <li>☐ Services / products listed with descriptions and prices</li>
+      <li>☐ Booking link (if applicable)</li>
+      <li>☐ Q&amp;A: seed 3–5 questions you commonly hear</li>
+      <li>☐ Weekly GBP Posts (offers, updates, events)</li>
+    </ul>
+
+    <h3>NAP consistency across the web</h3>
+    <p>Use the EXACT same Name, Address, Phone on:</p>
+    <ul class="check">
+      <li>☐ Website footer + contact page</li>
+      <li>☐ LocalBusiness Schema</li>
+      <li>☐ Google Business Profile</li>
+      <li>☐ Bing Places</li>
+      <li>☐ Apple Maps / Apple Business Connect</li>
+      <li>☐ Yelp, TripAdvisor, industry directories</li>
+      <li>☐ Facebook Page</li>
+      <li>☐ Industry-specific listings (e.g., Avvo for lawyers, Healthgrades for doctors)</li>
+    </ul>
+
+    <h3>Review response templates</h3>
+
+    <p><strong>5-star review:</strong></p>
+    <pre><code>Thank you so much, [Name]! We're thrilled that [specific
+service mentioned] worked well for you. We look forward to
+welcoming you back!</code></pre>
+
+    <p><strong>3-star review (mixed):</strong></p>
+    <pre><code>Hi [Name], thanks for taking the time to share your experience.
+We're glad [positive part] but sorry [issue]. We'd love to make
+this right — please reach us at [email/phone].</code></pre>
+
+    <p><strong>1-star review (negative):</strong></p>
+    <pre><code>Hi [Name], we're sorry to hear about your experience. This
+isn't the standard we aim for. Could you contact me directly
+at [email] so I can understand what happened and make it
+right? — [First name], Owner</code></pre>
+
+    <h3>LocalBusiness Schema essentials</h3>
+    <pre><code>&#123;
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Business Name",
+  "image": "https://example.com/storefront.jpg",
+  "address": &#123;
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main St",
+    "addressLocality": "City",
+    "addressRegion": "State",
+    "postalCode": "12345",
+    "addressCountry": "US"
+  &#125;,
+  "geo": &#123; "@type": "GeoCoordinates", "latitude": 0.0, "longitude": 0.0 &#125;,
+  "telephone": "+1-555-555-5555",
+  "openingHoursSpecification": &#123;
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  &#125;
+&#125;</code></pre>
+  </article>
+
+  <!-- Cheat Sheet: Outreach -->
+  <article class="cheat-sheet" id="sheet-outreach" data-title="Link-Building Outreach Templates">
+    <h2>Link-Building Outreach Templates</h2>
+
+    <h3>1. Skyscraper email</h3>
+    <pre><code>Subject: Quick question about your [post topic] post
+
+Hi [Name],
+
+I came across your post on [post URL] — really useful breakdown
+of [specific thing you actually read].
+
+I noticed it links out to [old resource]. I just published a
+more current piece on the same topic with [specific improvement:
+data from 2026, more examples, video walkthrough]:
+
+[Your URL]
+
+If it looks useful, I'd be honored if you considered linking to
+it. Either way, thanks for the great content.
+
+— [Your name]</code></pre>
+
+    <h3>2. Broken-link reclamation</h3>
+    <pre><code>Subject: Broken link on [page title]
+
+Hi [Name],
+
+Just a quick heads up — the link to [old URL] on [their page
+URL] is returning a 404.
+
+I happen to have a current resource on the same topic that
+you may want to consider as a replacement:
+[Your URL]
+
+No pressure either way — thought you'd want to know about
+the dead link.
+
+— [Your name]</code></pre>
+
+    <h3>3. HARO / Connectively response</h3>
+    <pre><code>Subject: [Original subject line — keep it exact]
+
+Hi [Journalist name],
+
+Quick response to your query on [topic]:
+
+"[Direct quote, 2–4 sentences max — must be citation-ready and
+contain a specific fact, statistic, or perspective]."
+
+— [Your name], [Credential / Title]
+[Company / Site]
+[LinkedIn URL or website]
+
+Happy to elaborate or provide a different angle if helpful.
+Available at [phone] for the next [hours] if needed.</code></pre>
+
+    <h3>4. Guest-post pitch</h3>
+    <pre><code>Subject: Guest post pitch: 3 topic ideas for [Publication]
+
+Hi [Editor name],
+
+I'm [Your name], [credential]. I've been reading [Publication]'s
+coverage of [topic] for years and noticed you haven't covered
+[gap you've identified].
+
+I'd like to pitch 3 article ideas tailored to your audience:
+
+1. [Headline] — angle / hook in 1 sentence
+2. [Headline] — angle / hook in 1 sentence
+3. [Headline] — angle / hook in 1 sentence
+
+Recent work showing I can write at your level:
+- [Link 1]
+- [Link 2]
+
+Happy to send a full outline of whichever resonates most.
+
+— [Your name]</code></pre>
+
+    <h3>5. Unlinked mention reclamation</h3>
+    <pre><code>Subject: Just saw [our] mention in [article title]
+
+Hi [Author name],
+
+I just spotted [our brand] mentioned in your [article URL] —
+thank you for the kind words!
+
+Would you consider adding a link to [exact destination URL]?
+It would help readers who want to learn more, and we'd be
+grateful for the discoverability boost.
+
+Either way, really appreciate the mention.
+
+— [Your name]</code></pre>
+
+    <h3>Outreach rules of thumb</h3>
+    <ul>
+      <li>Personalize the first line. Generic "Hi there" gets deleted.</li>
+      <li>Subject line under 50 characters. Avoid "request," "favor," "quick question."</li>
+      <li>Body under 150 words. They're busy.</li>
+      <li>One ask, one link. Multiple asks = no response.</li>
+      <li>Follow up ONCE after 7 days. Then move on.</li>
+      <li>Track in a spreadsheet: name, site, date sent, response, outcome.</li>
+    </ul>
+  </article>
+
+  <!-- Schema Library: pointed to validator -->
+  <article class="cheat-sheet" id="sheet-schema" data-title="JSON-LD Schema Template Library">
+    <h2>JSON-LD Schema Template Library</h2>
+    <p>The <a href={`${base}/labs/schema-validator`}>Schema Validator lab</a> has 10 ready-to-paste templates as preset buttons. Open it, click a preset, copy, customize, paste into your page's <code>&lt;head&gt;</code>.</p>
+    <p>Available presets:</p>
+    <ul>
+      <li>📰 Article — for blog posts, news, guides</li>
+      <li>👤 Person — for author / about pages</li>
+      <li>🏢 Organization — for company / brand pages</li>
+      <li>📍 LocalBusiness — for physical locations</li>
+      <li>❓ FAQPage — for FAQ sections</li>
+      <li>🛠️ HowTo — for step-by-step tutorials</li>
+      <li>🛒 Product — for e-commerce listings</li>
+      <li>🍳 Recipe — for cooking content</li>
+      <li>🎬 VideoObject — for video pages</li>
+      <li>🎫 Event — for scheduled events</li>
+    </ul>
+    <p><a href={`${base}/labs/schema-validator`} class="cta-inline">Open Schema Validator →</a></p>
+  </article>
+
+  <nav class="level-nav">
+    <a href={`${base}/`} class="nav-btn">🏠 Back to Home</a>
+    <a href={`${base}/labs`} class="nav-btn">🧪 Try the Labs →</a>
+  </nav>
+</Layout>
+
+<style>
+  .breadcrumbs { margin-bottom: 30px; }
+  .breadcrumbs ol { display: flex; list-style: none; padding: 0; margin: 0; gap: 8px; flex-wrap: wrap; }
+  .breadcrumbs li { color: var(--color-text-muted); }
+  .breadcrumbs li:not(:last-child)::after { content: '→'; margin-left: 8px; color: var(--color-text-muted); }
+  .breadcrumbs a { color: var(--color-link); text-decoration: none; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  header h1 { font-size: 2.5em; margin-bottom: 10px; color: var(--color-text); }
+  .subtitle { font-size: 1.15em; color: var(--color-text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .resource-card {
+    background: var(--color-surface-elevated);
+    border-radius: 14px;
+    padding: 24px;
+    border: 2px solid var(--color-border-light);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .resource-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .resource-card h2 { font-size: 1.2em; color: var(--color-text); margin: 0 0 10px; }
+  .resource-card p { color: var(--color-text-secondary); line-height: 1.6; margin: 0 0 16px; font-size: 0.95em; }
+
+  .print-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--color-brand-gradient);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.15s;
+  }
+  .print-btn:hover { transform: translateY(-2px); }
+
+  .cheat-sheet {
+    background: var(--color-surface-elevated);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 30px 0;
+  }
+  .cheat-sheet h2 { color: var(--color-text); margin: 0 0 16px; font-size: 1.8em; padding-bottom: 10px; border-bottom: 3px solid var(--color-brand-primary); }
+  .cheat-sheet h3 { color: var(--color-brand-primary); margin: 24px 0 12px; font-size: 1.15em; }
+  .cheat-sheet p, .cheat-sheet ul, .cheat-sheet ol { color: var(--color-text-secondary); line-height: 1.7; }
+  .cheat-sheet ul, .cheat-sheet ol { padding-left: 24px; }
+  .cheat-sheet li { margin-bottom: 6px; }
+  .cheat-sheet code { background: var(--color-surface); padding: 2px 6px; border-radius: 4px; color: var(--color-brand-primary); font-size: 0.9em; }
+  .cheat-sheet pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.88em;
+    margin: 12px 0;
+  }
+  .cheat-sheet pre code { background: transparent; color: #d4d4d4; padding: 0; }
+  .cheat-sheet table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.95em;
+  }
+  .cheat-sheet th {
+    background: var(--color-brand-gradient);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  .cheat-sheet td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .cheat-sheet a { color: var(--color-link); }
+
+  .check { list-style: none; padding-left: 8px; }
+  .check li { font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.95em; }
+
+  .cta-inline {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--color-brand-gradient);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .level-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--color-border-light);
+  }
+  .level-nav .nav-btn {
+    padding: 12px 24px;
+    background: var(--color-brand-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  /* Print mode: only the active sheet visible */
+  @media print {
+    body * { visibility: hidden; }
+    .cheat-sheet.printing,
+    .cheat-sheet.printing * { visibility: visible; }
+    .cheat-sheet.printing {
+      position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px;
+      background: white !important; color: black !important; border-radius: 0;
+    }
+    .cheat-sheet.printing * { color: black !important; background: white !important; box-shadow: none !important; }
+    .cheat-sheet.printing pre, .cheat-sheet.printing pre code {
+      background: #f0f0f0 !important; color: #000 !important;
+      border: 1px solid #ccc;
+    }
+    .cheat-sheet.printing table th { background: #ddd !important; color: #000 !important; }
+    @page { size: A4; margin: 1.5cm; }
+  }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 1.8em; }
+    .cheat-sheet { padding: 24px; }
+    .cheat-sheet h2 { font-size: 1.4em; }
+    .level-nav { flex-direction: column; }
+    .level-nav .nav-btn { width: 100%; text-align: center; }
+  }
+</style>
+
+<script is:inline>
+  document.querySelectorAll('.print-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-print');
+      document.querySelectorAll('.cheat-sheet').forEach(s => s.classList.remove('printing'));
+      const sheet = document.getElementById(id);
+      if (sheet) {
+        sheet.classList.add('printing');
+        setTimeout(() => {
+          window.print();
+          setTimeout(() => sheet.classList.remove('printing'), 100);
+        }, 50);
+      }
+    });
+  });
+</script>

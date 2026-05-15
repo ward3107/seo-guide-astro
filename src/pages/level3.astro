@@ -10,13 +10,17 @@ const sections = [
   { id: 'schema', title: 'Pillar 2: Schema for Trust', icon: '📐' },
   { id: 'structure', title: 'Pillar 3: AI-Ready Structure', icon: '📝' },
   { id: 'entities', title: 'Entity Optimization', icon: '🎯' },
+  { id: 'ai-overviews', title: 'AI Overviews & SGE: Optimize to Be Cited', icon: '🤖' },
+  { id: 'llm-citation', title: 'How LLMs Pick Sources to Quote', icon: '🔬' },
   { id: 'eeat', title: 'E-E-A-T: The Trust Framework', icon: '🛡️' },
+  { id: 'eeat-operationalize', title: 'Operationalizing E-E-A-T', icon: '🧰' },
+  { id: 'llms-txt', title: 'llms.txt: The New robots.txt for AI', icon: '📄' },
   { id: 'audit', title: 'GEO Audit Checklist', icon: '✅' },
   { id: 'quiz', title: 'Final GEO Knowledge Test', icon: '🎯' }
 ];
 ---
 
-<Layout title="Level 3: Advanced GEO | Waseem's SEO Guide">
+<Layout title="Level 3: Advanced GEO | Waseem's SEO Guide" lastUpdated="2026-05-15 (AI Overviews)" currentLevel={3}>
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
       <li><a href={`${base}/`}>Home</a></li>
@@ -311,6 +315,178 @@ const sections = [
     </div>
   </section>
 
+  <!-- AI Overviews & SGE -->
+  <section id="ai-overviews">
+    <h2>🤖 AI Overviews & SGE: Optimize to Be Cited</h2>
+
+    <div class="highlight-box">
+      <h4>📅 What changed in 2024–2026?</h4>
+      <p>In May 2024, Google rolled out <strong>AI Overviews</strong> (formerly "Search Generative Experience" / SGE) to general US search results, then expanded to 100+ countries by late 2024. The result: a growing share of queries now show an AI-generated answer <em>above</em> the traditional 10 blue links — and that answer cites 3–10 source pages with small chevron links.</p>
+      <p style="margin-top:10px"><strong>Source:</strong> <a href="https://blog.google/products/search/generative-ai-google-search-may-2024/" target="_blank" rel="noopener">Google — "AI Overviews and more" (May 14, 2024)</a></p>
+    </div>
+
+    <h3>What an AI Overview actually looks like</h3>
+    <p>When you search something like <em>"how to optimize core web vitals for inp"</em>, you may see:</p>
+    <ol>
+      <li>A boxed, AI-generated paragraph answer at the top.</li>
+      <li>3–10 small source cards on the right (or below on mobile) — these are the cited pages.</li>
+      <li>Traditional results below.</li>
+    </ol>
+    <p>Being cited in those source cards is the new "ranking #1." A citation gets you brand visibility even on <strong>zero-click</strong> searches.</p>
+
+    <h3>The 6 traits AI Overviews reward</h3>
+    <p>Based on research from <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener">Aggarwal et al., 2023 ("GEO: Generative Engine Optimization," Princeton/Georgia Tech)</a> and follow-up SEO industry analyses (Ahrefs, Semrush, Surfer 2024–2025), pages that get cited in AI answers tend to share these traits:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Trait</th>
+          <th>Why AI rewards it</th>
+          <th>How to implement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Citations & statistics</strong></td>
+          <td>AI prefers verifiable, sourced claims — "+30%+ visibility lift" in the GEO paper</td>
+          <td>Cite primary sources inline; include exact numbers, dates, percentages</td>
+        </tr>
+        <tr>
+          <td><strong>Quotation marks around facts</strong></td>
+          <td>Easier for the LLM to extract verbatim and attribute</td>
+          <td>"INP became a Core Web Vital on March 12, 2024." — exact quotes from named entities</td>
+        </tr>
+        <tr>
+          <td><strong>Authority signals</strong></td>
+          <td>Higher trust → higher citation likelihood</td>
+          <td>Author byline + Person Schema, .edu/.gov backlinks, recent update date</td>
+        </tr>
+        <tr>
+          <td><strong>Question-form headings</strong></td>
+          <td>AI matches user queries to H2/H3 phrasing</td>
+          <td>"What is INP?" beats "INP overview"</td>
+        </tr>
+        <tr>
+          <td><strong>Fact-dense paragraphs (3–5 sentences)</strong></td>
+          <td>Optimal chunk size for retrieval</td>
+          <td>Open with the answer, then 2–3 supporting facts, then a closing claim</td>
+        </tr>
+        <tr>
+          <td><strong>FAQ Schema</strong></td>
+          <td>Explicit Q&A pairs are trivial for LLMs to ingest</td>
+          <td>Use <code>FAQPage</code> + <code>Question</code> + <code>Answer</code> Schema for common questions</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Real example: dissecting an AI Overview source</h3>
+    <p>Here's a pattern that gets cited consistently. Note the structure:</p>
+
+    <pre><code>&lt;h2&gt;What is Interaction to Next Paint (INP)?&lt;/h2&gt;
+
+&lt;p&gt;Interaction to Next Paint (INP) is a Core Web Vital
+that measures how quickly a page visually responds to
+user interactions. Google replaced First Input Delay (FID)
+with INP on March 12, 2024 [1].&lt;/p&gt;
+
+&lt;p&gt;A "good" INP is ≤200 milliseconds at the 75th
+percentile of user interactions on a page [2]. Above
+500 ms is rated "poor."&lt;/p&gt;
+
+&lt;p&gt;Common causes of poor INP include long JavaScript
+tasks, layout thrashing inside event handlers, and
+unoptimized third-party scripts [3].&lt;/p&gt;
+
+&lt;p&gt;Sources:&lt;br&gt;
+[1] &lt;a href="https://web.dev/blog/inp-cwv-march-12"&gt;
+web.dev — INP becomes a Core Web Vital&lt;/a&gt;&lt;br&gt;
+[2] &lt;a href="https://web.dev/articles/inp"&gt;web.dev — INP&lt;/a&gt;&lt;br&gt;
+[3] &lt;a href="https://web.dev/articles/optimize-inp"&gt;web.dev — Optimize INP&lt;/a&gt;
+&lt;/p&gt;</code></pre>
+
+    <div class="tip-box">
+      <h4>Why this format works</h4>
+      <ul>
+        <li><strong>The H2 mirrors the likely user query.</strong></li>
+        <li><strong>The first sentence is the definition</strong> — the LLM can lift it as the answer.</li>
+        <li><strong>Each claim is sourced</strong> with a primary citation (web.dev = Google's own publication).</li>
+        <li><strong>Specific numbers</strong> (200 ms, 500 ms, March 12, 2024) are easy to verify and harder to hallucinate around.</li>
+      </ul>
+    </div>
+
+    <h3>The "zero-click problem" — and why citations still matter</h3>
+    <p>AI Overviews mean users often don't click your link. So why optimize for them?</p>
+    <ul>
+      <li><strong>Brand exposure:</strong> Your domain appears next to the AI answer. Studies (SparkToro 2024) show ~30% of users do click through when the source is named and recognizable.</li>
+      <li><strong>Authority compounding:</strong> Being cited by Google trains other LLMs (ChatGPT, Perplexity, Claude) — they often crawl Google results to ground their answers.</li>
+      <li><strong>Direct LLM citations:</strong> Perplexity, ChatGPT search, and Claude with web tools cite sources visibly with the link prominently displayed.</li>
+    </ul>
+
+    <div class="key-takeaway-box">
+      <h4>🎯 Key Takeaway</h4>
+      <p>AI Overviews don't replace SEO — they raise the bar. To be cited, your page needs: <strong>(1)</strong> a question-form heading, <strong>(2)</strong> a direct, factual answer in the first paragraph, <strong>(3)</strong> sourced statistics, and <strong>(4)</strong> recognizable author/organization entities. If you do that, you compound across Google, Perplexity, ChatGPT, and Claude simultaneously.</p>
+    </div>
+  </section>
+
+  <!-- How LLMs pick sources -->
+  <section id="llm-citation">
+    <h2>🔬 How LLMs Pick Sources to Quote</h2>
+
+    <p>Different AI products retrieve sources differently. Understanding the mechanism helps you optimize for each.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Retrieval mechanism</th>
+          <th>What it favors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google AI Overviews</strong></td>
+          <td>Uses Google Search's ranking + Gemini synthesis. Pulls from top-ranked, high-E-E-A-T pages.</td>
+          <td>High-authority domains, recent content, fact-density, Knowledge Graph entities</td>
+        </tr>
+        <tr>
+          <td><strong>Perplexity</strong></td>
+          <td>Real-time web search per query. Cites 4–8 sources visibly with footnotes.</td>
+          <td>Recency, clear question-answer structure, primary sources, .edu/.gov</td>
+        </tr>
+        <tr>
+          <td><strong>ChatGPT Search</strong></td>
+          <td>Bing search + GPT-4 synthesis. Increasingly cites sources inline.</td>
+          <td>Bing's index, structured content, clear authority</td>
+        </tr>
+        <tr>
+          <td><strong>Claude (with web tools)</strong></td>
+          <td>Tool-call to search APIs; quotes verbatim from sources when relevant.</td>
+          <td>Verbatim-quotable phrasing, named entities, clear definitions</td>
+        </tr>
+        <tr>
+          <td><strong>ChatGPT (no search)</strong></td>
+          <td>Pre-training data only (knowledge cutoff). Won't cite recent content.</td>
+          <td>Long-standing web content, encyclopedic phrasing, classic Wikipedia-style facts</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>The 5 universal "citation triggers"</h3>
+    <p>From the GEO paper and observed citation patterns:</p>
+    <ol>
+      <li><strong>Numerical specificity</strong> — "75% of recipes use butter" beats "most recipes use butter."</li>
+      <li><strong>Named authority quotes</strong> — "According to Google's web.dev team, ..." outperforms unattributed claims.</li>
+      <li><strong>Recent dates</strong> — content updated within 12 months gets cited 2-3× more often for time-sensitive topics.</li>
+      <li><strong>Direct definitions in the first 100 words</strong> — LLMs lift the opening for "what is X" queries.</li>
+      <li><strong>Outbound citations</strong> — paradoxically, pages that <em>cite others</em> are themselves cited more often (signals trustworthiness).</li>
+    </ol>
+
+    <div class="reflect-box">
+      <h4>🤔 Reflection</h4>
+      <p>Pick any page on your site. Read the first paragraph aloud. Could an AI lift it as a complete, accurate answer to a likely user question? If not, rewrite it: lead with the answer, then add 2–3 sourced supporting facts.</p>
+    </div>
+  </section>
+
   <!-- E-E-A-T Framework -->
   <section id="eeat">
     <h2>🛡️ E-E-A-T: The Trust Framework</h2>
@@ -363,6 +539,186 @@ const sections = [
         <p><strong>#2 (Link + Schema)</strong></p>
         <p>This proves you aren't just making it up. AI loves citations!</p>
       </div>
+    </div>
+
+    <div class="highlight-box">
+      <h4>📅 Why two E's? (the 2022 update)</h4>
+      <p>The framework was originally <strong>E-A-T</strong>. Google added the second <strong>"E" for Experience</strong> on <strong>December 15, 2022</strong>, in response to AI-generated content flooding the web. <em>Experience</em> means: did the author actually do/use/visit the thing? A medical review by a doctor who has seen patients beats an AI-generated summary, even if the summary is factually correct.</p>
+      <p style="margin-top:10px"><strong>Source:</strong> <a href="https://developers.google.com/search/blog/2022/12/google-raters-guidelines-e-e-a-t" target="_blank" rel="noopener">Google Search Central — "Our latest update to the quality rater guidelines: E-E-A-T"</a></p>
+    </div>
+  </section>
+
+  <!-- Operationalizing E-E-A-T -->
+  <section id="eeat-operationalize">
+    <h2>🧰 Operationalizing E-E-A-T (a concrete 14-step playbook)</h2>
+
+    <p>Most courses explain what E-E-A-T <em>is</em>. Here's what to actually <em>do</em>, mapped to each letter. Treat this as a checklist for any new page.</p>
+
+    <h3>Experience (you've actually done it)</h3>
+    <ol>
+      <li><strong>Add an "About the author" box</strong> at the top of long articles with a real photo, role, and 1-sentence "why I wrote this."</li>
+      <li><strong>Show your work</strong> — screenshots, dashboards, before/after numbers from real projects. A Lighthouse screenshot beats a paragraph about Lighthouse.</li>
+      <li><strong>First-person experience signals</strong> in prose: "I migrated 12 sites from FID to INP-friendly architecture in 2024..." carries more weight than "to optimize INP, you should..."</li>
+    </ol>
+
+    <h3>Expertise (you know the topic deeply)</h3>
+    <ol start="4">
+      <li><strong>Author page</strong> with credentials, certifications, education, years of experience — and link it from every article via the <code>Article.author</code> Schema property.</li>
+      <li><strong>Person Schema</strong> with <code>hasCredential</code>, <code>alumniOf</code>, <code>knowsAbout</code> populated.</li>
+      <li><strong>Sub-topic depth</strong> — for a topic like "INP," cover related sub-topics (TBT, long tasks, scheduler.yield). Topical authority is a measurable signal.</li>
+      <li><strong>Internal linking to related expert content</strong> on your own site (creates a topic cluster).</li>
+    </ol>
+
+    <h3>Authoritativeness (others recognize you)</h3>
+    <ol start="8">
+      <li><strong>Author bio links to public profiles</strong> — LinkedIn, GitHub, ORCID, conference talks. Use <code>sameAs</code> in Person Schema.</li>
+      <li><strong>Get cited by recognized sources</strong> — guest posts, podcasts, expert quotes (HARO/Connectively, expert roundups). Each backlink from a recognized authority compounds.</li>
+      <li><strong>Wikipedia / Wikidata presence</strong> (if eligible) — the strongest entity-disambiguation signal Google has.</li>
+      <li><strong>Press / media mentions</strong> — even unlinked mentions count as entity signals in Google's Knowledge Graph.</li>
+    </ol>
+
+    <h3>Trustworthiness (the foundation — most important per Google)</h3>
+    <ol start="12">
+      <li><strong>HTTPS, valid SSL, no mixed content</strong>. Run <a href="https://www.ssllabs.com/ssltest/" target="_blank" rel="noopener">Qualys SSL Labs</a> — aim for A or A+.</li>
+      <li><strong>Visible contact info</strong>: real address, phone, email. Add <code>ContactPage</code> Schema. Build trust like a real business.</li>
+      <li><strong>Editorial transparency</strong>: publication date, last-updated date, sources cited, corrections policy. The Healthline / NIH / Mayo Clinic format is the gold standard — copy it.</li>
+    </ol>
+
+    <div class="success-box">
+      <h4>🎯 The 5-minute E-E-A-T audit</h4>
+      <p>Open any article you've written. Can you answer "yes" to all five?</p>
+      <ol>
+        <li>Is the author's name + photo + credential visible above the fold?</li>
+        <li>Is the publication date AND last-updated date visible?</li>
+        <li>Is at least one external primary source linked in the first 500 words?</li>
+        <li>Is there a "How we tested / how we know" sentence somewhere on the page?</li>
+        <li>Does the author have a public profile that anyone can verify (LinkedIn, ORCID)?</li>
+      </ol>
+      <p>If you can answer yes to all five, you've already beaten 80% of competing pages.</p>
+    </div>
+
+    <h3>Code example: Article + Person Schema with full E-E-A-T signals</h3>
+    <pre><code>&lt;script type="application/ld+json"&gt;
+&#123;
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Optimize INP: A 2026 Field Guide",
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "author": &#123;
+    "@type": "Person",
+    "name": "Waseem",
+    "url": "https://ward3107.github.io/about",
+    "jobTitle": "Full-Stack SEO Developer",
+    "hasCredential": [
+      "TEFL Certified",
+      "Google Mobile UX Certified"
+    ],
+    "sameAs": [
+      "https://linkedin.com/in/ward3107",
+      "https://github.com/ward3107"
+    ]
+  &#125;,
+  "publisher": &#123;
+    "@type": "Organization",
+    "name": "Waseem's SEO Guide",
+    "logo": &#123;
+      "@type": "ImageObject",
+      "url": "https://ward3107.github.io/logo.png"
+    &#125;
+  &#125;,
+  "citation": [
+    "https://web.dev/blog/inp-cwv-march-12",
+    "https://web.dev/articles/optimize-inp"
+  ]
+&#125;
+&lt;/script&gt;</code></pre>
+  </section>
+
+  <!-- llms.txt -->
+  <section id="llms-txt">
+    <h2>📄 llms.txt: The New robots.txt for AI Crawlers</h2>
+
+    <div class="highlight-box">
+      <h4>📅 What is it?</h4>
+      <p><strong>llms.txt</strong> is a proposed (and rapidly adopted) standard introduced by Jeremy Howard (Answer.AI) in 2024. It's a plain-text or markdown file at <code>yourdomain.com/llms.txt</code> that tells LLM crawlers and agents the "best entry points" to your site — distilled summaries of your most important content, in a format optimized for AI consumption.</p>
+      <p style="margin-top:10px"><strong>Source:</strong> <a href="https://llmstxt.org" target="_blank" rel="noopener">llmstxt.org — the proposal</a></p>
+    </div>
+
+    <h3>How is it different from robots.txt and sitemap.xml?</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Audience</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>robots.txt</code></td>
+          <td>Search engine crawlers (Googlebot, Bingbot)</td>
+          <td>Tell bots what NOT to crawl</td>
+        </tr>
+        <tr>
+          <td><code>sitemap.xml</code></td>
+          <td>Search engine crawlers</td>
+          <td>List of all crawlable URLs</td>
+        </tr>
+        <tr>
+          <td><code>llms.txt</code></td>
+          <td>LLM agents (ChatGPT, Claude, Perplexity)</td>
+          <td>Curated, summarized entry points + key facts about your site</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Minimum viable llms.txt</h3>
+    <pre><code># Waseem's SEO Guide
+
+> A free, beginner-to-advanced course on SEO and Generative Engine
+> Optimization (GEO). Built by Waseem, an English teacher and
+> full-stack developer based in Haifa, Israel.
+
+## Core curriculum
+
+- [Level 1 — SEO Basics](https://ward3107.github.io/seo-guide-astro/level1/):
+  Title tags, H1, links, alt text, schema markup.
+- [Level 2 — Technical SEO](https://ward3107.github.io/seo-guide-astro/level2/):
+  robots.txt, sitemaps, status codes, INP (2024), LCP, CLS.
+- [Level 3 — Advanced GEO](https://ward3107.github.io/seo-guide-astro/level3/):
+  AI Overviews, schema for trust, entity optimization, E-E-A-T.
+- [Level 4 — Authority &amp; Channels](https://ward3107.github.io/seo-guide-astro/level4/):
+  Backlinks, GBP, reviews, video SEO, social.
+
+## Hands-on labs
+
+- [Title Tag SERP Preview](https://ward3107.github.io/seo-guide-astro/labs/title-tag-tester/)
+- [Schema Validator](https://ward3107.github.io/seo-guide-astro/labs/schema-validator/)
+- [robots.txt Simulator](https://ward3107.github.io/seo-guide-astro/labs/robots-txt-simulator/)
+- [Meta Tag Generator](https://ward3107.github.io/seo-guide-astro/labs/meta-tag-generator/)
+- [Heading Structure Analyzer](https://ward3107.github.io/seo-guide-astro/labs/heading-analyzer/)
+
+## Optional
+
+- [Sources &amp; citations](https://ward3107.github.io/seo-guide-astro/sources/)
+- [Glossary](https://ward3107.github.io/seo-guide-astro/glossary/)
+</code></pre>
+
+    <div class="tip-box">
+      <h4>✅ Best practices</h4>
+      <ul>
+        <li>Keep it under 100KB.</li>
+        <li>Use markdown headings and links — LLMs already parse this perfectly.</li>
+        <li>Lead with a 1–2 sentence "what this site is" summary in blockquote.</li>
+        <li>Group sections by purpose (curriculum, tools, references).</li>
+        <li>Place it at the root: <code>https://yourdomain.com/llms.txt</code>.</li>
+      </ul>
+    </div>
+
+    <div class="key-takeaway-box">
+      <h4>🎯 Key Takeaway</h4>
+      <p>llms.txt is the AI-era equivalent of an XML sitemap, but human-readable and summary-first. It's been adopted by Anthropic, Mintlify, FastHTML, and many others. Implementing one is a 30-minute task that pays off as agents and LLM-based search tools mature.</p>
     </div>
   </section>
 
@@ -512,7 +868,7 @@ const sections = [
       <div class="question" data-question="12">
         <p><strong>12. Which Core Web Vital measures visual stability?</strong></p>
         <label data-letter="A"><input type="radio" name="q12" value="a"> LCP</label>
-        <label data-letter="B"><input type="radio" name="q12" value="b"> FID</label>
+        <label data-letter="B"><input type="radio" name="q12" value="b"> INP</label>
         <label data-letter="C"><input type="radio" name="q12" value="c"> CLS</label>
       </div>
 
