@@ -43,6 +43,10 @@ const levels = [
   <link rel="prefetch" href={`${base}/timed-challenge/`} />
   <link rel="prefetch" href={`${base}/practice-mode/`} />
   <link rel="prefetch" href={`${base}/final-test/`} />
+  <link rel="prefetch" href={`${base}/labs/`} />
+  <link rel="prefetch" href={`${base}/sources/`} />
+  <link rel="prefetch" href={`${base}/case-studies/`} />
+  <link rel="prefetch" href={`${base}/resources/`} />
 
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
@@ -131,6 +135,13 @@ const levels = [
               {level.icon} Level {level.number}
             </a>
           ))}
+          <div class="mobile-nav-divider"></div>
+          <a href={`${base}/labs`} class="mobile-nav-item">🧪 Hands-on Labs</a>
+          <a href={`${base}/case-studies`} class="mobile-nav-item">📚 Case Studies</a>
+          <a href={`${base}/resources`} class="mobile-nav-item">📥 Resources</a>
+          <a href={`${base}/sources`} class="mobile-nav-item">🔗 Sources</a>
+          <a href={`${base}/glossary`} class="mobile-nav-item">📖 Glossary</a>
+          <a href={`${base}/progress`} class="mobile-nav-item">📊 Progress</a>
         </nav>
       </div>
 
@@ -141,6 +152,15 @@ const levels = [
           {level.icon} Level {level.number}
         </a>
       ))}
+    </nav>
+
+    <!-- Tools / Resources Sub-nav -->
+    <nav class="nav-tools" aria-label="Tools and resources">
+      <a href={`${base}/labs`} class="nav-tool">🧪 Labs</a>
+      <a href={`${base}/case-studies`} class="nav-tool">📚 Case Studies</a>
+      <a href={`${base}/resources`} class="nav-tool">📥 Resources</a>
+      <a href={`${base}/sources`} class="nav-tool">🔗 Sources</a>
+      <a href={`${base}/glossary`} class="nav-tool">📖 Glossary</a>
     </nav>
 
     <!-- Main Content -->
@@ -613,9 +633,49 @@ const levels = [
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
-      margin: 30px 0;
+      margin: 30px 0 12px;
       position: relative;
       align-items: center;
+    }
+
+    .nav-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 0 0 28px;
+      padding: 12px 16px;
+      background: var(--color-surface-elevated);
+      border-radius: 14px;
+    }
+
+    .nav-tool {
+      padding: 6px 14px;
+      background: transparent;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-radius: 18px;
+      font-size: 0.9em;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tool:hover {
+      background: var(--color-brand-primary);
+      color: white;
+      border-color: var(--color-brand-primary);
+      transform: translateY(-1px);
+    }
+
+    .mobile-nav-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-tools { display: none; }
     }
 
     .hamburger-menu {

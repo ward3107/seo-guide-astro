@@ -253,6 +253,12 @@ const levels = [
     <div class="labs-cta">
       <p>🧪 Try the hands-on tools: <a href={`${base}/labs`}>Open the Labs</a></p>
     </div>
+    <div class="resources-cta">
+      <p>📥 Get printable cheat sheets &amp; templates: <a href={`${base}/resources`}>Resources</a></p>
+    </div>
+    <div class="case-studies-cta">
+      <p>📑 See real-world SEO teardowns: <a href={`${base}/case-studies`}>Case Studies</a></p>
+    </div>
   </section>
 
   <!-- CTA Section -->
@@ -726,6 +732,28 @@ const levels = [
     background: linear-gradient(135deg, #0e2a30 0%, #16404a 100%);
   }
   :global([data-theme="dark"]) .labs-cta p { color: #b2ebf2; }
+
+  .resources-cta,
+  .case-studies-cta {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  .resources-cta { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+  .case-studies-cta { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); }
+  .resources-cta p { color: #e65100; font-size: 1.1em; margin: 0; }
+  .case-studies-cta p { color: #ff6f00; font-size: 1.1em; margin: 0; }
+  .resources-cta a, .case-studies-cta a { color: #667eea; font-weight: 600; text-decoration: underline; }
+
+  :global([data-theme="dark"]) .resources-cta {
+    background: linear-gradient(135deg, #3a2a1a 0%, #4a3a2a 100%);
+  }
+  :global([data-theme="dark"]) .resources-cta p { color: #ffcc80; }
+  :global([data-theme="dark"]) .case-studies-cta {
+    background: linear-gradient(135deg, #3a3520 0%, #4a4530 100%);
+  }
+  :global([data-theme="dark"]) .case-studies-cta p { color: #ffe082; }
 
   /* Levels Section */
   .levels-section {
